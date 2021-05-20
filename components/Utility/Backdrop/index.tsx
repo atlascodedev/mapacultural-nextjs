@@ -3,7 +3,7 @@ import detectClickOnParent from "../../../helper/detectClickOnParent";
 import useDocumentBodyLock from "../../../hooks/useDocumentBodyLock";
 import { AnimatePresence, motion } from "framer-motion";
 
-interface BackdropProps {
+export interface BackdropProps {
   open: boolean;
   closeFn: (...args: any[]) => void;
   onClose?: (...args: any[]) => void;
@@ -42,7 +42,7 @@ const Backdrop: React.FC<BackdropProps> = ({
           style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
           className={`fixed flex h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
         >
-          {children}
+          <div className="relative">{children}</div>
         </motion.div>
       )}
     </AnimatePresence>

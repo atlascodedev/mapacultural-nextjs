@@ -6,6 +6,12 @@ import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
 
 export default function Home() {
+  const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
+
+  const toggleDrawer = (open: boolean) => {
+    setDrawerOpen(open);
+  };
+
   return (
     <div>
       <Head>
@@ -24,7 +30,15 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <Drawer />
+        <button onClick={() => toggleDrawer(true)}>click me</button>
+
+        <Drawer
+          closeFn={() => toggleDrawer(false)}
+          open={drawerOpen}
+          items={[
+            { action: () => console.log("action"), label: "Label lorem ipsum" },
+          ]}
+        />
         <div className="h-screen"></div>
       </MainLayout>
     </div>
