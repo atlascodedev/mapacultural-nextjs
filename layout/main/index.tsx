@@ -1,15 +1,21 @@
 import Head from "next/head";
 import React from "react";
 import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
+import Navbar, { NavbarProps } from "../../components/Navbar";
 import WhatsAppButton from "../../components/Utility/WhatsAppButton";
 
-interface Props {
+interface MainLayoutProps extends NavbarProps {
   title: string;
   metaDescription: string;
 }
 
-const MainLayout: React.FC<Props> = ({ children, metaDescription, title }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({
+  children,
+  metaDescription,
+  title,
+  color,
+  externalPath,
+}) => {
   return (
     <React.Fragment>
       <Head>
@@ -18,7 +24,7 @@ const MainLayout: React.FC<Props> = ({ children, metaDescription, title }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <Navbar color={color} />
       <main>{children}</main>
       <Footer />
       <WhatsAppButton />
