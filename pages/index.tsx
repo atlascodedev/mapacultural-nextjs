@@ -5,12 +5,6 @@ import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
 
 export default function Home() {
-  const [backdropOpen, setBackdropOpen] = React.useState<boolean>(false);
-
-  const toggleBackdrop = (open: boolean) => {
-    setBackdropOpen(open);
-  };
-
   return (
     <div>
       <Head>
@@ -20,14 +14,16 @@ export default function Home() {
       </Head>
 
       <MainLayout
+        facebook="#"
+        instagram="#"
+        whatsapp="#"
+        contactEmail="atendimento@mapaculturaltaquara.com.br"
+        contactNumber="(51)98910-5138"
         color="primary"
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <div onClick={() => toggleBackdrop(true)}>yo</div>
-        <Backdrop open={backdropOpen} closeFn={() => toggleBackdrop(false)}>
-          <div>hello</div>
-        </Backdrop>
+        <div className="h-screen"></div>
       </MainLayout>
     </div>
   );

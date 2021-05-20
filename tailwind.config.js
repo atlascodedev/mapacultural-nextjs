@@ -9,6 +9,8 @@ module.exports = {
         1000: 1000,
       },
       colors: {
+        deepBlue: "#172b4d",
+
         primary: {
           main: "#FDECD0",
           light: "#FBF1E0",

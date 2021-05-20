@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React from "react";
-import Footer from "../../components/Footer";
+import Footer, { FooterProps } from "../../components/Footer";
 import Navbar, { NavbarProps } from "../../components/Navbar";
 import WhatsAppButton from "../../components/Utility/WhatsAppButton";
 
-interface MainLayoutProps extends NavbarProps {
+interface MainLayoutProps extends NavbarProps, FooterProps {
   title: string;
   metaDescription: string;
 }
@@ -15,6 +15,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   title,
   color,
   externalPath,
+  contactEmail,
+  contactNumber,
 }) => {
   return (
     <React.Fragment>
@@ -25,9 +27,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </Head>
 
       <Navbar color={color} />
-      <main>{children}</main>
-      <Footer />
       <WhatsAppButton />
+
+      <main>{children}</main>
+      <Footer contactEmail={contactEmail} contactNumber={contactNumber} />
     </React.Fragment>
   );
 };

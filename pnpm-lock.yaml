@@ -15,6 +15,7 @@ specifiers:
   postcss: ^8.2.15
   react: 17.0.2
   react-dom: 17.0.2
+  react-icons: ^4.2.0
   tailwindcss: ^2.1.2
   typescript: ^4.2.4
   yup: ^0.32.9
@@ -30,6 +31,7 @@ dependencies:
   next: 10.2.0_507781d099a67956587e23f5ac79078b
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-icons: 4.2.0_react@17.0.2
   yup: 0.32.9
 
 devDependencies:
@@ -1974,6 +1976,14 @@ packages:
 
   /react-fast-compare/2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
+    dev: false
+
+  /react-icons/4.2.0_react@17.0.2:
+    resolution: {integrity: sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

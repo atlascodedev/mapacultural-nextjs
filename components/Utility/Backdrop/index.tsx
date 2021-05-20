@@ -40,7 +40,7 @@ const Backdrop: React.FC<BackdropProps> = ({
           }
           ref={backdropRef}
           style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
-          className={`fixed flex justify-center items-center h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
+          className={`fixed flex h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
         >
           {children}
         </motion.div>
