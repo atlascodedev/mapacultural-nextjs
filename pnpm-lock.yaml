@@ -1,6 +1,9 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@tailwindcss/aspect-ratio': ^0.2.0
+  '@tailwindcss/line-clamp': ^0.2.0
+  '@tailwindcss/typography': ^0.4.0
   '@types/node': ^15.3.0
   '@types/react': ^17.0.6
   autoprefixer: ^10.2.5
@@ -16,6 +19,9 @@ specifiers:
   yup: ^0.32.9
 
 dependencies:
+  '@tailwindcss/aspect-ratio': 0.2.0
+  '@tailwindcss/line-clamp': 0.2.0
+  '@tailwindcss/typography': 0.4.0_tailwindcss@2.1.2
   axios: 0.21.1
   formik: 2.2.7_react@17.0.2
   framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
@@ -179,6 +185,26 @@ packages:
   /@opentelemetry/context-base/0.14.0:
     resolution: {integrity: sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==}
     engines: {node: '>=8.0.0'}
+    dev: false
+
+  /@tailwindcss/aspect-ratio/0.2.0:
+    resolution: {integrity: sha512-v5LyHkwXj/4lI74B06zUrmWEdmSqS43+jw717pkt3fAXqb7ALwu77A8t7j+Bej+ZbdlIIqNMYheGN7wSGV1A6w==}
+    dev: false
+
+  /@tailwindcss/line-clamp/0.2.0:
+    resolution: {integrity: sha512-+jXSdRK3/9V/BCPCr+iNpMMhxWMMv62vn/AS2b3/ClmueGuhCijW3bUwO1IiHnE7uCaF74Sli8jUCv9djwvpLg==}
+    dev: false
+
+  /@tailwindcss/typography/0.4.0_tailwindcss@2.1.2:
+    resolution: {integrity: sha512-3BfOYT5MYNEq81Ism3L2qu/HRP2Q5vWqZtZRQqQrthHuaTK9qpuPfbMT5WATjAM5J1OePKBaI5pLoX4S1JGNMQ==}
+    peerDependencies:
+      tailwindcss: 2.0.0-alpha.24 || ^2.0.0
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      lodash.uniq: 4.5.0
+      tailwindcss: 2.1.2_797cfc3ceddb49f111b184f6879a433f
     dev: false
 
   /@types/lodash/4.14.169:
@@ -1329,6 +1355,18 @@ packages:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha1-wCUTUV4wna3dTCTGDP3c9ZdtkRU=}
+    dev: false
+
+  /lodash.isplainobject/4.0.6:
+    resolution: {integrity: sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=}
+    dev: false
+
+  /lodash.merge/4.6.2:
+    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: false
+
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
     dev: false
@@ -1340,6 +1378,10 @@ packages:
   /lodash.topath/4.5.2:
     resolution: {integrity: sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=}
     dev: true
+
+  /lodash.uniq/4.5.0:
+    resolution: {integrity: sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=}
+    dev: false
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}

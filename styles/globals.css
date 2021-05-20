@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+  body {
+    font-family: "Inter", sans-serif;
+  } */
+
+@font-face {
+  font-family: Inter-var;
+  src: url("../fonts/Inter/Inter-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Open-sans;
+  src: url("../fonts/OpenSans/OpenSans-Bold.ttf") format("truetype"),
+    url("../fonts//OpenSans/OpenSans-BoldItalic.ttf") format("truetype"),
+    url("../fonts//OpenSans/OpenSans-ExtraBold.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-Italic.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-Light.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-LightItalic.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-Regular.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-SemiBold.ttf") format("truetype"),
+    url("../fonts/OpenSans/OpenSans-SemiBoldItalic.ttf") format("truetype");
+}
