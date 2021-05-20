@@ -17,9 +17,18 @@ const Footer = ({
 }: FooterProps) => {
   return (
     <FooterBase>
-      <ContactInfo contactEmail={contactEmail} contactNumber={contactNumber} />
+      <div className="w-full flex flex-col md:flex-row gap-10">
+        <ContactInfo
+          contactEmail={contactEmail}
+          contactNumber={contactNumber}
+        />
 
-      <Socials facebook={facebook} instagram={instagram} whatsapp={whatsapp} />
+        <Socials
+          facebook={facebook}
+          instagram={instagram}
+          whatsapp={whatsapp}
+        />
+      </div>
 
       <div className="text-center text-white font-serif">
         {`© ${new Date().getFullYear()} - Todos Direitos Reservados - Atlas Code - Desenvolvimento web & estratégia`}
