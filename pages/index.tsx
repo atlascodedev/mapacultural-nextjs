@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import Drawer from "../components/Drawer";
 import CardBase from "../components/ExampleComponent/CardBase";
 import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
@@ -23,6 +24,7 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
+        <Drawer />
         <div className="h-screen"></div>
       </MainLayout>
     </div>
