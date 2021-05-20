@@ -1,9 +1,16 @@
 import Head from "next/head";
+import React from "react";
 import CardBase from "../components/ExampleComponent/CardBase";
 import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
 
 export default function Home() {
+  const [backdropOpen, setBackdropOpen] = React.useState<boolean>(false);
+
+  const toggleBackdrop = (open: boolean) => {
+    setBackdropOpen(open);
+  };
+
   return (
     <div>
       <Head>
@@ -17,7 +24,7 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <Backdrop open={true} closeFn={() => console.log("oops")}>
+        <Backdrop open={backdropOpen} closeFn={() => toggleBackdrop(false)}>
           <div>hello</div>
         </Backdrop>
       </MainLayout>

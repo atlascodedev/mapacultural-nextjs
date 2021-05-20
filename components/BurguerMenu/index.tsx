@@ -13,7 +13,7 @@ const BurguerMenu = ({ color }: BurguerMenuProps) => {
     <motion.div
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className={`w-12 h-auto flex flex-col gap-2 cursor-pointer`}
+      className={`md:w-12 w-11 h-auto flex flex-col gap-1.5 md:gap-2 cursor-pointer`}
     >
       <MenuLine />
       <MenuLine />

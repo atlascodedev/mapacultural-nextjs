@@ -9,7 +9,9 @@ interface MenuLineProps {
 
 const MenuLine = ({ color = "secondary" }: MenuLineProps) => {
   return (
-    <div className={`w-full h-2  bg-${getThemeColor(color)} rounded`}></div>
+    <div
+      className={`w-full h-1.5 md:h-2  bg-${getThemeColor(color)} rounded`}
+    ></div>
   );
 };
 
