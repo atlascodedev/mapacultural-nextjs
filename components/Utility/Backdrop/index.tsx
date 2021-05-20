@@ -32,9 +32,10 @@ const Backdrop: React.FC<BackdropProps> = ({
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1] }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ delay: 0.15 }}
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             detectClickOnParent(event, backdropRef, closeFn)
           }
@@ -42,7 +43,7 @@ const Backdrop: React.FC<BackdropProps> = ({
           style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
           className={`fixed flex h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
         >
-          <div className="relative">{children}</div>
+          {children}
         </motion.div>
       )}
     </AnimatePresence>

@@ -5,11 +5,11 @@ import getBreakpoint from "../../helper/getBreakpoint";
 const useViewportDetect = (options?: { attachEventListener: boolean }) => {
   const [viewPort, setViewport] = React.useState<Breakpoints>(null);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     setViewport(getBreakpoint());
   }, []);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if (options && options.attachEventListener) {
       const updateState = () => {
         setViewport(getBreakpoint());

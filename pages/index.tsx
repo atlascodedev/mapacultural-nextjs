@@ -1,8 +1,6 @@
 import Head from "next/head";
 import React from "react";
 import Drawer from "../components/Drawer";
-import CardBase from "../components/ExampleComponent/CardBase";
-import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -21,24 +19,28 @@ export default function Home() {
       </Head>
 
       <MainLayout
+        onMenuClick={() => toggleDrawer(true)}
+        MenuComponent={
+          <Drawer
+            closeFn={() => toggleDrawer(false)}
+            open={drawerOpen}
+            items={[
+              {
+                action: () => console.log("action"),
+                label: "Label lorem ipsum",
+              },
+            ]}
+          />
+        }
         facebook="#"
         instagram="#"
         whatsapp="#"
         contactEmail="atendimento@mapaculturaltaquara.com.br"
         contactNumber="(51)98910-5138"
-        color="primary"
+        navbarColor="primary"
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <button onClick={() => toggleDrawer(true)}>click me</button>
-
-        <Drawer
-          closeFn={() => toggleDrawer(false)}
-          open={drawerOpen}
-          items={[
-            { action: () => console.log("action"), label: "Label lorem ipsum" },
-          ]}
-        />
         <div className="h-screen"></div>
       </MainLayout>
     </div>

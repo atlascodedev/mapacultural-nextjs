@@ -1,22 +1,29 @@
 import Head from "next/head";
 import React from "react";
 import Footer, { FooterProps } from "../../components/Footer";
-import Navbar, { NavbarProps } from "../../components/Navbar";
+import Navbar, { INavbar } from "../../components/Navbar";
 import WhatsAppButton from "../../components/Utility/WhatsAppButton";
 
-interface MainLayoutProps extends NavbarProps, FooterProps {
+interface MainLayoutProps extends INavbar, FooterProps {
   title: string;
   metaDescription: string;
+  MenuComponent: JSX.Element;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   metaDescription,
   title,
-  color,
+  navbarColor: color,
+  MenuComponent,
   externalPath,
   contactEmail,
   contactNumber,
+  facebook,
+  instagram,
+  whatsapp,
+  onMenuClick,
+  burguerMenuColor,
 }) => {
   return (
     <React.Fragment>
@@ -26,11 +33,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar color={color} />
+      <Navbar
+        onMenuClick={onMenuClick}
+        burguerMenuColor={burguerMenuColor}
+        navbarColor={color}
+      />
+      {MenuComponent}
       <WhatsAppButton />
 
       <main>{children}</main>
-      <Footer contactEmail={contactEmail} contactNumber={contactNumber} />
+      <Footer
+        facebook={facebook}
+        instagram={instagram}
+        whatsapp={whatsapp}
+        contactEmail={contactEmail}
+        contactNumber={contactNumber}
+      />
     </React.Fragment>
   );
 };

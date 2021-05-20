@@ -8,6 +8,7 @@ module.exports = {
         500: 500,
         1000: 1000,
       },
+
       colors: {
         deepBlue: "#172b4d",
 

@@ -1,10 +1,10 @@
 import React from "react";
 
-export interface NavbarLogoProps {
+export interface INavbarLogo {
   externalPath?: string;
 }
 
-const NavbarLogo = ({ externalPath }: NavbarLogoProps) => {
+const NavbarLogo = ({ externalPath }: INavbarLogo) => {
   return (
     <div className={"min-h-0 max-w-full flex justify-center"}>
       <img

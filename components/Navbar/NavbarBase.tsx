@@ -1,10 +1,13 @@
 import React from "react";
 
-export interface NavbarBaseProps {
-  color: "primary" | "secondary" | "tertiary";
+export interface INavbarBase {
+  navbarColor: "primary" | "secondary" | "tertiary";
 }
 
-const NavbarBase: React.FC<NavbarBaseProps> = ({ color, children }) => {
+const NavbarBase: React.FC<INavbarBase> = ({
+  navbarColor: color,
+  children,
+}) => {
   return (
     <div
       className={`w-full ${
