@@ -24,6 +24,7 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
+        <div onClick={() => toggleBackdrop(true)}>yo</div>
         <Backdrop open={backdropOpen} closeFn={() => toggleBackdrop(false)}>
           <div>hello</div>
         </Backdrop>

@@ -1,7 +1,7 @@
 import React from "react";
 import detectClickOnParent from "../../../helper/detectClickOnParent";
 import useDocumentBodyLock from "../../../hooks/useDocumentBodyLock";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface BackdropProps {
   open: boolean;
@@ -29,22 +29,23 @@ const Backdrop: React.FC<BackdropProps> = ({
   }, []);
 
   return (
-    <motion.div
-      initial="hidden"
-      animate={open ? "visible" : "hidden"}
-      variants={{
-        visible: { opacity: 1 },
-        hidden: { opacity: 0 },
-      }}
-      onClick={(event: React.MouseEvent<HTMLElement>) =>
-        detectClickOnParent(event, backdropRef, closeFn)
-      }
-      ref={backdropRef}
-      style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
-      className={`fixed flex justify-center items-center h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
-    >
-      {children}
-    </motion.div>
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1] }}
+          exit={{ opacity: 0 }}
+          onClick={(event: React.MouseEvent<HTMLElement>) =>
+            detectClickOnParent(event, backdropRef, closeFn)
+          }
+          ref={backdropRef}
+          style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
+          className={`fixed flex justify-center items-center h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
