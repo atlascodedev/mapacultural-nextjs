@@ -1,5 +1,6 @@
 import Head from "next/head";
 import CardBase from "../components/ExampleComponent/CardBase";
+import Backdrop from "../components/Utility/Backdrop";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -12,9 +13,14 @@ export default function Home() {
       </Head>
 
       <MainLayout
+        color="primary"
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
-      ></MainLayout>
+      >
+        <Backdrop open={true} closeFn={() => console.log("oops")}>
+          <div>hello</div>
+        </Backdrop>
+      </MainLayout>
     </div>
   );
 }

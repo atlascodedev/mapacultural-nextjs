@@ -3,6 +3,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      zIndex: {
+        250: 250,
+        500: 500,
+        1000: 1000,
+      },
       colors: {
         primary: {
           main: "#FDECD0",
