@@ -1,5 +1,6 @@
 import React from "react";
-import { ColorThemeOptions } from "../../@types";
+import { ColorThemeOptions } from "../../@types/global";
+
 import getThemeColor from "../../helper/getThemeColor";
 
 interface MenuLineProps {
