@@ -26,3 +26,7 @@
     url("../fonts/OpenSans/OpenSans-SemiBold.ttf") format("truetype"),
     url("../fonts/OpenSans/OpenSans-SemiBoldItalic.ttf") format("truetype");
 }
+
+body {
+  font-family: "Open-sans", sans-serif;
+}

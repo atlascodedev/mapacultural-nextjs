@@ -1,5 +1,6 @@
 import Head from "next/head";
 import CardBase from "../components/ExampleComponent/CardBase";
+import MainLayout from "../layout/main";
 
 export default function Home() {
   return (
@@ -10,7 +11,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <CardBase />
+      <MainLayout
+        metaDescription="Mapa cultural de Taquara"
+        title="Mapa Cultural"
+      ></MainLayout>
     </div>
   );
 }
