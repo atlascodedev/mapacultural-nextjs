@@ -15,11 +15,13 @@ const AtlasTabPanel: React.FC<
       >
         {children}
       </button>
-      <div
-        className={`group-hover:w-full ${
-          active ? "w-full" : "w-0"
-        }  h-1  transition-all duration-500 bg-deepBlue rounded-xl`}
-      ></div>
+      <div className="w-full flex justify-center">
+        <div
+          className={`group-hover:w-1/2 ${
+            active ? "w-1/2" : "w-0"
+          }  h-1  transition-all duration-500 bg-deepBlue rounded-xl`}
+        ></div>
+      </div>
     </div>
   );
 };

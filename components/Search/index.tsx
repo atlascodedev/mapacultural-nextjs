@@ -9,7 +9,10 @@ const Search = ({}: ISearch) => {
       <AtlasTab
         fullWidth
         tabItems={[
-          { component: <div>hello</div>, label: "Im the label" },
+          {
+            component: <div>hello</div>,
+            label: "Im the label",
+          },
           { component: <div>hello motto</div>, label: "Im the label too" },
           { component: <div>You never changed</div>, label: "Motorolla" },
         ]}
