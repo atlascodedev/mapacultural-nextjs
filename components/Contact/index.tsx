@@ -5,7 +5,7 @@ export interface ContactProps {}
 
 const Contact = (props: ContactProps) => {
   return (
-    <div className="w-full flex flex-col md:flex-row">
+    <div className="w-full flex flex-col md:flex-row items-center">
       <div className="md:w-1/2 md:flex md:justify-center">
         <ContactForm submitFn={async () => console.log("nothing for now")} />
       </div>
@@ -16,7 +16,7 @@ const Contact = (props: ContactProps) => {
           src="images/contact-illustration.svg"
           alt="Ilustração de duas pessoas pulando felizes"
         />
-        <div className="text-tertiary-dark md:text-3xl text-2xl block w-full mt-4 md:w-1/2 leading-3 ">
+        <div className="text-tertiary-dark md:text-3xl text-2xl block w-full mt-4 md:w-1/2 leading-relaxed  ">
           Precisa de ajuda? Então fale conosco.
         </div>
       </div>

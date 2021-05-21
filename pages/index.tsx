@@ -2,6 +2,7 @@ import Head from "next/head";
 import React from "react";
 import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
+import Partners from "../components/Partners";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -43,6 +44,15 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
+        <Partners
+          partnersItems={[
+            { partnerLogo: "https://via.placeholder.com/350" },
+            { partnerLogo: "https://via.placeholder.com/350" },
+            { partnerLogo: "https://via.placeholder.com/350" },
+            { partnerLogo: "https://via.placeholder.com/350" },
+            { partnerLogo: "https://via.placeholder.com/350" },
+          ]}
+        />
         <Contact />
       </MainLayout>
     </div>
