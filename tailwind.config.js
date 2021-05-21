@@ -31,7 +31,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      width: ["hover", "focus", "responsive", "group-hover", "group-focus"],
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
