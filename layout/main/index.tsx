@@ -41,8 +41,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         navbarColor={color}
       />
       {MenuComponent}
-      <WhatsAppButton />
-
       <main>{children}</main>
       <Footer
         facebook={facebook}
