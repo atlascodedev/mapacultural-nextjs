@@ -4,6 +4,7 @@ import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
 import Partners from "../components/Partners";
+import Search from "../components/Search";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
         title="Mapa Cultural"
       >
         <AboutUs />
-
+        <Search />
         <Partners
           partnersItems={[
             { partnerLogo: "https://via.placeholder.com/350" },

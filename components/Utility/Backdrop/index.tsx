@@ -18,6 +18,7 @@ const Backdrop: React.FC<BackdropProps> = ({
   blur,
 }) => {
   const backdropRef = React.useRef<HTMLDivElement>(null);
+
   useDocumentBodyLock(open);
 
   React.useEffect(() => {
