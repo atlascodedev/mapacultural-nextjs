@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
 import MainLayout from "../layout/main";
 
@@ -43,6 +44,7 @@ export default function Home() {
         title="Mapa Cultural"
       >
         <div className="h-screen"></div>
+        <Contact />
       </MainLayout>
     </div>
   );
