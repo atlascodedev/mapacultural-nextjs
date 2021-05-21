@@ -39,14 +39,16 @@ const ContactForm = (props: IContactForm) => {
 
   return (
     <div
-      className={`w-auto max-w-xs md:max-w-sm m-5 rounded-t-lg h-auto bg-white shadow-2xl rounded flex flex-col`}
+      className={`w-auto  max-w-xs md:max-w-md m-5 rounded-t-lg h-auto bg-white shadow-2xl rounded flex flex-col`}
     >
       <div
-        className={`bg-secondary-main text-2xl text-white font-bold rounded-t-lg drop-shadow text-center w-full p-4`}
+        className={`bg-secondary-main text-2xl text-white font-bold rounded-t-lg drop-shadow text-center w-full p-4 `}
       >
         Fale conosco
       </div>
-      <div className={`flex flex-col h-auto w-full px-10 gap-6 py-5`}>
+      <div
+        className={`flex flex-col h-auto w-full px-10 md:px-20 gap-6 md:gap-4 py-5 md:py-4`}
+      >
         <FormField IconComponent={FaUser}>
           <TextField
             name="name"
@@ -105,7 +107,14 @@ const ContactForm = (props: IContactForm) => {
             label="Mensagem"
           />
         </FormField>
-        <SubmitButton onClick={() => console.log("ass")}>Enviar</SubmitButton>
+        <SubmitButton
+          colorVariant={"dark"}
+          themeColor={"tertiary"}
+          disabled={!formik.isValid || formik.isSubmitting}
+          onClick={formik.submitForm}
+        >
+          Enviar
+        </SubmitButton>
       </div>
     </div>
   );

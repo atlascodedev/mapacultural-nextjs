@@ -43,7 +43,6 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <div className="h-screen"></div>
         <Contact />
       </MainLayout>
     </div>

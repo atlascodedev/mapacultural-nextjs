@@ -43,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       {MenuComponent}
       <WhatsAppButton />
 
-      <main className="container">{children}</main>
+      <main>{children}</main>
       <Footer
         facebook={facebook}
         instagram={instagram}

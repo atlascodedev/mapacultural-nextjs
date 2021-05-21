@@ -1,26 +1,37 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { ColorThemeOptions } from "../../@types/global";
+import {
+  ColorThemeOptions,
+  ColorThemeOptionsVariants,
+} from "../../@types/global";
 import getThemeColor from "../../helper/getThemeColor";
 
 export interface IFormButton {
   themeColor?: ColorThemeOptions;
+  colorVariant?: ColorThemeOptionsVariants;
 }
 
 const SubmitButton: React.FC<
-  IFormButton & React.HTMLAttributes<HTMLDivElement>
-> = ({ children, themeColor = "secondary", onClick }) => {
+  IFormButton & React.ButtonHTMLAttributes<HTMLButtonElement>
+> = ({
+  children,
+  themeColor = "secondary",
+  onClick,
+  disabled,
+  colorVariant,
+}) => {
   return (
-    <motion.div
-      onClick={onClick}
+    <motion.button
+      disabled={Boolean(disabled)}
+      onClick={disabled ? null : onClick}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className={`bg-${getThemeColor(
-        themeColor
-      )} rounded-lg p-3 cursor-pointer text-white font-bold flex justify-center items-center`}
+      className={`
+      bg-${disabled ? "gray-200" : getThemeColor(themeColor, colorVariant)} 
+      rounded-lg p-3 cursor-pointer  text-white font-bold flex justify-center items-center transition-colors`}
     >
       {children}
-    </motion.div>
+    </motion.button>
   );
 };
 
