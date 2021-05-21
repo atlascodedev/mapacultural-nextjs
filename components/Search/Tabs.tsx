@@ -24,15 +24,23 @@ const TabLabel: React.FC<any> = ({ children, onClick }) => {
 };
 
 const Tabs = ({ tabItems }: ITabs) => {
+  const [activeTab, setActiveTab] = React.useState<number>(0);
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-col items-center">
       <div className="w-full md:w-1/2  rounded-xl flex justify-center gap-10 p-10">
         {tabItems.map((tabItem, index) => {
           return (
-            <TabLabel onClick={() => console.log(index, "was clicked")}>
+            <TabLabel onClick={() => setActiveTab(index)}>
               Item + {index}
             </TabLabel>
           );
+        })}
+      </div>
+
+      <div>
+        {tabItems.map((tabItem, index: number) => {
+          return index === activeTab ? <div>hello + {index}</div> : null;
         })}
       </div>
     </div>
