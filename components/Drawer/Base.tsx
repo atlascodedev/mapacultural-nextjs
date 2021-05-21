@@ -10,7 +10,7 @@ const Base: React.FC<IDrawerBase> = ({ children }) => {
       initial={{ x: -400 }}
       animate={{ x: 0 }}
       exit={{ x: -400 }}
-      className="h-screen w-80 fixed left-0 top-0 bg-white shadow-lg"
+      className="h-screen w-60 md:w-80 fixed left-0 top-0 bg-white shadow-lg"
     >
       {children}
     </motion.div>

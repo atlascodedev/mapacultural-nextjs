@@ -6,26 +6,59 @@ import { ColorThemeOptions } from "../../@types/global";
 
 export interface IBurguerMenu extends IBurguerLine {
   onMenuClick: (...args: any[]) => void;
+  active: boolean;
 }
 
-const BurguerMenu = ({ burguerMenuColor, onMenuClick }: IBurguerMenu) => {
+const BurguerMenu = ({
+  burguerMenuColor,
+  onMenuClick,
+  active,
+}: IBurguerMenu) => {
   return (
-    <motion.div
-      onClick={onMenuClick}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className={`md:w-12 w-11 h-auto flex flex-col gap-1.5 md:gap-2 cursor-pointer`}
+    <div
+      className={`md:w-16 md:h-16 w-14 h-14  bg-white rounded-full shadow-md relative flex justify-center items-center`}
     >
-      <motion.div>
-        <MenuLine />
+      <motion.div
+        onClick={onMenuClick}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className={`md:w-9 w-9 h-auto justify-center  flex flex-col cursor-pointer relative`}
+      >
+        <motion.div
+          className="relative"
+          animate={active ? "open" : "closed"}
+          variants={{
+            open: { rotate: -45, y: 0 },
+            closed: { rotate: 0, y: -10 },
+          }}
+        >
+          <MenuLine />
+        </motion.div>
+        <motion.div
+          className="relative"
+          variants={{
+            open: {
+              opacity: 0,
+              y: [0, 0, -100],
+            },
+            closed: { x: 0, opacity: 1, y: 0 },
+          }}
+          animate={active ? "open" : "closed"}
+        >
+          <MenuLine />
+        </motion.div>
+        <motion.div
+          className="relative"
+          animate={active ? "open" : "closed"}
+          variants={{
+            open: { rotate: 45, x: 3, y: 0 },
+            closed: { rotate: 0, y: 10 },
+          }}
+        >
+          <MenuLine />
+        </motion.div>
       </motion.div>
-      <motion.div>
-        <MenuLine />
-      </motion.div>
-      <motion.div>
-        <MenuLine />
-      </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -19,6 +19,7 @@ export default function Home() {
       </Head>
 
       <MainLayout
+        active={drawerOpen}
         onMenuClick={() => toggleDrawer(true)}
         MenuComponent={
           <Drawer

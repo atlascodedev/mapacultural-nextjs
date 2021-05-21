@@ -9,9 +9,10 @@ export interface INavbar extends INavbarBase, INavbarLogo, IBurguerMenu {}
 
 const Navbar = ({
   navbarColor = "primary",
-  externalPath,
   onMenuClick,
   burguerMenuColor,
+  active,
+  externalPath,
 }: INavbar) => {
   const isSmall = useViewportDetect({ attachEventListener: true });
 
@@ -21,6 +22,7 @@ const Navbar = ({
       <NavbarLogo />
       <div className="justify-self-end mr-7 md:mr-16 lg:mr-24 self-center">
         <BurguerMenu
+          active={active}
           onMenuClick={onMenuClick}
           burguerMenuColor={burguerMenuColor}
         />

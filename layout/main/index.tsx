@@ -16,7 +16,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   title,
   navbarColor: color,
   MenuComponent,
-  externalPath,
   contactEmail,
   contactNumber,
   facebook,
@@ -24,6 +23,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   whatsapp,
   onMenuClick,
   burguerMenuColor,
+  externalPath,
+  active,
 }) => {
   return (
     <React.Fragment>
@@ -34,6 +35,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </Head>
 
       <Navbar
+        active={active}
         onMenuClick={onMenuClick}
         burguerMenuColor={burguerMenuColor}
         navbarColor={color}
@@ -41,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       {MenuComponent}
       <WhatsAppButton />
 
-      <main>{children}</main>
+      <main className="container">{children}</main>
       <Footer
         facebook={facebook}
         instagram={instagram}

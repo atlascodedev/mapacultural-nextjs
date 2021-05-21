@@ -10,7 +10,9 @@ export interface IBurguerLine {
 const MenuLine = ({ burguerMenuColor: color = "secondary" }: IBurguerLine) => {
   return (
     <div
-      className={`w-full h-1.5 md:h-2  bg-${getThemeColor(color)} rounded`}
+      className={`w-full h-1 md:h-1 absolute  bg-${getThemeColor(
+        color
+      )} rounded`}
     ></div>
   );
 };
