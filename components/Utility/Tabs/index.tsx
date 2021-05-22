@@ -20,7 +20,7 @@ const AtlasTab = ({ tabItems, fullWidth }: ITabs) => {
       <div
         className={`w-full ${
           fullWidth ? "md:w-full" : "md:w-1/2"
-        } rounded-xl flex justify-center gap-2 md:gap-10 py-8 px-2`}
+        } rounded-xl flex justify-center gap-2 md:gap-10 py-2 px-2`}
       >
         {tabItems.map((tabItem, index) => {
           return (

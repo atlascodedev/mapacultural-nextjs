@@ -19,7 +19,7 @@ const AtlasTabPanel: React.FC<
         <div
           className={`group-hover:w-1/2 ${
             active ? "w-1/2" : "w-0"
-          }  h-1  transition-all duration-500 bg-deepBlue rounded-xl`}
+          }  h-1  transition-all duration-500 bg-tertiary-dark rounded-xl`}
         ></div>
       </div>
     </div>

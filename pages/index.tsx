@@ -53,9 +53,9 @@ export default function Home() {
           tabItems={[
             {
               component: <div>hello</div>,
-              label: "Im the label",
+              label: "Agentes culturais",
             },
-            { component: <div>hello motto</div>, label: "Im the label too" },
+            { component: <div>hello motto</div>, label: "Espaços culturais" },
             {
               component: (
                 <div className="p-10">
@@ -69,7 +69,7 @@ export default function Home() {
                   />
                 </div>
               ),
-              label: "Motorolla",
+              label: "Eventos/Projetos",
             },
           ]}
         />
