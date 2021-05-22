@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import Filter from "../Utility/Filter";
-import SearchAgentCard from "./SearchAgentCard";
 import SearchAgentsSlider from "./SearchAgentsSlider";
 
 const SearchAgentsSelectField = () => {

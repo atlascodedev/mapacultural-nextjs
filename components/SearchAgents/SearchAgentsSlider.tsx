@@ -27,7 +27,12 @@ const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
             key={index}
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <SearchAgentCard />
+            <SearchAgentCard
+              action={() => console.log("action")}
+              actionName={"Ver agente"}
+              name={"Yeah Vieira"}
+              tags={["Pop", "Música", "Fotografia", "Gastronomia"]}
+            />
           </SwiperSlide>
         );
       })}
