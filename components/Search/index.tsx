@@ -5,7 +5,7 @@ export interface ISearch extends ITabs {}
 
 const Search = ({ tabItems, fullWidth }: ISearch) => {
   return (
-    <div>
+    <div className="mt-10">
       <AtlasTab fullWidth={fullWidth} tabItems={tabItems} />
     </div>
   );

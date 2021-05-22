@@ -4,6 +4,7 @@ import React from "react";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
+import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
@@ -50,6 +51,7 @@ export default function Home() {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
+        <Hero />
         <AboutUs />
         <Search
           tabItems={[
@@ -57,7 +59,15 @@ export default function Home() {
               component: <SearchAgents agentsList={[1, 1, 1, 1, 1]} />,
               label: "Agentes culturais",
             },
-            { component: <SearchSpaces />, label: "Espaços culturais" },
+            {
+              component: (
+                <div className="flex justify-center w-full p-10">
+                  Removido temporariamente
+                </div>
+              ),
+              label: "Espaços culturais",
+            },
+            { component: <SearchSpaces />, label: "Eventos/Projetos" },
           ]}
         />
         <Partners

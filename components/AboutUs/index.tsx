@@ -4,7 +4,7 @@ interface IAboutUs {}
 
 const AboutUs = ({}: IAboutUs) => {
   return (
-    <div className={"p-10 w-full h-auto bg-gray-50 flex flex-col md:flex-row"}>
+    <div className={"p-10 w-full h-auto  flex flex-col md:flex-row"}>
       <div className="md:w-1/2 md:px-12 h-auto flex flex-col justify-center text-left md:text-right ">
         <h2 className="font-extrabold text-lg md:leading-normal md:text-4xl ">
           Apoie o Mapeamento Cultural de Taquara
