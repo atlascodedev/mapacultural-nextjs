@@ -28,9 +28,11 @@ const SearchAgentsSelectField = () => {
   );
 };
 
-export interface ISearchAgents {}
+export interface ISearchAgents {
+  agentsList: any[];
+}
 
-const SearchAgents = (props: ISearchAgents) => {
+const SearchAgents = ({ agentsList }: ISearchAgents) => {
   return (
     <div className="w-full h-auto overflow-hidden py-8">
       <div className="flex justify-center">
@@ -45,7 +47,7 @@ const SearchAgents = (props: ISearchAgents) => {
       </div>
 
       <div className="overflow-hidden">
-        <SearchAgentsSlider agentSliderItems={[1, 1, 1, 1, 1]} />
+        <SearchAgentsSlider agentSliderItems={[1, 1, 1, 1]} />
       </div>
     </div>
   );

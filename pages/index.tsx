@@ -7,6 +7,7 @@ import Drawer from "../components/Drawer";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
+import SearchSpaces from "../components/SearchSpaces";
 import Filter from "../components/Utility/Filter";
 import MainLayout from "../layout/main";
 
@@ -52,7 +53,11 @@ export default function Home() {
         <AboutUs />
         <Search
           tabItems={[
-            { component: <SearchAgents />, label: "Agentes culturais" },
+            {
+              component: <SearchAgents agentsList={[1, 1, 1, 1, 1]} />,
+              label: "Agentes culturais",
+            },
+            { component: <SearchSpaces />, label: "Espaços culturais" },
           ]}
         />
         <Partners
