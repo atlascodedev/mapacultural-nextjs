@@ -1,11 +1,20 @@
+import { TextField } from "@material-ui/core";
 import React from "react";
 import AtlasTab from "../Utility/Tabs";
+import Filter from "./Filter";
 
 export interface ISearch {}
 
 const Search = ({}: ISearch) => {
   return (
     <div>
+      <Filter
+        inputItems={[
+          <TextField label="hello" />,
+          <TextField label="hello two" />,
+        ]}
+      />
+
       <AtlasTab
         fullWidth
         tabItems={[
