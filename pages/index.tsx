@@ -1,3 +1,4 @@
+import { TextField } from "@material-ui/core";
 import Head from "next/head";
 import React from "react";
 import AboutUs from "../components/AboutUs";
@@ -5,6 +6,7 @@ import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
+import Filter from "../components/Utility/Filter";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -47,7 +49,30 @@ export default function Home() {
         title="Mapa Cultural"
       >
         <AboutUs />
-        <Search />
+        <Search
+          tabItems={[
+            {
+              component: <div>hello</div>,
+              label: "Im the label",
+            },
+            { component: <div>hello motto</div>, label: "Im the label too" },
+            {
+              component: (
+                <div className="p-10">
+                  <Filter
+                    searchAction={() => console.log("action")}
+                    inputItems={[
+                      <TextField label="Hello" />,
+                      <TextField label="Hello" />,
+                      <TextField label="Hello" />,
+                    ]}
+                  />
+                </div>
+              ),
+              label: "Motorolla",
+            },
+          ]}
+        />
         <Partners
           partnersItems={[
             { partnerLogo: "https://via.placeholder.com/350" },

@@ -11,8 +11,8 @@ const FilterInputWrapper: React.FC<IFilterInputWrapper> = ({
   return (
     <div
       className={`border-gray-500 border-dashed ${
-        noBorder ? "border-r-0" : "border-r"
-      } border-opacity-70 px-8 py-4`}
+        noBorder ? "border-r-0" : "md:border-r"
+      } border-opacity-70 px-14 py-4`}
     >
       {children}
     </div>

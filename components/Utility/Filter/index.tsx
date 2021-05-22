@@ -1,14 +1,14 @@
 import React from "react";
-import FilterBase from "./FilterBase";
+import FilterBase, { IFilterBase } from "./FilterBase";
 import FilterInputWrapper from "./FilterInputWrapper";
 
-export interface IFilter {
+export interface IFilter extends IFilterBase {
   inputItems: JSX.Element[];
 }
 
-const Filter = ({ inputItems = [] }: IFilter) => {
+const Filter = ({ inputItems = [], searchAction }: IFilter) => {
   return (
-    <FilterBase>
+    <FilterBase searchAction={searchAction}>
       {inputItems.map((component, index) => {
         return (
           <FilterInputWrapper
