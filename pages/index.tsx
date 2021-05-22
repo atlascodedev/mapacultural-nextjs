@@ -6,6 +6,7 @@ import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
+import SearchAgents from "../components/SearchAgents";
 import Filter from "../components/Utility/Filter";
 import MainLayout from "../layout/main";
 
@@ -51,26 +52,7 @@ export default function Home() {
         <AboutUs />
         <Search
           tabItems={[
-            {
-              component: <div>hello</div>,
-              label: "Agentes culturais",
-            },
-            { component: <div>hello motto</div>, label: "Espaços culturais" },
-            {
-              component: (
-                <div className="p-10">
-                  <Filter
-                    searchAction={() => console.log("action")}
-                    inputItems={[
-                      <TextField label="Hello" />,
-                      <TextField label="Hello" />,
-                      <TextField label="Hello" />,
-                    ]}
-                  />
-                </div>
-              ),
-              label: "Eventos/Projetos",
-            },
+            { component: <SearchAgents />, label: "Agentes culturais" },
           ]}
         />
         <Partners
