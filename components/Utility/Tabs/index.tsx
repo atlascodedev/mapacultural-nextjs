@@ -16,29 +16,30 @@ const AtlasTab = ({ tabItems, fullWidth }: ITabs) => {
   const [activeTab, setActiveTab] = React.useState<number>(0);
 
   return (
-    <div className="flex justify-center flex-col items-center">
-      <div
-        className={`w-full ${
-          fullWidth ? "md:w-full" : "md:w-1/2"
-        } rounded-xl flex justify-center gap-2 md:gap-10 py-2 px-2`}
-      >
-        {tabItems.map((tabItem, index) => {
-          return (
-            <AtlasTabPanel
-              active={index === activeTab}
-              key={index}
-              onClick={() => setActiveTab(index)}
-            >
-              {tabItem.label}
-            </AtlasTabPanel>
-          );
-        })}
+    <div>
+      <div className="flex justify-center flex-col items-center">
+        <div
+          className={`w-full ${
+            fullWidth ? "md:w-full" : "md:w-1/2"
+          } rounded-xl flex justify-center gap-2 md:gap-10 py-2 px-2`}
+        >
+          {tabItems.map((tabItem, index) => {
+            return (
+              <AtlasTabPanel
+                active={index === activeTab}
+                key={index}
+                onClick={() => setActiveTab(index)}
+              >
+                {tabItem.label}
+              </AtlasTabPanel>
+            );
+          })}
+        </div>
       </div>
 
       {tabItems.map((tabItem, index: number) => {
         return index === activeTab ? (
           <motion.div
-            className="w-auto h-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15 }}

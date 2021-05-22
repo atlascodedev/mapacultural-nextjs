@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Filter from "../Utility/Filter";
 import SearchAgentCard from "./SearchAgentCard";
+import SearchAgentsSlider from "./SearchAgentsSlider";
 
 const SearchAgentsSelectField = () => {
   return (
@@ -32,17 +33,21 @@ export interface ISearchAgents {}
 
 const SearchAgents = (props: ISearchAgents) => {
   return (
-    <div className="w-full h-auto flex flex-col py-8">
-      <Filter
-        searchAction={() => console.log("search me")}
-        inputItems={[<TextField label="Nome" />, <SearchAgentsSelectField />]}
-      />
+    <div className="w-full h-auto overflow-hidden py-8">
+      <div className="flex justify-center">
+        <Filter
+          searchAction={() => console.log("search me")}
+          inputItems={[<TextField label="Nome" />, <SearchAgentsSelectField />]}
+        />
+      </div>
 
-      <div className="w-full font-bold md:text-2xl text-center my-14">
+      <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
         Existem 46 músicos em Taquara
       </div>
 
-      <SearchAgentCard />
+      <div className="overflow-hidden">
+        <SearchAgentsSlider agentSliderItems={[1, 1, 1, 1, 1]} />
+      </div>
     </div>
   );
 };
