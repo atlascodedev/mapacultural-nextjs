@@ -1,3 +1,4 @@
+import { TextField } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import AboutUs from "../components/AboutUs";
@@ -9,6 +10,7 @@ import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
 import SearchSpaces from "../components/SearchSpaces";
 import AtlasAccordion from "../components/Utility/Accordion";
+import FormPageContainer from "../components/Utility/FormPageContainer";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -128,12 +130,21 @@ export default function Home() {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <div>Agents culturais</div>
-              <button onClick={() => setAgentFormActive(false)}>go back</button>
-
-              <AtlasAccordion label={"Etapa 1"}>
-                <div className="h-60"></div>
-              </AtlasAccordion>
+              <FormPageContainer
+                headerLabel={"Agente cultural"}
+                headerHelpertext={
+                  "Faça seu cadastro e participe do Mapeamento Cultural de Taquara"
+                }
+                actionCancelFn={() => setAgentFormActive(false)}
+                actionSubmitFn={() => console.log("action submit fn")}
+              >
+                <AtlasAccordion shadow fullWidth label="Etapa 1">
+                  <div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row md:gap-28 py-5 md:px-16">
+                    <TextField label="Pessoa física" />
+                    <TextField label="E-mail de cadastro" />
+                  </div>
+                </AtlasAccordion>
+              </FormPageContainer>
             </motion.div>
           )}
         </AnimatePresence>
