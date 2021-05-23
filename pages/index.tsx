@@ -2,6 +2,7 @@ import { TextField } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import AboutUs from "../components/AboutUs";
+import AgentForm from "../components/AgentForm";
 import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
 import Hero from "../components/Hero";
@@ -130,22 +131,7 @@ export default function Home() {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <FormPageContainer
-                actionCancelFn={() => console.log("this cancels")}
-                headerLabel={"Agente cultural"}
-                headerHelpertext={
-                  "Faça seu cadastro e participe do Mapeamento Cultural de Taquara"
-                }
-                headerReturnAction={() => setAgentFormActive(false)}
-                actionSubmitFn={() => console.log("action submit fn")}
-              >
-                <AtlasAccordion shadow fullWidth label="Etapa 1">
-                  <div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row md:gap-28 py-5 md:px-16">
-                    <TextField label="Pessoa física" />
-                    <TextField label="E-mail de cadastro" />
-                  </div>
-                </AtlasAccordion>
-              </FormPageContainer>
+              <AgentForm headerReturnAction={() => setAgentFormActive(false)} />
             </motion.div>
           )}
         </AnimatePresence>

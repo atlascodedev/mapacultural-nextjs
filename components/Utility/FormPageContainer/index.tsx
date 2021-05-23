@@ -50,7 +50,7 @@ const FormPageActions = ({
   submitLabel = "Cancel",
 }: IFormPageActions) => {
   return (
-    <div className="flex w-full justify-center flex-row-reverse items-center gap-20 my-5">
+    <div className="flex w-full justify-center flex-row-reverse items-center gap-20 py-10">
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
