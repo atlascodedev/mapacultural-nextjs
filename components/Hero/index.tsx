@@ -4,9 +4,13 @@ import { AiFillBank } from "react-icons/ai";
 import CTAButton from "./CTAButton";
 import style from "./Hero.module.css";
 
-export interface IHero {}
+export interface IHero {
+  actionAgents: (...args: any[]) => void;
+  actionSpaces: (...args: any[]) => void;
+  actionsEvents: (...args: any[]) => void;
+}
 
-const Hero = (props: IHero) => {
+const Hero = ({ actionAgents, actionSpaces, actionsEvents }: IHero) => {
   return (
     <div className="h-screen w-full flex justify-center">
       <div className="w-full h-full relative flex justify-center ">
@@ -22,17 +26,17 @@ const Hero = (props: IHero) => {
           </div>
           <div className="flex justify-center gap-5 md:gap-8 2xl:gap-10 2xl:mt-16 mt-5 flex-col items-center">
             <CTAButton
-              action={() => console.log("action")}
+              action={actionAgents}
               icon={FaUsers}
               label="Agente cultural"
             />
             <CTAButton
-              action={() => console.log("action")}
+              action={actionSpaces}
               icon={AiFillBank}
               label="Espaço cultural"
             />
             <CTAButton
-              action={() => console.log("action")}
+              action={actionsEvents}
               icon={FaRegCalendar}
               label="Eventos"
             />

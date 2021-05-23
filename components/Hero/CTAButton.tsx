@@ -14,7 +14,10 @@ const CTAButton = ({ action, icon: Icon, label }: ICTAButton) => {
         <Icon className="text-4xl" />
         <div className="font-bold">{label}</div>
       </div>
-      <div className="bg-secondary-main flex flex-col cursor-pointer justify-center p-3 rounded-tr-xl rounded-br-xl items-center">
+      <div
+        onClick={action}
+        className="bg-secondary-main flex flex-col cursor-pointer justify-center p-3 rounded-tr-xl rounded-br-xl items-center"
+      >
         <div className="text-white text-xs mt-5">Cadastre-se</div>
         <BsArrowRight className="text-white text-2xl" />
       </div>
