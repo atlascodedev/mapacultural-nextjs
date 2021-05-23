@@ -1,32 +1,31 @@
-import { TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
-import { FaArrowCircleLeft, FaArrowLeft } from "react-icons/fa";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
-import AtlasAccordion from "../Accordion";
 
-export interface IFormPageContainerBase {
-  actionCancelFn: (...args: any[]) => void;
-}
-
-export interface IFormPageContainer extends IFormPageContainerHeader {
-  actionSubmitFn: (...args: any[]) => void;
-}
-
-interface IFormPageContainerHeader extends IFormPageContainerBase {
+export interface IFormPageContainerHeader {
   headerLabel: string;
   headerHelpertext?: string;
+  headerReturnAction: (...args: any[]) => void;
 }
+
+export interface IFormPageActions {
+  actionSubmitFn: (...args: any[]) => void;
+  actionCancelFn: (...args: any[]) => void;
+  submitLabel?: string;
+  cancelLabel?: string;
+}
+
+export interface IFormPage extends IFormPageContainerHeader, IFormPageActions {}
 
 const FormPageContainerHeader = ({
   headerLabel,
   headerHelpertext,
-  actionCancelFn,
+  headerReturnAction,
 }: IFormPageContainerHeader) => {
   return (
     <div className="flex border-b border-gray-200 w-full items-center px-4 md:px-12 py-5">
       <div className="flex flex-col flex-grow">
-        <div className="font-extrabold md:text-2xl pb-2 text-gray-800">
+        <div className="font-extrabold text-2xl pb-2 text-gray-800">
           {headerLabel}
         </div>
         <div>{headerHelpertext}</div>
@@ -34,7 +33,7 @@ const FormPageContainerHeader = ({
 
       <motion.button
         className="focus:outline-none"
-        onClick={actionCancelFn}
+        onClick={headerReturnAction}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -44,22 +43,60 @@ const FormPageContainerHeader = ({
   );
 };
 
-const FormPageContainer: React.FC<IFormPageContainer> = ({
+const FormPageActions = ({
   actionCancelFn,
   actionSubmitFn,
+  cancelLabel = "Submit",
+  submitLabel = "Cancel",
+}: IFormPageActions) => {
+  return (
+    <div className="flex w-full justify-center flex-row-reverse items-center gap-20 my-5">
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="focus:outline-none   bg-secondary-main p-2 px-4 font-bold text-white rounded-md"
+        onClick={actionCancelFn}
+      >
+        {cancelLabel}
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="focus:outline-none border-2  border-secondary-main p-2 px-4 font-bold text-secondary-main rounded-md"
+        onClick={actionSubmitFn}
+      >
+        {submitLabel}
+      </motion.button>
+    </div>
+  );
+};
+
+const FormPageContainer: React.FC<IFormPage> = ({
   headerLabel,
   headerHelpertext,
   children,
+  headerReturnAction,
+  actionSubmitFn,
+  actionCancelFn,
+  cancelLabel,
+  submitLabel,
 }) => {
   return (
     <div className="md:mx-16 md:my-14 mt-5">
       <div className="w-full md:shadow-custom h-auto rounded-md ">
         <FormPageContainerHeader
-          actionCancelFn={actionCancelFn}
           headerLabel={headerLabel}
+          headerReturnAction={headerReturnAction}
           headerHelpertext={headerHelpertext}
         />
-        <div className="md:px-12 px-2 py-10">{children}</div>
+        <div className="md:px-12 py-10">{children}</div>
+
+        <FormPageActions
+          cancelLabel={cancelLabel}
+          submitLabel={submitLabel}
+          actionCancelFn={actionCancelFn}
+          actionSubmitFn={actionSubmitFn}
+        />
       </div>
     </div>
   );

@@ -131,11 +131,12 @@ export default function Home() {
               transition={{ delay: 0.5 }}
             >
               <FormPageContainer
+                actionCancelFn={() => console.log("this cancels")}
                 headerLabel={"Agente cultural"}
                 headerHelpertext={
                   "Faça seu cadastro e participe do Mapeamento Cultural de Taquara"
                 }
-                actionCancelFn={() => setAgentFormActive(false)}
+                headerReturnAction={() => setAgentFormActive(false)}
                 actionSubmitFn={() => console.log("action submit fn")}
               >
                 <AtlasAccordion shadow fullWidth label="Etapa 1">
