@@ -8,6 +8,7 @@ import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
 import SearchSpaces from "../components/SearchSpaces";
+import AtlasAccordion from "../components/Utility/Accordion";
 import MainLayout from "../layout/main";
 
 export default function Home() {
@@ -55,6 +56,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ delay: 0.25 }}
             >
               <Hero
                 actionAgents={() => setAgentFormActive(true)}
@@ -93,27 +95,46 @@ export default function Home() {
           )}
         </AnimatePresence>
         {eventFormActive && !spacesFormActive && !agentFormActive && (
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.5 }}
+          >
             <h1>Eventos</h1>
             <button onClick={() => setEventFormActive(false)}>go back</button>
-          </div>
+          </motion.div>
         )}
         <AnimatePresence>
           {!eventFormActive && spacesFormActive && !agentFormActive && (
-            <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.5 }}
+            >
               <div>Espaços culturais</div>
               <button onClick={() => setSpacesFormActive(false)}>
                 go back
               </button>
-            </div>
+            </motion.div>
           )}
         </AnimatePresence>
         <AnimatePresence>
           {!eventFormActive && !spacesFormActive && agentFormActive && (
-            <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.5 }}
+            >
               <div>Agents culturais</div>
               <button onClick={() => setAgentFormActive(false)}>go back</button>
-            </div>
+
+              <AtlasAccordion label={"Etapa 1"}>
+                <div className="h-60"></div>
+              </AtlasAccordion>
+            </motion.div>
           )}
         </AnimatePresence>
       </MainLayout>
