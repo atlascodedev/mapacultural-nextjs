@@ -176,7 +176,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         initialValue: "",
         label: "Run away",
         placeholder: "Gun",
-        type: "date",
+        typeSama: "date",
       },
     ],
     validationSchema: Yup.object({
@@ -191,21 +191,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >
-      <AtlasAccordion fullWidth shadow label="The day">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-          {fields.map((field, index) => {
-            return (
-              <FieldWrapper
-                formik={formik}
-                type={field.type}
-                name={field.name}
-                label={field.label}
-              />
-            );
-          })}
-        </div>
-      </AtlasAccordion>
-
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
         <div className="w-full  flex justify-center py-5 pb-8">
           <TextField

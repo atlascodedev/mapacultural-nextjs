@@ -8,7 +8,7 @@ interface IFormGeneratorField {
   initialValue: string;
   label: string;
   placeholder?: string;
-  type: FieldType;
+  typeSama: FieldType;
 }
 
 interface IUseFormGenerator {
@@ -18,6 +18,7 @@ interface IUseFormGenerator {
 
 const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
   const initialValues = React.useRef<Record<string, any>>(null);
+  const fieldsRef = React.useRef<IFormGeneratorField[]>([]);
 
   React.useEffect(() => {
     let tempObj = {};
@@ -27,6 +28,8 @@ const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
     }
 
     initialValues.current = { ...tempObj };
+
+    fieldsRef.current = [...fields];
   }, []);
 
   const formik = useFormik({
@@ -36,7 +39,7 @@ const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
     enableReinitialize: true,
   });
 
-  return { formik, fields };
+  return { formik, fields: fieldsRef.current };
 };
 
 export default useFormGenerator;

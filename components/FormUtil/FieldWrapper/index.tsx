@@ -17,27 +17,30 @@ import { MdEvent } from "react-icons/md";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
 
 export type FieldType = "text" | "format" | "date";
+export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapper {
-  type: FieldType;
+  typeSama: FieldType;
   name: string;
   formik: ReturnType<typeof useFormik>;
   TextFieldProps?: TextFieldProps;
   DatePickerProps?: DatePickerProps;
   NumberFormatProps?: NumberFormatProps;
   label?: string;
+  variant?: FieldVariant;
 }
 
 const FieldWrapper = ({
   formik,
   name,
-  type,
+  typeSama,
   DatePickerProps,
   NumberFormatProps,
   TextFieldProps,
   label,
+  variant,
 }: IFieldWrapper) => {
-  switch (type) {
+  switch (typeSama) {
     case "text":
       return (
         <TextField
@@ -45,27 +48,29 @@ const FieldWrapper = ({
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           label={label}
+          variant={variant}
           name={name}
-          value={formik.values[name]}
-          error={Boolean(formik.errors[name])}
-          helperText={formik.errors[name]}
+          value={formik.values?.[name] ?? ""}
+          error={Boolean(formik.errors?.[name] ?? "")}
+          helperText={formik.errors?.[name] ?? ""}
         />
       );
 
     case "format":
       return (
         <NumberFormat
+          variant={variant}
           {...NumberFormatProps}
           onValueChange={({ floatValue, formattedValue, value }) =>
             formik.setFieldValue(name, formattedValue, true)
           }
-          value={formik.values[name]}
+          value={formik.values?.[name] ?? ""}
           name={name}
           label={label}
           onBlur={formik.handleBlur}
           customInput={TextField}
-          error={Boolean(formik.errors[name])}
-          helperText={formik.errors[name]}
+          error={Boolean(formik.errors?.[name] ?? "")}
+          helperText={formik.errors?.[name] ?? ""}
         />
       );
 
@@ -75,12 +80,16 @@ const FieldWrapper = ({
           <DatePicker
             {...DatePickerProps}
             clearable
-            onChange={formik.handleChange}
+            inputVariant={variant}
+            onChange={(date) => {
+              console.log(date);
+              formik.setFieldValue(name, date, true);
+            }}
             onBlur={formik.handleBlur}
-            value={`${formik.values}.${name}`}
+            value={formik.values?.[name] ?? ""}
             label={label}
             name={name}
-            helperText={formik.errors[name]}
+            helperText={formik.errors?.[name] ?? ""}
             format={"dd/MM/yyyy"}
             okLabel="Confirmar"
             cancelLabel="Cancelar"
