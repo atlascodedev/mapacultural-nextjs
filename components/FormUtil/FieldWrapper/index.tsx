@@ -21,19 +21,21 @@ export type FieldType = "text" | "format" | "date" | "select";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapperBase {
-  type: FieldType;
+  type?: FieldType;
   name: string;
   label?: string;
   selectOptions?: any[];
   placeholder?: string;
   initialValue?: string;
   format?: string;
+  additionalProps?: {
+    TextFieldProps?: TextFieldProps;
+    DatePickerProps?: DatePickerProps;
+    NumberFormatProps?: NumberFormatProps;
+  };
 }
 export interface IFieldWrapper extends IFieldWrapperBase {
   formik: ReturnType<typeof useFormik>;
-  TextFieldProps?: TextFieldProps;
-  DatePickerProps?: DatePickerProps;
-  NumberFormatProps?: NumberFormatProps;
   variant?: FieldVariant;
 }
 
@@ -41,26 +43,25 @@ const FieldWrapper = ({
   formik,
   name,
   type,
-  DatePickerProps,
-  NumberFormatProps,
-  TextFieldProps,
   label,
   variant,
   format,
   initialValue,
   placeholder,
   selectOptions,
+  additionalProps,
 }: IFieldWrapper) => {
   switch (type) {
     case "text":
       return (
         <TextField
-          {...TextFieldProps}
+          {...(additionalProps?.TextFieldProps ?? null)}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           label={label}
           variant={variant}
           name={name}
+          placeholder={placeholder}
           value={formik.values?.[name] ?? ""}
           error={Boolean(formik.errors?.[name] ?? "")}
           helperText={formik.errors?.[name] ?? ""}
@@ -70,7 +71,8 @@ const FieldWrapper = ({
     case "select":
       return (
         <TextField
-          {...TextFieldProps}
+          {...(additionalProps?.TextFieldProps ?? null)}
+          placeholder={placeholder}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           label={label}
@@ -95,13 +97,14 @@ const FieldWrapper = ({
       return (
         <NumberFormat
           variant={variant}
-          {...NumberFormatProps}
+          {...(additionalProps?.NumberFormatProps ?? null)}
           onValueChange={({ floatValue, formattedValue, value }) =>
             formik.setFieldValue(name, formattedValue, true)
           }
           value={formik.values?.[name] ?? ""}
           name={name}
           format={format}
+          placeholder={placeholder}
           label={label}
           onBlur={formik.handleBlur}
           customInput={TextField}
@@ -114,7 +117,7 @@ const FieldWrapper = ({
       return (
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
           <DatePicker
-            {...DatePickerProps}
+            {...(additionalProps?.DatePickerProps ?? null)}
             clearable
             inputVariant={variant}
             onChange={(date) => {
@@ -144,7 +147,20 @@ const FieldWrapper = ({
       );
 
     default:
-      return <div>hello</div>;
+      return (
+        <TextField
+          {...(additionalProps?.TextFieldProps ?? null)}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label={label}
+          variant={variant}
+          name={name}
+          placeholder={placeholder}
+          value={formik.values?.[name] ?? ""}
+          error={Boolean(formik.errors?.[name] ?? "")}
+          helperText={formik.errors?.[name] ?? ""}
+        />
+      );
   }
 };
 
