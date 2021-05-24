@@ -2,6 +2,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import {
   IconButton,
   InputAdornment,
+  MenuItem,
   TextField,
   TextFieldProps,
 } from "@material-ui/core";
@@ -16,19 +17,24 @@ import React from "react";
 import { MdEvent } from "react-icons/md";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
 
-export type FieldType = "text" | "format" | "date";
+export type FieldType = "text" | "format" | "date" | "select";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
-export interface IFieldWrapper {
+export interface IFieldWrapperBase {
   type: FieldType;
   name: string;
+  label?: string;
+  selectOptions?: any[];
+  placeholder?: string;
+  initialValue?: string;
+  format?: string;
+}
+export interface IFieldWrapper extends IFieldWrapperBase {
   formik: ReturnType<typeof useFormik>;
   TextFieldProps?: TextFieldProps;
   DatePickerProps?: DatePickerProps;
   NumberFormatProps?: NumberFormatProps;
-  label?: string;
   variant?: FieldVariant;
-  format?: string;
 }
 
 const FieldWrapper = ({
@@ -41,6 +47,9 @@ const FieldWrapper = ({
   label,
   variant,
   format,
+  initialValue,
+  placeholder,
+  selectOptions,
 }: IFieldWrapper) => {
   switch (type) {
     case "text":
@@ -56,6 +65,30 @@ const FieldWrapper = ({
           error={Boolean(formik.errors?.[name] ?? "")}
           helperText={formik.errors?.[name] ?? ""}
         />
+      );
+
+    case "select":
+      return (
+        <TextField
+          {...TextFieldProps}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label={label}
+          variant={variant}
+          name={name}
+          value={formik.values?.[name] ?? ""}
+          error={Boolean(formik.errors?.[name] ?? "")}
+          helperText={formik.errors?.[name] ?? ""}
+          select
+        >
+          {selectOptions.map((value: string, index: number) => {
+            return (
+              <MenuItem key={index} value={value}>
+                {value}
+              </MenuItem>
+            );
+          })}
+        </TextField>
       );
 
     case "format":

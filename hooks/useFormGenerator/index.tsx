@@ -1,37 +1,35 @@
 import { useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { FieldType } from "../../components/FormUtil/FieldWrapper";
+import { IFieldWrapperBase } from "../../components/FormUtil/FieldWrapper";
 
-interface IFormGeneratorField {
-  name: string;
-  initialValue: string;
-  label: string;
-  placeholder?: string;
-  type: FieldType;
-  format?: string;
-}
+type IFieldWrapperInternal = Omit<IFieldWrapperBase, "name">;
 
 interface IUseFormGenerator {
-  fields: IFormGeneratorField[];
+  fields: Record<string, IFieldWrapperInternal>;
   validationSchema: ReturnType<typeof Yup.object>;
 }
 
 const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
   const initialValues = React.useRef<Record<string, any>>(null);
-  const fieldsRef = React.useRef<IFormGeneratorField[]>([]);
+  const fieldsRef = React.useRef<IFieldWrapperBase[]>([]);
 
   React.useEffect(() => {
-    let tempObj = {};
+    let tempObj: IFieldWrapperBase[] = [];
+    let initialValueTemp: Record<string, any> = {};
 
-    for (const field of fields) {
-      tempObj[field.name] = field.initialValue;
+    for (const key in fields) {
+      const element = fields[key];
+
+      let fieldWrapperTemp = { ...element, name: key };
+      initialValueTemp[key] = element?.initialValue ?? "";
+
+      tempObj.push(fieldWrapperTemp);
     }
 
-    initialValues.current = { ...tempObj };
-
-    fieldsRef.current = [...fields];
-  }, []);
+    fieldsRef.current = tempObj;
+    initialValues.current = initialValueTemp;
+  }, [fields, validationSchema]);
 
   const formik = useFormik({
     initialValues: initialValues.current,

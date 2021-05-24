@@ -17,7 +17,6 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { MdEvent } from "react-icons/md";
 import NumberFormat from "react-number-format";
 import TransferList from "./TransferList";
-import FormikTextField from "../FormUtil/FormikTextField";
 import useFormGenerator from "../../hooks/useFormGenerator";
 import FieldWrapper from "../FormUtil/FieldWrapper";
 
@@ -169,61 +168,64 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
+  let requiredMessage = "Este campo é obrigatório";
+
   let { formik: stepFourForm, fields: stepFourFields } = useFormGenerator({
-    fields: [
-      {
-        name: "website",
-        initialValue: "",
-        label: "Link do seu website",
+    fields: {
+      website: {
         type: "text",
-        placeholder: "Coloque o link do seu website",
+        label: "Insira o link do seu website",
+        placeholder: "https://seuwebsite.com",
       },
-      {
-        name: "facebook",
-        initialValue: "",
-        label: "Link do seu Facebook",
+      facebook: {
         type: "text",
-        placeholder: "Coloque o link do seu Facebook",
+        label: "Insira o link do seu Facebook",
+        placeholder: "https://facebook.com/NomeDaSuaPagina",
       },
-      {
-        name: "Instagram",
-        initialValue: "",
-        label: "Link do seu Instagram",
+      instagram: {
         type: "text",
-        placeholder: "Link de seu Instagram",
+        label: "Insira o link do seu Instagram",
+        placeholder: "https://instagram.com/NomeDaSuaPagina",
       },
-      {
-        name: "publicPhone",
-        initialValue: "",
-        label: "Telefone exibido no mapa",
+      privatePhone: {
         type: "format",
-        placeholder: "Telefone que será exibido no site",
+        label: "Telefone para cadastro *",
+        placeholder: "Telefone que não será exibido no mapa",
         format: "(##) #-####-####",
       },
-      {
-        name: "portfolio",
-        initialValue: "",
-        label: "Link de seus trabalhos",
-        placeholder: "Ex. Youtube e etc",
-        type: "text",
+
+      publicPhone: {
+        type: "format",
+        label: "Telefone exibido no mapa",
+        format: "(##) #-####-####",
+        placeholder: "Telefone que será exibido no website",
       },
-    ],
+
+      portfolio: {
+        type: "text",
+        label: "Links do seu trabalho",
+        placeholder: "Ex. Youtube",
+      },
+    },
     validationSchema: Yup.object({
       website: Yup.string()
         .url("É preciso ser uma URL válida")
-        .required("Este campo é obrigatório"),
+        .required(requiredMessage),
       facebook: Yup.string()
         .url("É preciso ser uma URL válida")
-        .required("Este campo é obrigatório"),
+        .required(requiredMessage),
       instagram: Yup.string()
         .url("É preciso ser uma URL válida")
-        .required("Este campo é obrigatório"),
-      publicPhone: Yup.string().required("Este campo é obrigatório"),
+        .required(requiredMessage),
+      privatePhone: Yup.string().required(requiredMessage),
+      publicPhone: Yup.string().required(requiredMessage),
       portfolio: Yup.string()
         .url("É preciso ser uma URL válida")
-        .required("Este campo é obrigatório"),
+        .required(requiredMessage),
     }),
   });
+
+  console.log(stepFourForm.values);
 
   return (
     <FormPageContainer
@@ -263,13 +265,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <FormikTextField
-                    variant="outlined"
-                    formik={pessoaFisicaForm}
-                    name="registerEmail"
-                    label="Email de cadastro"
-                  />
-
                   <TextField
                     fullWidth
                     label="Email exibido no mapa"
@@ -567,101 +562,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
         <div className="my-10">
           <AtlasAccordion label="Etapa 3 (Endereço)" fullWidth shadow>
-            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-              <TextField
-                label="Logradouro *"
-                placeholder="Rua, avenida, etc"
-                value={mainForm.values.street}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                name="street"
-                variant="outlined"
-                error={Boolean(mainForm.errors.street)}
-                helperText={mainForm.errors.street}
-              />
-
-              <NumberFormat
-                format="#####-##"
-                label="CEP"
-                placeholder="Digite seu CEP"
-                value={mainForm.values.cep}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                name="cep"
-                customInput={TextField}
-                variant="outlined"
-                error={Boolean(mainForm.errors.cep)}
-                helperText={mainForm.errors.cep}
-              />
-
-              <TextField
-                select
-                label="Estado"
-                value={mainForm.values.state}
-                name="state"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                variant="outlined"
-                error={Boolean(mainForm.errors.state)}
-                helperText={mainForm.errors.state}
-              >
-                {brazillianStates.map((value, index) => {
-                  return (
-                    <MenuItem value={value.key} key={index}>
-                      {value.value}
-                    </MenuItem>
-                  );
-                })}
-              </TextField>
-
-              <TextField
-                label="Cidade"
-                value={mainForm.values.city}
-                name="city"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                error={Boolean(mainForm.errors.city)}
-                helperText={mainForm.errors.city}
-                variant="outlined"
-                placeholder="Nome da sua cidade"
-              />
-
-              <TextField
-                label="Bairro"
-                value={mainForm.values.neighborhood}
-                variant="outlined"
-                name="neighborhood"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                helperText={mainForm.errors.neighborhood}
-                error={Boolean(mainForm.errors.neighborhood)}
-                placeholder="Nome do seu bairro"
-              />
-
-              <TextField
-                label="Número"
-                value={mainForm.values.streetNumber}
-                variant="outlined"
-                name="streetNumber"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                helperText={mainForm.errors.streetNumber}
-                error={Boolean(mainForm.errors.streetNumber)}
-                placeholder="Digite o número do lugar"
-              />
-
-              <TextField
-                label="Complemento"
-                placeholder="Ex. número do apartamento"
-                variant="outlined"
-                value={mainForm.values.complement}
-                name="complement"
-                error={Boolean(mainForm.errors.complement)}
-                helperText={mainForm.errors.complement}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16"></div>
           </AtlasAccordion>
         </div>
 
