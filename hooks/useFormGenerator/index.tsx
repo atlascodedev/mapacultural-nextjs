@@ -8,7 +8,8 @@ interface IFormGeneratorField {
   initialValue: string;
   label: string;
   placeholder?: string;
-  typeSama: FieldType;
+  type: FieldType;
+  format?: string;
 }
 
 interface IUseFormGenerator {

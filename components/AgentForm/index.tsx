@@ -169,18 +169,59 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
-  let { formik, fields } = useFormGenerator({
+  let { formik: stepFourForm, fields: stepFourFields } = useFormGenerator({
     fields: [
       {
-        name: "teste1",
+        name: "website",
         initialValue: "",
-        label: "Run away",
-        placeholder: "Gun",
-        typeSama: "date",
+        label: "Link do seu website",
+        type: "text",
+        placeholder: "Coloque o link do seu website",
+      },
+      {
+        name: "facebook",
+        initialValue: "",
+        label: "Link do seu Facebook",
+        type: "text",
+        placeholder: "Coloque o link do seu Facebook",
+      },
+      {
+        name: "Instagram",
+        initialValue: "",
+        label: "Link do seu Instagram",
+        type: "text",
+        placeholder: "Link de seu Instagram",
+      },
+      {
+        name: "publicPhone",
+        initialValue: "",
+        label: "Telefone exibido no mapa",
+        type: "format",
+        placeholder: "Telefone que será exibido no site",
+        format: "(##) #-####-####",
+      },
+      {
+        name: "portfolio",
+        initialValue: "",
+        label: "Link de seus trabalhos",
+        placeholder: "Ex. Youtube e etc",
+        type: "text",
       },
     ],
     validationSchema: Yup.object({
-      teste1: Yup.string().required("Requirido"),
+      website: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      facebook: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      instagram: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      publicPhone: Yup.string().required("Este campo é obrigatório"),
+      portfolio: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
     }),
   });
 
@@ -631,81 +672,15 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
             label="Etapa 4 (Redes sociais e contato)"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-              <TextField
-                label="Link do seu website *"
-                placeholder="Insira o link de seu website (https://seuwebsite.com)"
-                value={mainForm.values.website}
-                name="website"
-                helperText={mainForm.errors.website}
-                error={Boolean(mainForm.errors.website)}
-                variant="outlined"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-              />
-
-              <TextField
-                label="Link do seu facebook"
-                placeholder="Insira o link de seu facebook (http:// precisa ser incluído)"
-                value={mainForm.values.facebook}
-                name="facebook"
-                helperText={mainForm.errors.facebook}
-                error={Boolean(mainForm.errors.facebook)}
-                variant="outlined"
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-              />
-
-              <TextField
-                label="Link do seu Instagram"
-                placeholder="Insira o link do seu Instagram ('http:// precisa ser incluído)"
-                variant="outlined"
-                name="instagram"
-                value={mainForm.values.instagram}
-                helperText={mainForm.errors.instagram}
-                error={Boolean(mainForm.errors.instagram)}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-              />
-
-              <NumberFormat
-                format={"(##)#-####-####"}
-                label="Telefone para cadastro"
-                placeholder="Telefone que não será exibido no website"
-                variant="outlined"
-                value={mainForm.values.phoneNumber}
-                name="phoneNumber"
-                helperText={mainForm.errors.phoneNumber}
-                error={Boolean(mainForm.errors.phoneNumber)}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                customInput={TextField}
-              />
-
-              <NumberFormat
-                format={"(##)#-####-####"}
-                label="Telefone exibido no mapa"
-                placeholder="Telefone que será exibido no website"
-                variant="outlined"
-                value={mainForm.values.publicPhoneNumber}
-                name="publicPhoneNumber"
-                helperText={mainForm.errors.publicPhoneNumber}
-                error={Boolean(mainForm.errors.publicPhoneNumber)}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-                customInput={TextField}
-              />
-
-              <TextField
-                label="Links do seu trabalho"
-                placeholder="Ex: Youtube"
-                variant="outlined"
-                value={mainForm.values.portfolioLink}
-                name="portfolioLink"
-                helperText={mainForm.errors.portfolioLink}
-                error={Boolean(mainForm.errors.portfolioLink)}
-                onChange={mainForm.handleChange}
-                onBlur={mainForm.handleBlur}
-              />
+              {stepFourFields.map((value, index: number) => {
+                return (
+                  <FieldWrapper
+                    variant="outlined"
+                    formik={stepFourForm}
+                    {...value}
+                  />
+                );
+              })}
             </div>
           </AtlasAccordion>
         </div>

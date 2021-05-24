@@ -20,7 +20,7 @@ export type FieldType = "text" | "format" | "date";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapper {
-  typeSama: FieldType;
+  type: FieldType;
   name: string;
   formik: ReturnType<typeof useFormik>;
   TextFieldProps?: TextFieldProps;
@@ -28,19 +28,21 @@ export interface IFieldWrapper {
   NumberFormatProps?: NumberFormatProps;
   label?: string;
   variant?: FieldVariant;
+  format?: string;
 }
 
 const FieldWrapper = ({
   formik,
   name,
-  typeSama,
+  type,
   DatePickerProps,
   NumberFormatProps,
   TextFieldProps,
   label,
   variant,
+  format,
 }: IFieldWrapper) => {
-  switch (typeSama) {
+  switch (type) {
     case "text":
       return (
         <TextField
@@ -66,6 +68,7 @@ const FieldWrapper = ({
           }
           value={formik.values?.[name] ?? ""}
           name={name}
+          format={format}
           label={label}
           onBlur={formik.handleBlur}
           customInput={TextField}
