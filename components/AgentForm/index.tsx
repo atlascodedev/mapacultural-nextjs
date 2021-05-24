@@ -22,6 +22,36 @@ type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
 export interface IAgentForm extends FormPageProps {}
 const AgentForm = ({ headerReturnAction }: IAgentForm) => {
+  let brazillianStates: Array<{ key: string; value: string }> = [
+    { key: "AC", value: "Acre" },
+    { key: "AL", value: "Alagoas" },
+    { key: "AP", value: "Amapá" },
+    { key: "AM", value: "Amazonas" },
+    { key: "BA", value: "Bahia" },
+    { key: "CE", value: "Ceará" },
+    { key: "DF", value: "Distrito Federal" },
+    { key: "ES", value: "Espírito Santo" },
+    { key: "GO", value: "Goiás" },
+    { key: "MA", value: "Maranhão" },
+    { key: "MT", value: "Mato Grosso" },
+    { key: "MS", value: "Mato Grosso do Sul" },
+    { key: "MG", value: "Minas Gerais" },
+    { key: "PA", value: "Pará" },
+    { key: "PB", value: "Paraíba" },
+    { key: "PR", value: "Paraná" },
+    { key: "PE", value: "Pernambuco" },
+    { key: "PI", value: "Piauí" },
+    { key: "RJ", value: "Rio de Janeiro" },
+    { key: "RN", value: "Rio Grande do Norte" },
+    { key: "RS", value: "Rio Grande do Sul" },
+    { key: "RO", value: "Rondônia" },
+    { key: "RR", value: "Roraima" },
+    { key: "SC", value: "Santa Catarina" },
+    { key: "SP", value: "São Paulo" },
+    { key: "SE", value: "Sergipe" },
+    { key: "TO", value: "Tocantins" },
+  ];
+
   const [entityType, setEntityType] =
     React.useState<"pessoa_juridica" | "pessoa_fisica">("pessoa_fisica");
 
@@ -94,11 +124,45 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   const mainForm = useFormik({
     initialValues: {
       categories: [],
+      cep: "",
+      street: "",
+      state: "",
+      city: "",
+      neighborhood: "",
+      streetNumber: "",
+      complement: "",
+      website: "",
+      facebook: "",
+      instagram: "",
+      phoneNumber: "",
+      publicPhoneNumber: "",
+      portfolioLink: "",
     },
     enableReinitialize: true,
     onSubmit: () => console.log("form was submitted"),
     validationSchema: Yup.object({
       categories: Yup.array().min(1),
+      cep: Yup.string().required("Este campo é obrigatório"),
+      street: Yup.string().required("Este campo é obrigatório"),
+      state: Yup.string().required("Este campo é obrigatório"),
+      city: Yup.string().required("Este campo é obrigatório"),
+      neighborhood: Yup.string().required("Este campo é obrigatório"),
+      streetNumber: Yup.string().required("Este campo é obrigatório"),
+      complement: Yup.string().required("Este campo é obrigatório"),
+      website: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      facebook: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      instagram: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
+      phoneNumber: Yup.string().required("Este campo é obrigatório"),
+      publicPhoneNumber: Yup.string().required("Este campo é obrigatório"),
+      portfolioLink: Yup.string()
+        .url("É preciso ser uma URL válida")
+        .required("Este campo é obrigatório"),
     }),
   });
 
@@ -422,15 +486,13 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         </AtlasAccordion>
 
         <div className="my-10">
-          <AtlasAccordion label="Etapa 2" fullWidth shadow>
+          <AtlasAccordion label="Etapa 2 (Áreas de atuação)" fullWidth shadow>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
               <div className="col-span-2">
                 <div className="font-bold text-center my-5">
                   Escolha as áreas de atuação
                 </div>
-                <button onClick={() => console.log(mainForm.values)}>
-                  click me
-                </button>
+
                 <TransferList
                   fieldName="categories"
                   chosenArray={mainForm.values.categories}
@@ -443,6 +505,96 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                   ]}
                 />
               </div>
+            </div>
+          </AtlasAccordion>
+        </div>
+
+        <div className="my-10">
+          <AtlasAccordion label="Etapa 3 (Endereço)" fullWidth shadow>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+              <TextField
+                label="Logradouro *"
+                placeholder="Rua, avenida, etc"
+                value={mainForm.values.street}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                name="street"
+                variant="outlined"
+                error={Boolean(mainForm.errors.street)}
+                helperText={mainForm.errors.street}
+              />
+
+              <NumberFormat
+                format="#####-##"
+                label="CEP"
+                placeholder="Digite seu CEP"
+                value={mainForm.values.cep}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                name="cep"
+                customInput={TextField}
+                variant="outlined"
+                error={Boolean(mainForm.errors.cep)}
+                helperText={mainForm.errors.cep}
+              />
+
+              <TextField
+                select
+                label="Estado"
+                value={mainForm.values.state}
+                name="state"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                variant="outlined"
+                error={Boolean(mainForm.errors.state)}
+                helperText={mainForm.errors.state}
+              >
+                {brazillianStates.map((value, index) => {
+                  return (
+                    <MenuItem value={value.key} key={index}>
+                      {value.value}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+
+              <TextField
+                label="Cidade"
+                value={mainForm.values.city}
+                name="city"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                error={Boolean(mainForm.errors.city)}
+                helperText={mainForm.errors.city}
+                variant="outlined"
+                placeholder="Nome da sua cidade"
+              />
+
+              <TextField
+                label="Bairro"
+                value={mainForm.values.neighborhood}
+                variant="outlined"
+                name="neighborhood"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                helperText={mainForm.errors.neighborhood}
+                error={Boolean(mainForm.errors.neighborhood)}
+                placeholder="Nome do seu bairro"
+              />
+
+              <TextField />
+
+              <TextField
+                label="Complemento"
+                placeholder="Ex. número do apartamento"
+                variant="outlined"
+                value={mainForm.values.complement}
+                name="complement"
+                error={Boolean(mainForm.errors.complement)}
+                helperText={mainForm.errors.complement}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+              />
             </div>
           </AtlasAccordion>
         </div>
