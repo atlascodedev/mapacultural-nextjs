@@ -91,26 +91,14 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     onSubmit: () => console.log("take what you want"),
   });
 
-  const formik = useFormik({
+  const mainForm = useFormik({
     initialValues: {
-      pessoaFisicaJuridica: "",
-      registerEmail: "",
-      publicEmail: "",
-      fullName: "",
+      categories: [],
     },
     enableReinitialize: true,
     onSubmit: () => console.log("form was submitted"),
     validationSchema: Yup.object({
-      pessoaFisicaJuridica: Yup.string().required("Selecione pelo menos um"),
-      registerEmail: Yup.string()
-        .required("Este campo é obrigatório")
-        .email("É necessário ser um e-mail válido"),
-      publicEmail: Yup.string()
-        .required("Este campo é obrigatório")
-        .email("É necessário ser um e-mail válido"),
-      fullName: Yup.string().required("Este campo é obrigatório"),
-      publicName: Yup.string().required("Este campo é obrigatório"),
-      socialNumber: Yup.string().required("Insira seu CPF"),
+      categories: Yup.array().min(1),
     }),
   });
 
@@ -440,7 +428,13 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                 <div className="font-bold text-center my-5">
                   Escolha as áreas de atuação
                 </div>
+                <button onClick={() => console.log(mainForm.values)}>
+                  click me
+                </button>
                 <TransferList
+                  fieldName="categories"
+                  chosenArray={mainForm.values.categories}
+                  setChosenArr={mainForm.setFieldValue}
                   listItems={[
                     "Música",
                     "gastronomia",

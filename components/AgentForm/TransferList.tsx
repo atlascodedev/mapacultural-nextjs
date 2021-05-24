@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import { IoMdArrowRoundForward, IoMdArrowRoundBack } from "react-icons/io";
 import Divider from "@material-ui/core/Divider";
+import { FormikErrors } from "formik";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,14 +43,34 @@ function union(a, b) {
   return [...a, ...not(b, a)];
 }
 
-export default function TransferList({ listItems }: { listItems: any[] }) {
+export default function TransferList({
+  listItems,
+  chosenArray,
+  setChosenArr,
+  fieldName,
+}: {
+  listItems: any[];
+  chosenArray: any[];
+  fieldName: string;
+  setChosenArr: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean
+  ) =>
+    | Promise<void>
+    | Promise<
+        FormikErrors<{
+          categories: any[];
+        }>
+      >;
+}) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState(listItems);
-  const [right, setRight] = React.useState([]);
+  //   const [right, setRight] = React.useState([]);
 
   const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, right);
+  const rightChecked = intersection(checked, chosenArray);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -75,14 +96,14 @@ export default function TransferList({ listItems }: { listItems: any[] }) {
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
+    setChosenArr(fieldName, chosenArray.concat(leftChecked), true);
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const handleCheckedLeft = () => {
     setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
+    setChosenArr(fieldName, not(chosenArray, rightChecked), true);
     setChecked(not(checked, rightChecked));
   };
 
@@ -169,7 +190,7 @@ export default function TransferList({ listItems }: { listItems: any[] }) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList("Escolhidos", right)}</Grid>
+      <Grid item>{customList("Escolhidos", chosenArray)}</Grid>
     </Grid>
   );
 }
