@@ -15,6 +15,7 @@ import FormPageContainer, { IFormPage } from "../Utility/FormPageContainer";
 import { AnimatePresence, motion } from "framer-motion";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { MdEvent } from "react-icons/md";
+import NumberFormat from "react-number-format";
 
 type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -25,6 +26,18 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
   const pessoaJuridicaForm = useFormik({
     initialValues: {
+      registerEmail: "",
+      publicEmail: "",
+      businessName: "",
+      publicName: "",
+      creationDate: "",
+      companyRegistrationNumber: "",
+      professionalRecord: "",
+      description: "",
+    },
+    enableReinitialize: true,
+
+    validationSchema: Yup.object({
       registerEmail: Yup.string()
         .required("Este campo é obrigatório")
         .email("É necessário um e-mail válido"),
@@ -39,8 +52,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       ),
       professionalRecord: Yup.string().required("Este campo é obrigatório"),
       description: Yup.string().required("Este campo é obrigatório"),
-    },
-
+    }),
     onSubmit: () => console.log("every mistake"),
   });
 
@@ -179,6 +191,29 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                       name="publicName"
                     />
 
+                    <NumberFormat
+                      label="CPF"
+                      variant="outlined"
+                      value={pessoaFisicaForm.values.socialNumber}
+                      name="socialNumber"
+                      error={Boolean(pessoaFisicaForm.errors.socialNumber)}
+                      helperText={pessoaFisicaForm.errors.socialNumber}
+                      onBlur={pessoaFisicaForm.handleBlur}
+                      format={"###.###.###-##"}
+                      onValueChange={({
+                        floatValue,
+                        formattedValue,
+                        value,
+                      }) => {
+                        pessoaFisicaForm.setFieldValue(
+                          "socialNumber",
+                          value,
+                          true
+                        );
+                      }}
+                      customInput={TextField}
+                    />
+
                     <TextField
                       select
                       label="Gênero"
@@ -241,7 +276,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                       okLabel={"Confirmar"}
                       cancelLabel={"Cancelar"}
                       onChange={(date: MaterialUiPickersDate) => {
-                        console.log("value");
+                        console.log(date.toJSON());
                       }}
                       value={pessoaFisicaForm.values.birthday}
                       format={"dd/MM/yyyy"}
@@ -257,6 +292,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                     />
 
                     <TextField
+                      className="col-span-2"
                       label="Descrição pessoal"
                       placeholder="Escreva uma descrição sobre você e seus trabalhos."
                       name="description"
@@ -266,7 +302,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                       onChange={pessoaFisicaForm.handleChange}
                       onBlur={pessoaFisicaForm.handleBlur}
                       multiline
-                      rows="4"
+                      rows="6"
                       variant="outlined"
                     />
                   </div>
@@ -279,7 +315,127 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                   exit={{ opacity: 0 }}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-                    pessoa jurídica
+                    <TextField
+                      value={pessoaJuridicaForm.values.registerEmail}
+                      error={Boolean(pessoaJuridicaForm.errors.registerEmail)}
+                      helperText={pessoaJuridicaForm.errors.registerEmail}
+                      label="E-mail de cadastro"
+                      onChange={pessoaJuridicaForm.handleChange}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      name="registerEmail"
+                      variant="outlined"
+                    />
+
+                    <TextField
+                      variant="outlined"
+                      value={pessoaJuridicaForm.values.publicEmail}
+                      error={Boolean(pessoaJuridicaForm.errors.publicEmail)}
+                      helperText={pessoaJuridicaForm.errors.publicEmail}
+                      label="E-mail exibido no mapa"
+                      onChange={pessoaJuridicaForm.handleChange}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      name="publicEmail"
+                    />
+
+                    <TextField
+                      variant="outlined"
+                      label="Razão social"
+                      error={Boolean(pessoaJuridicaForm.errors.businessName)}
+                      onChange={pessoaJuridicaForm.handleChange}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      helperText={pessoaJuridicaForm.errors.businessName}
+                      name="businessName"
+                    />
+                    <TextField
+                      variant="outlined"
+                      label="Nome que aparecerá no site"
+                      error={Boolean(pessoaJuridicaForm.errors.publicName)}
+                      onChange={pessoaJuridicaForm.handleChange}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      helperText={pessoaJuridicaForm.errors.publicName}
+                      name="publicName"
+                    />
+
+                    <DatePicker
+                      clearable
+                      helperText={pessoaJuridicaForm.errors.creationDate}
+                      inputVariant="outlined"
+                      error={Boolean(pessoaJuridicaForm.errors.creationDate)}
+                      label={"Data de fundação"}
+                      name={"creationDate"}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      clearLabel="Limpar"
+                      okLabel={"Confirmar"}
+                      cancelLabel={"Cancelar"}
+                      onChange={(date: MaterialUiPickersDate) => {
+                        console.log(date.toJSON());
+                        pessoaJuridicaForm.setFieldValue(
+                          "creationDate",
+                          date,
+                          true
+                        );
+                      }}
+                      value={pessoaJuridicaForm.values.creationDate}
+                      format={"dd/MM/yyyy"}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <MdEvent />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <NumberFormat
+                      customInput={TextField}
+                      format={"##.###.###/####-##"}
+                      label="Insira seu CPNJ"
+                      value={
+                        pessoaJuridicaForm.values.companyRegistrationNumber
+                      }
+                      variant="outlined"
+                      onChange={pessoaJuridicaForm.handleChange}
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      name="companyRegistrationNumber"
+                      error={Boolean(
+                        pessoaJuridicaForm.errors.companyRegistrationNumber
+                      )}
+                      helperText={
+                        pessoaJuridicaForm.errors.companyRegistrationNumber
+                      }
+                    />
+
+                    <TextField
+                      label="DRT, OMB ou registro profissional"
+                      value={pessoaJuridicaForm.values.professionalRecord}
+                      variant="outlined"
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      onChange={pessoaJuridicaForm.handleChange}
+                      name="professionalRecord"
+                      error={Boolean(
+                        pessoaJuridicaForm.errors.professionalRecord
+                      )}
+                      helperText={pessoaJuridicaForm.errors.professionalRecord}
+                    />
+
+                    <TextField
+                      multiline
+                      rows={6}
+                      className="col-span-2"
+                      label="Descrição pessoal"
+                      placeholder={
+                        "Escreva uma descrição sobre você e seus trabalhos"
+                      }
+                      variant="outlined"
+                      onBlur={pessoaJuridicaForm.handleBlur}
+                      onChange={pessoaJuridicaForm.handleChange}
+                      value={pessoaJuridicaForm.values.description}
+                      name="description"
+                      error={Boolean(pessoaJuridicaForm.errors.description)}
+                      helperText={pessoaJuridicaForm.errors.description}
+                    />
                   </div>
                 </motion.div>
               )}
