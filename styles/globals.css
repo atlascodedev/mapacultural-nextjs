@@ -18,3 +18,11 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+
+:focus button {
+  outline: none;
+}
+
+:active button {
+  outline: none;
+}
