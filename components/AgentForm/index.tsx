@@ -17,6 +17,9 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { MdEvent } from "react-icons/md";
 import NumberFormat from "react-number-format";
 import TransferList from "./TransferList";
+import FormikTextField from "../FormUtil/FormikTextField";
+import useFormGenerator from "../../hooks/useFormGenerator";
+import FieldWrapper from "../FormUtil/FieldWrapper";
 
 type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -166,6 +169,21 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
+  let { formik, fields } = useFormGenerator({
+    fields: [
+      {
+        name: "teste1",
+        initialValue: "",
+        label: "Run away",
+        placeholder: "Gun",
+        type: "date",
+      },
+    ],
+    validationSchema: Yup.object({
+      teste1: Yup.string().required("Requirido"),
+    }),
+  });
+
   return (
     <FormPageContainer
       actionCancelFn={() => console.log("cancel me")}
@@ -173,6 +191,21 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >
+      <AtlasAccordion fullWidth shadow label="The day">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+          {fields.map((field, index) => {
+            return (
+              <FieldWrapper
+                formik={formik}
+                type={field.type}
+                name={field.name}
+                label={field.label}
+              />
+            );
+          })}
+        </div>
+      </AtlasAccordion>
+
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
         <div className="w-full  flex justify-center py-5 pb-8">
           <TextField
@@ -204,14 +237,11 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <TextField
-                    label="Email de cadastro"
-                    value={pessoaFisicaForm.values["registerEmail"]}
-                    onChange={pessoaFisicaForm.handleChange}
-                    onBlur={pessoaFisicaForm.handleBlur}
-                    error={Boolean(pessoaFisicaForm.errors["registerEmail"])}
-                    helperText={pessoaFisicaForm.errors["registerEmail"]}
+                  <FormikTextField
+                    variant="outlined"
+                    formik={pessoaFisicaForm}
                     name="registerEmail"
+                    label="Email de cadastro"
                   />
 
                   <TextField
@@ -582,7 +612,17 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                 placeholder="Nome do seu bairro"
               />
 
-              <TextField />
+              <TextField
+                label="Número"
+                value={mainForm.values.streetNumber}
+                variant="outlined"
+                name="streetNumber"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                helperText={mainForm.errors.streetNumber}
+                error={Boolean(mainForm.errors.streetNumber)}
+                placeholder="Digite o número do lugar"
+              />
 
               <TextField
                 label="Complemento"
@@ -592,6 +632,92 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
                 name="complement"
                 error={Boolean(mainForm.errors.complement)}
                 helperText={mainForm.errors.complement}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+              />
+            </div>
+          </AtlasAccordion>
+        </div>
+
+        <div className="my-10">
+          <AtlasAccordion
+            fullWidth
+            shadow
+            label="Etapa 4 (Redes sociais e contato)"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+              <TextField
+                label="Link do seu website *"
+                placeholder="Insira o link de seu website (https://seuwebsite.com)"
+                value={mainForm.values.website}
+                name="website"
+                helperText={mainForm.errors.website}
+                error={Boolean(mainForm.errors.website)}
+                variant="outlined"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+              />
+
+              <TextField
+                label="Link do seu facebook"
+                placeholder="Insira o link de seu facebook (http:// precisa ser incluído)"
+                value={mainForm.values.facebook}
+                name="facebook"
+                helperText={mainForm.errors.facebook}
+                error={Boolean(mainForm.errors.facebook)}
+                variant="outlined"
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+              />
+
+              <TextField
+                label="Link do seu Instagram"
+                placeholder="Insira o link do seu Instagram ('http:// precisa ser incluído)"
+                variant="outlined"
+                name="instagram"
+                value={mainForm.values.instagram}
+                helperText={mainForm.errors.instagram}
+                error={Boolean(mainForm.errors.instagram)}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+              />
+
+              <NumberFormat
+                format={"(##)#-####-####"}
+                label="Telefone para cadastro"
+                placeholder="Telefone que não será exibido no website"
+                variant="outlined"
+                value={mainForm.values.phoneNumber}
+                name="phoneNumber"
+                helperText={mainForm.errors.phoneNumber}
+                error={Boolean(mainForm.errors.phoneNumber)}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                customInput={TextField}
+              />
+
+              <NumberFormat
+                format={"(##)#-####-####"}
+                label="Telefone exibido no mapa"
+                placeholder="Telefone que será exibido no website"
+                variant="outlined"
+                value={mainForm.values.publicPhoneNumber}
+                name="publicPhoneNumber"
+                helperText={mainForm.errors.publicPhoneNumber}
+                error={Boolean(mainForm.errors.publicPhoneNumber)}
+                onChange={mainForm.handleChange}
+                onBlur={mainForm.handleBlur}
+                customInput={TextField}
+              />
+
+              <TextField
+                label="Links do seu trabalho"
+                placeholder="Ex: Youtube"
+                variant="outlined"
+                value={mainForm.values.portfolioLink}
+                name="portfolioLink"
+                helperText={mainForm.errors.portfolioLink}
+                error={Boolean(mainForm.errors.portfolioLink)}
                 onChange={mainForm.handleChange}
                 onBlur={mainForm.handleBlur}
               />
