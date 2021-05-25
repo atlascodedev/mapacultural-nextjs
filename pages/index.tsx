@@ -5,6 +5,7 @@ import AboutUs from "../components/AboutUs";
 import AgentForm from "../components/AgentForm";
 import Contact from "../components/Contact";
 import Drawer from "../components/Drawer";
+import EventsForm from "../components/EventsForm";
 import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
@@ -105,8 +106,7 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <h1>Eventos</h1>
-            <button onClick={() => setEventFormActive(false)}>go back</button>
+            <EventsForm headerReturnAction={() => setEventFormActive(false)} />
           </motion.div>
         )}
         <AnimatePresence>
