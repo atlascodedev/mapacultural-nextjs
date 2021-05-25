@@ -1,22 +1,9 @@
-import {
-  IconButton,
-  InputAdornment,
-  MenuItem,
-  TextField,
-} from "@material-ui/core";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { ptBR } from "date-fns/locale";
-import DateFnsUtils from "@date-io/date-fns";
+import { MenuItem, TextField } from "@material-ui/core";
 import React from "react";
 import AtlasAccordion from "../Utility/Accordion";
-import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormPageContainer, { IFormPage } from "../Utility/FormPageContainer";
 import { AnimatePresence, motion } from "framer-motion";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { MdEvent } from "react-icons/md";
-import NumberFormat from "react-number-format";
-import TransferList from "../TransferList";
 import useFormGenerator from "../../hooks/useFormGenerator";
 import FieldWrapper from "../FormUtil/FieldWrapper";
 
@@ -190,7 +177,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
           placeholder: "Descrição pessoal",
           additionalProps: {
             TextFieldProps: {
-              className: "col-span-2",
+              className: "md:col-span-2",
               multiline: true,
               rows: 6,
             },
@@ -237,7 +224,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
           placeholder: "Escreva uma descrição sobre você e seus trabalhos",
           additionalProps: {
             TextFieldProps: {
-              className: "col-span-2",
+              className: "md:col-span-2 ",
               multiline: true,
               rows: 6,
             },
@@ -301,17 +288,19 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
-  let { formik: categoriesList, fields: categoryField } = useFormGenerator({
+  let { formik: checkboxGroupForm, fields: checkboxFields } = useFormGenerator({
     fields: {
-      categories: {
-        type: "transfer",
-        transferOptions: ["1", "2"],
+      group: {
+        label: "Selecione as áreas de atuação",
+        type: "checkboxGroup",
+        checkboxGroup: categoriesMap,
+        initialValue: [],
       },
     },
     validationSchema: Yup.object({}),
   });
 
-  console.log(categoriesList.values);
+  console.log(checkboxGroupForm);
 
   return (
     <FormPageContainer
@@ -384,26 +373,20 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       </AtlasAccordion>
 
       <div className="my-10">
-        <AtlasAccordion label="Etapa 2 (Áreas de atuação)" fullWidth shadow>
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            <div className="col-span-2">
-              <div className="font-bold text-center my-5">
-                Escolha as áreas de atuação
-              </div>
-              {categoryField.map((value, index) => {
-                return (
-                  <FieldWrapper
-                    {...value}
-                    formik={categoriesList}
-                    key={index}
-                  />
-                );
-              })}
-            </div>
+        <AtlasAccordion fullWidth shadow label="Etapa 2 (Áreas de atuação)">
+          <div className="my-5">
+            {checkboxFields.map((value, index) => {
+              return (
+                <FieldWrapper
+                  key={index}
+                  {...value}
+                  formik={checkboxGroupForm}
+                />
+              );
+            })}
           </div>
         </AtlasAccordion>
       </div>
-
       <div className="my-10">
         <AtlasAccordion label="Etapa 3 (Endereço)" fullWidth shadow>
           <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">

@@ -29,13 +29,14 @@ const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
 
     fieldsRef.current = tempObj;
     initialValues.current = initialValueTemp;
-  }, [fields, validationSchema]);
+  }, []);
 
   const formik = useFormik({
     initialValues: initialValues.current,
     onSubmit: () => console.log("submitted form"),
     validationSchema: validationSchema,
     enableReinitialize: true,
+    validateOnMount: true,
   });
 
   return { formik, fields: fieldsRef.current };

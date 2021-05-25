@@ -1,5 +1,7 @@
 import DateFnsUtils from "@date-io/date-fns";
 import {
+  Checkbox,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -18,7 +20,13 @@ import { MdEvent } from "react-icons/md";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
 import TransferList, { TransferListProps } from "../../TransferList";
 
-export type FieldType = "text" | "format" | "date" | "select" | "transfer";
+export type FieldType =
+  | "text"
+  | "format"
+  | "date"
+  | "select"
+  | "checkbox"
+  | "checkboxGroup";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapperBase {
@@ -27,6 +35,7 @@ export interface IFieldWrapperBase {
   label?: string;
   selectOptions?: any[];
   transferOptions?: any[];
+  checkboxGroup?: string[];
   placeholder?: string;
   initialValue?: any;
   format?: string;
@@ -54,6 +63,7 @@ const FieldWrapper = ({
   selectOptions,
   additionalProps,
   transferOptions,
+  checkboxGroup,
 }: IFieldWrapper) => {
   switch (type) {
     case "text":
@@ -150,13 +160,78 @@ const FieldWrapper = ({
         </MuiPickersUtilsProvider>
       );
 
-    case "transfer":
+    case "checkbox":
       return (
-        <TransferList
-          {...(additionalProps?.TransferListProps ?? null)}
-          options={transferOptions}
-          checkCallback={(value) => formik.setFieldValue(name, value, true)}
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={formik.values?.[name]}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              name={name}
+            />
+          }
+          label={label}
         />
+      );
+
+    case "checkboxGroup":
+      const setCheck = (newValue: any) => {
+        formik.setFieldValue(name, [...formik.values?.[name], newValue], true);
+      };
+
+      const setUncheck = (removedValue: any) => {
+        formik.setFieldValue(
+          name,
+          formik.values?.[name].filter((values: any, index: number) => {
+            return values !== removedValue;
+          }),
+          true
+        );
+      };
+
+      const handleCheckbox = (checked: boolean, checkboxValue: any) => {
+        checked ? setCheck(checkboxValue) : setUncheck(checkboxValue);
+
+        formik.setFieldTouched(name, true, true);
+      };
+
+      return (
+        <div>
+          <div className="text-lg text-gray-800 font-bold px-5 py-5 ">
+            <div>{label}</div>
+            <div
+              className={`text-red-500 text-sm font-extrabold ${Boolean(
+                formik.errors?.[name] ? "opacity-1" : "opacity-0"
+              )} transition-all `}
+            >
+              {formik.errors?.[name]}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 grid-flow-row md:grid-cols-3 place-items-start px-5">
+            {checkboxGroup.map((value, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      value={value}
+                      name={name}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>,
+                        checked: boolean
+                      ) => {
+                        handleCheckbox(checked, value);
+                      }}
+                    />
+                  }
+                  label={value}
+                />
+              );
+            })}
+          </div>
+        </div>
       );
 
     default:
