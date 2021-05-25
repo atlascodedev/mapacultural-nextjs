@@ -2,6 +2,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import {
   Checkbox,
   FormControlLabel,
+  FormControlLabelProps,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -47,6 +48,7 @@ export interface IFieldWrapperBase {
     DatePickerProps?: DatePickerProps;
     NumberFormatProps?: NumberFormatProps;
     TransferListProps?: TransferListProps;
+    FormControlLabelProps?: FormControlLabelProps;
   };
 }
 export interface IFieldWrapper extends IFieldWrapperBase {
@@ -231,7 +233,7 @@ const FieldWrapper = ({
       };
 
       return (
-        <div>
+        <div className="md:col-span-2 ">
           <div className="text-lg text-gray-800 font-bold px-5 py-5 ">
             <div>{label}</div>
             <div
@@ -242,7 +244,7 @@ const FieldWrapper = ({
               {formik.errors?.[name]}
             </div>
           </div>
-          <div className="grid grid-cols-1 grid-flow-row md:grid-cols-3 place-items-start px-5">
+          <div className="grid grid-cols-1 grid-flow-row md:grid-cols-3 md:col-span-2 place-items-start px-5">
             {checkboxGroup.map((value, index) => {
               return (
                 <FormControlLabel
@@ -250,6 +252,7 @@ const FieldWrapper = ({
                     <Checkbox
                       color="primary"
                       value={value}
+                      key={index}
                       name={name}
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>,

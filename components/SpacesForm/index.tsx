@@ -5,7 +5,8 @@ import AtlasAccordion from "../Utility/Accordion";
 import FormPageContainer from "../Utility/FormPageContainer";
 import * as Yup from "yup";
 import FieldWrapper from "../FormUtil/FieldWrapper";
-import { locationType } from "../../constants";
+import { accessibilityType, locationType } from "../../constants";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 interface ISpaceForm extends FormPageProps {}
 
@@ -161,8 +162,66 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         type: "checkboxGroup",
         checkboxGroup: locationType,
       },
+      accessibility: {
+        label: "Acessibilidade",
+        type: "select",
+        selectOptions: ["Sim", "Não"],
+        additionalProps: {
+          TextFieldProps: {
+            className: "md:self-center",
+          },
+        },
+      },
+      accessibilityType: {
+        label: "Acessibilidade física",
+        type: "checkboxGroup",
+        checkboxGroup: accessibilityType,
+      },
     },
     validationSchema: Yup.object({}),
+  });
+
+  const { formik: stepFourForm, fields: stepFourFields } = useFormGenerator({
+    fields: {
+      website: {
+        label: "Insira o link do seu site",
+        placeholder: "Coloque o link do site do local",
+      },
+      facebook: {
+        label: "Insira o link do seu Facebook",
+        placeholder: "Coloque o link do Facebook do local",
+      },
+      instagram: {
+        label: "Insira o link do seu Instagram",
+        placeholder: "Insira o link do Instagram do local",
+      },
+      privatePhone: {
+        label: "Telefone para cadastro",
+        placeholder: "Telefone que será exibido no website",
+        type: "format",
+        format: "(##) #-####-####",
+      },
+      publicPhoneOne: {
+        label: "Telefone 1 exibido no mapa",
+        placeholder: "Telefone que será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+      publicPhoneTwo: {
+        label: "Telefone 2 exibido no mapa",
+        placeholder: "Telefone que será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+    },
+    validationSchema: Yup.object({
+      website: Yup.string().url("É preciso ser uma URL válida").notRequired(),
+      facebook: Yup.string().url("É preciso ser uma URL válida").notRequired(),
+      instagram: Yup.string().url("É preciso ser uma URL válida").notRequired(),
+      privatePhone: StringRequired,
+      publicPhoneOne: Yup.string().notRequired(),
+      publicPhoneTwo: Yup.string().notRequired(),
+    }),
   });
 
   return (
@@ -221,6 +280,59 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
             })}
           </div>
         </AtlasAccordion>
+      </div>
+
+      <div className="my-10">
+        <AtlasAccordion shadow fullWidth label="Etapa 4">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+            {stepFourFields.map((values, index) => {
+              return (
+                <FieldWrapper
+                  variant="outlined"
+                  {...values}
+                  key={index}
+                  formik={stepFourForm}
+                />
+              );
+            })}
+          </div>
+        </AtlasAccordion>
+      </div>
+
+      <div className="flex flex-col w-full px-5 gap-10">
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              onChange={(
+                event: React.ChangeEvent<HTMLInputElement>,
+                checked: boolean
+              ) => {
+                console.log("checked");
+              }}
+            />
+          }
+          label={
+            "O declarante é responsável pela veracidade das informações inseridas na base de dados"
+          }
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              onChange={(
+                event: React.ChangeEvent<HTMLInputElement>,
+                checked: boolean
+              ) => {
+                console.log("checked");
+              }}
+            />
+          }
+          label={
+            "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
+          }
+        />
       </div>
     </FormPageContainer>
   );
