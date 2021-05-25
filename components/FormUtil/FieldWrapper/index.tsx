@@ -16,8 +16,9 @@ import { useFormik } from "formik";
 import React from "react";
 import { MdEvent } from "react-icons/md";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
+import TransferList, { TransferListProps } from "../../TransferList";
 
-export type FieldType = "text" | "format" | "date" | "select";
+export type FieldType = "text" | "format" | "date" | "select" | "transfer";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapperBase {
@@ -25,13 +26,15 @@ export interface IFieldWrapperBase {
   name: string;
   label?: string;
   selectOptions?: any[];
+  transferOptions?: any[];
   placeholder?: string;
-  initialValue?: string;
+  initialValue?: any;
   format?: string;
   additionalProps?: {
     TextFieldProps?: TextFieldProps;
     DatePickerProps?: DatePickerProps;
     NumberFormatProps?: NumberFormatProps;
+    TransferListProps?: TransferListProps;
   };
 }
 export interface IFieldWrapper extends IFieldWrapperBase {
@@ -50,6 +53,7 @@ const FieldWrapper = ({
   placeholder,
   selectOptions,
   additionalProps,
+  transferOptions,
 }: IFieldWrapper) => {
   switch (type) {
     case "text":
@@ -144,6 +148,15 @@ const FieldWrapper = ({
             }}
           />
         </MuiPickersUtilsProvider>
+      );
+
+    case "transfer":
+      return (
+        <TransferList
+          {...(additionalProps?.TransferListProps ?? null)}
+          options={transferOptions}
+          checkCallback={(value) => formik.setFieldValue(name, value, true)}
+        />
       );
 
     default:

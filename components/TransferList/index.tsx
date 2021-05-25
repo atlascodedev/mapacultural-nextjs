@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import Card from "@material-ui/core/Card";
@@ -9,70 +9,72 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import { IoMdArrowRoundForward, IoMdArrowRoundBack } from "react-icons/io";
 import Divider from "@material-ui/core/Divider";
-import { FormikErrors } from "formik";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: "auto",
-  },
-  cardHeader: {
-    padding: theme.spacing(1, 2),
-  },
-  list: {
-    width: 200,
-    height: 230,
-    backgroundColor: theme.palette.background.paper,
-    overflow: "auto",
-  },
-  button: {
-    margin: theme.spacing(0.5, 0),
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      margin: "auto",
+    },
+    cardHeader: {
+      padding: theme.spacing(1, 2),
+    },
+    list: {
+      width: 200,
+      height: 230,
+      backgroundColor: theme.palette.background.paper,
+      overflow: "auto",
+    },
+    button: {
+      margin: theme.spacing(0.5, 0),
+    },
+  })
+);
 
-function not(a, b) {
+function not(a: number[], b: number[]) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
 
-function intersection(a, b) {
+function intersection(a: number[], b: number[]) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
-function union(a, b) {
+function union(a: number[], b: number[]) {
   return [...a, ...not(b, a)];
 }
 
+export type TransferListProps = Pick<
+  ITransferList,
+  "chosenLabel" | "choicesLabel"
+>;
+
+export interface ITransferList {
+  options: any[];
+  checkCallback: (value: any[]) => void;
+  choicesLabel?: string;
+  chosenLabel?: string;
+}
+
 export default function TransferList({
-  listItems,
-  chosenArray,
-  setChosenArr,
-  fieldName,
-}: {
-  listItems: any[];
-  chosenArray: any[];
-  fieldName: string;
-  setChosenArr: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean
-  ) =>
-    | Promise<void>
-    | Promise<
-        FormikErrors<{
-          categories: any[];
-        }>
-      >;
-}) {
+  checkCallback,
+  options,
+  choicesLabel = "Escolhas",
+  chosenLabel = "Escolhidos",
+  ...props
+}: ITransferList) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(listItems);
-  //   const [right, setRight] = React.useState([]);
+  const [checked, setChecked] = React.useState<number[]>([]);
+  const [left, setLeft] = React.useState<number[]>(options);
+  const [right, setRight] = React.useState<number[]>([]);
 
   const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, chosenArray);
+  const rightChecked = intersection(checked, right);
 
-  const handleToggle = (value) => () => {
+  React.useEffect(() => {
+    checkCallback(right);
+  }, [right]);
+
+  const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -85,9 +87,10 @@ export default function TransferList({
     setChecked(newChecked);
   };
 
-  const numberOfChecked = (items) => intersection(checked, items).length;
+  const numberOfChecked = (items: number[]) =>
+    intersection(checked, items).length;
 
-  const handleToggleAll = (items) => () => {
+  const handleToggleAll = (items: number[]) => () => {
     if (numberOfChecked(items) === items.length) {
       setChecked(not(checked, items));
     } else {
@@ -96,18 +99,18 @@ export default function TransferList({
   };
 
   const handleCheckedRight = () => {
-    setChosenArr(fieldName, chosenArray.concat(leftChecked), true);
+    setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const handleCheckedLeft = () => {
     setLeft(left.concat(rightChecked));
-    setChosenArr(fieldName, not(chosenArray, rightChecked), true);
+    setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
-  const customList = (title, items) => (
+  const customList = (title: React.ReactNode, items: number[]) => (
     <Card>
       <CardHeader
         className={classes.cardHeader}
@@ -130,7 +133,7 @@ export default function TransferList({
       />
       <Divider />
       <List className={classes.list} dense component="div" role="list">
-        {items.map((value) => {
+        {items.map((value: number) => {
           const labelId = `transfer-list-all-item-${value}-label`;
 
           return (
@@ -158,39 +161,41 @@ export default function TransferList({
   );
 
   return (
-    <Grid
-      container
-      spacing={2}
-      justify="center"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Grid item>{customList("Opções", left)}</Grid>
-      <Grid item>
-        <Grid container direction="column" alignItems="center">
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.button}
-            onClick={handleCheckedRight}
-            disabled={leftChecked.length === 0}
-            aria-label="move selected right"
-          >
-            <IoMdArrowRoundForward />
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.button}
-            onClick={handleCheckedLeft}
-            disabled={rightChecked.length === 0}
-            aria-label="move selected left"
-          >
-            <IoMdArrowRoundBack />
-          </Button>
+    <div {...props}>
+      <Grid
+        container
+        spacing={2}
+        justify="center"
+        alignItems="center"
+        className={classes.root}
+      >
+        <Grid item>{customList(choicesLabel, left)}</Grid>
+        <Grid item>
+          <Grid container direction="column" alignItems="center">
+            <Button
+              variant="outlined"
+              size="small"
+              className={classes.button}
+              onClick={handleCheckedRight}
+              disabled={leftChecked.length === 0}
+              aria-label="move selected right"
+            >
+              &gt;
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              className={classes.button}
+              onClick={handleCheckedLeft}
+              disabled={rightChecked.length === 0}
+              aria-label="move selected left"
+            >
+              &lt;
+            </Button>
+          </Grid>
         </Grid>
+        <Grid item>{customList(chosenLabel, right)}</Grid>
       </Grid>
-      <Grid item>{customList("Escolhidos", chosenArray)}</Grid>
-    </Grid>
+    </div>
   );
 }
