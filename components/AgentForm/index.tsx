@@ -1,4 +1,9 @@
-import { MenuItem, TextField } from "@material-ui/core";
+import {
+  Checkbox,
+  FormControlLabel,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 import React from "react";
 import AtlasAccordion from "../Utility/Accordion";
 import * as Yup from "yup";
@@ -7,60 +12,59 @@ import { AnimatePresence, motion } from "framer-motion";
 import useFormGenerator from "../../hooks/useFormGenerator";
 import FieldWrapper from "../FormUtil/FieldWrapper";
 
-type FormPageProps = Pick<IFormPage, "headerReturnAction">;
+export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
+export let brazilStatesFlat = [
+  "Acre",
+  "Alagoas",
+  "Amapá",
+  "Amazons",
+  "Bahia",
+  "Ceará",
+  "Distrito Federal",
+  "Espírito Santo",
+  "Goiás",
+  "Maranhão",
+  "Mato Grosso",
+  "Mato Grosso do Sul",
+  "Minas Gerais",
+  "Pará",
+  "Paraíba",
+  "Paraná",
+  "Pernambuco",
+  "Piauí",
+  "Rio de Janeiro",
+  "Rio Grande do Norte",
+  "Rio Grande do Sul",
+  "Rondônia",
+  "Roraima",
+  "Santa Catarina",
+  "São Paulo",
+  "Sergipe",
+  "Tocantins",
+];
+
+export let categoriesMap = [
+  "Artes visuais",
+  "Artesanato",
+  "Audiovisual",
+  "Circo",
+  "Cultural popular",
+  "Cultura viva",
+  "Dança",
+  "Folclore",
+  "Literatura/Leitura/Livro/Diversidade linguística",
+  "Memória e patrimônio",
+  "Museu",
+  "Música",
+  "Produção cultural",
+  "Rádio",
+  "Teatro",
+  "Tradicionalismo",
+  "Outros",
+];
 
 export interface IAgentForm extends FormPageProps {}
 const AgentForm = ({ headerReturnAction }: IAgentForm) => {
-  let brazilStatesFlat = [
-    "Acre",
-    "Alagoas",
-    "Amapá",
-    "Amazons",
-    "Bahia",
-    "Ceará",
-    "Distrito Federal",
-    "Espírito Santo",
-    "Goiás",
-    "Maranhão",
-    "Mato Grosso",
-    "Mato Grosso do Sul",
-    "Minas Gerais",
-    "Pará",
-    "Paraíba",
-    "Paraná",
-    "Pernambuco",
-    "Piauí",
-    "Rio de Janeiro",
-    "Rio Grande do Norte",
-    "Rio Grande do Sul",
-    "Rondônia",
-    "Roraima",
-    "Santa Catarina",
-    "São Paulo",
-    "Sergipe",
-    "Tocantins",
-  ];
-
-  let categoriesMap = [
-    "Artes visuais",
-    "Artesanato",
-    "Audiovisual",
-    "Circo",
-    "Cultural popular",
-    "Cultura viva",
-    "Dança",
-    "Folclore",
-    "Literatura/Leitura/Livro/Diversidade linguística",
-    "Memória e patrimônio",
-    "Museu",
-    "Música",
-    "Produção cultural",
-    "Rádio",
-    "Teatro",
-    "Tradicionalismo",
-    "Outros",
-  ];
-
   const [entityType, setEntityType] =
     React.useState<"pessoa_juridica" | "pessoa_fisica">("pessoa_fisica");
 
@@ -300,8 +304,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     validationSchema: Yup.object({}),
   });
 
-  console.log(checkboxGroupForm);
-
   return (
     <FormPageContainer
       actionCancelFn={() => console.log("cancel me")}
@@ -421,6 +423,42 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
             })}
           </div>
         </AtlasAccordion>
+      </div>
+
+      <div className="flex flex-col w-full px-5 gap-10">
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              onChange={(
+                event: React.ChangeEvent<HTMLInputElement>,
+                checked: boolean
+              ) => {
+                console.log("checked");
+              }}
+            />
+          }
+          label={
+            "O declarante é responsável pela veracidade das informações inseridas na base de dados"
+          }
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              onChange={(
+                event: React.ChangeEvent<HTMLInputElement>,
+                checked: boolean
+              ) => {
+                console.log("checked");
+              }}
+            />
+          }
+          label={
+            "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
+          }
+        />
       </div>
     </FormPageContainer>
   );

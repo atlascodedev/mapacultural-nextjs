@@ -10,6 +10,7 @@ import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
 import SearchSpaces from "../components/SearchSpaces";
+import SpacesForm from "../components/SpacesForm";
 import AtlasAccordion from "../components/Utility/Accordion";
 import FormPageContainer from "../components/Utility/FormPageContainer";
 import MainLayout from "../layout/main";
@@ -116,10 +117,9 @@ export default function Home() {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <div>Espaços culturais</div>
-              <button onClick={() => setSpacesFormActive(false)}>
-                go back
-              </button>
+              <SpacesForm
+                headerReturnAction={() => setSpacesFormActive(false)}
+              />
             </motion.div>
           )}
         </AnimatePresence>

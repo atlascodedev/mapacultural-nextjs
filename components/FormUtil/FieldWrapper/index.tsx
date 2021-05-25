@@ -12,11 +12,13 @@ import {
   DatePicker,
   DatePickerProps,
   MuiPickersUtilsProvider,
+  TimePicker,
 } from "@material-ui/pickers";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { ptBR } from "date-fns/locale";
 import { useFormik } from "formik";
 import React from "react";
-import { MdEvent } from "react-icons/md";
+import { MdAlarm, MdEvent } from "react-icons/md";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
 import TransferList, { TransferListProps } from "../../TransferList";
 
@@ -26,7 +28,8 @@ export type FieldType =
   | "date"
   | "select"
   | "checkbox"
-  | "checkboxGroup";
+  | "checkboxGroup"
+  | "time";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapperBase {
@@ -152,6 +155,36 @@ const FieldWrapper = ({
                 <InputAdornment position="end">
                   <IconButton>
                     <MdEvent />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </MuiPickersUtilsProvider>
+      );
+
+    case "time":
+      return (
+        <MuiPickersUtilsProvider locale={ptBR} utils={DateFnsUtils}>
+          <TimePicker
+            label={label}
+            name={name}
+            todayLabel="Agora"
+            showTodayButton
+            value={formik.values?.[name]}
+            inputVariant="outlined"
+            helperText={formik.errors?.[name]}
+            error={Boolean(formik.errors?.[name])}
+            cancelLabel="Cancelar"
+            okLabel="Confirmar"
+            onChange={(date: MaterialUiPickersDate) =>
+              formik.setFieldValue(name, date?.toString(), false)
+            }
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <MdAlarm />
                   </IconButton>
                 </InputAdornment>
               ),
