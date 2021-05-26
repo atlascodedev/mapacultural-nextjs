@@ -1,8 +1,10 @@
 import {
+  AgeRestrictionTypes,
   CulturalCategoryTypes,
   CulturalSpaceAcessibilityType,
   CulturalSpaceSphereTypes,
   CulturalSpaceTypes,
+  EventFrequencyTypes,
   GenderTypes,
   RaceTypes,
 } from "../@types/project";
@@ -136,6 +138,24 @@ export const genders: GenderTypes[] = [
   "Travesti",
   "Outros",
   "Não se aplica",
+];
+
+export const frequency: EventFrequencyTypes[] = [
+  "Semanal",
+  "Quinzenal",
+  "Mensal",
+  "Semestral",
+  "Anual",
+  "Única apresentação",
+];
+
+export const ageRestriction: AgeRestrictionTypes[] = [
+  "10",
+  "12",
+  "14",
+  "16",
+  "18",
+  "Livre",
 ];
 
 export const spheres: CulturalSpaceSphereTypes[] = [

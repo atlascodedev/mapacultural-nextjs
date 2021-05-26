@@ -223,21 +223,44 @@ export type IAgentModel = IAgentPersonalInfo &
   IAgentSocialInfo &
   IAgentCategories;
 
-export interface IEventModel {
+export interface IEventPersonalInfo {
   privateEmail: string;
-  publicEmail: string;
+  publicEmail?: string;
   eventName: string;
-  eventDescription: string;
-  eventEntry: string;
-  startingDate: string;
-  endingDate: string;
+  eventHead: string;
   openingHours: string;
   closingHours: string;
-  eventAddress: string;
+  startingDate: string;
   eventAgeRestriction: AgeRestrictionTypes;
   eventFrequency: EventFrequencyTypes;
-  websiteURL?: string;
-  eventFacebookURL?: string;
-  contactPhone: string;
-  eventHead: string;
+  description: string;
+  eventEntryType: CulturalSpaceEntryTypes;
+  eventFee?: string;
 }
+
+export interface IEventCategories {
+  categories: CulturalCategoryTypes;
+}
+
+export interface IEventAddressInfo {
+  eventType: string;
+  cep?: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  neighborhood?: string;
+  streetNumber?: string;
+  complement?: string;
+}
+
+export interface IEventSocialsInfo {
+  website?: string;
+  eventURL?: string;
+  privatePhone: string;
+  publicPhone?: string;
+}
+
+export type IEventModel = IEventSocialsInfo &
+  IEventCategories &
+  IEventAddressInfo &
+  IEventSocialsInfo;
