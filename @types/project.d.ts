@@ -136,26 +136,51 @@ export enum Races {
   amarela = "Amarela",
 }
 
-export interface ICulturalSpaceModel {
-  publicEmail?: string;
+export interface ICulturalSpacePersonalInfo {
+  privateEmail: string;
+  publicEmail: string;
   culturalSpaceName: string;
-  culturalSpaceCategory: CulturalCategoryTypes[];
-  culturalSpaceDescription: string;
+  culturalSpaceHead: string;
+  cpf_or_cpnj: string;
   culturalSpaceEntry: CulturalSpaceEntranceType;
   culturalSpaceSphere: CulturalSpaceSphereTypes;
-  accessible: boolean;
-  accessibilityType: CulturalSpaceAcessibilityType;
-  culturapSpaceCapacity: string;
+  culturalSpaceCapacity: string;
   openingHours: string;
   closingHours: string;
+  entryTypes: CulturalSpaceEntryTypes;
+  description: string;
+  entryFee?: string;
+}
+
+export interface ICulturalSpaceAddressInfo {
+  cep: string;
+  street: string;
+  state: string;
+  city: string;
+  neighborhood: string;
+  streetNumber: string;
+  complement?: string;
+}
+
+export interface ICulturalSpaceCategories {
+  category: CulturalCategoryTypes[];
+  accessible: string;
+  accessibilityType: CulturalSpaceAcessibilityType[];
+}
+
+export interface ICulturalSpaceSocials {
   website?: string;
   facebook?: string;
   instagram?: string;
-  contactNumber: string;
+  privatePhone: string;
   publicPhone?: string;
-  publicPhoneAdditional?: string;
-  entryType: CulturalSpaceEntryTypes;
+  publicPhoneAlt?: string;
 }
+
+export type ICulturalSpaceModel = ICulturalSpacePersonalInfo &
+  ICulturalSpaceAddressInfo &
+  ICulturalSpaceCategories &
+  ICulturalSpaceSocials;
 
 export interface IAgentPersonalInfo {
   agentType: "pessoa_fisica" | "pessoa_juridica";

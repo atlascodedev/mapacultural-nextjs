@@ -1,6 +1,7 @@
 import {
   CulturalCategoryTypes,
   CulturalSpaceAcessibilityType,
+  CulturalSpaceSphereTypes,
   CulturalSpaceTypes,
   GenderTypes,
   RaceTypes,
@@ -135,6 +136,21 @@ export const genders: GenderTypes[] = [
   "Travesti",
   "Outros",
   "Não se aplica",
+];
+
+export const spheres: CulturalSpaceSphereTypes[] = [
+  "Associação",
+  "Coletivo",
+  "Empresa",
+  "Entidade sindical",
+  "Estadual",
+  "Federal",
+  "Fundação",
+  "Mista",
+  "Municipal",
+  "Outros",
+  "Particular",
+  "Religiosa",
 ];
 
 export const races: RaceTypes[] = [
