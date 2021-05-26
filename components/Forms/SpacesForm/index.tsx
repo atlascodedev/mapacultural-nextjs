@@ -1,11 +1,15 @@
 import React from "react";
-import useFormGenerator from "../../hooks/useFormGenerator";
-import { brazilStatesFlat, FormPageProps } from "../AgentForm";
-import AtlasAccordion from "../Utility/Accordion";
-import FormPageContainer from "../Utility/FormPageContainer";
+import useFormGenerator from "../../../hooks/useFormGenerator";
+import { FormPageProps } from "../AgentForm";
+import AtlasAccordion from "../../Utility/Accordion";
+import FormPageContainer from "../../Utility/FormPageContainer";
 import * as Yup from "yup";
-import FieldWrapper from "../FormUtil/FieldWrapper";
-import { accessibilityType, locationType } from "../../constants";
+import FieldWrapper from "../../FormUtil/FieldWrapper";
+import {
+  accessibilityType,
+  brazilStatesFlat,
+  locationType,
+} from "../../../constants";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 interface ISpaceForm extends FormPageProps {}

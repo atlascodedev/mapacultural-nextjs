@@ -86,6 +86,4 @@ export interface IEventModel {
     eventFacebookURL?: string
     contactPhone: string
     eventHead: string
-
-
 }
