@@ -3,7 +3,7 @@ import React from "react";
 import * as Yup from "yup";
 import { IFieldWrapperBase } from "../../components/FormUtil/FieldWrapper";
 
-type IFieldWrapperInternal = Omit<IFieldWrapperBase, "name">;
+export type IFieldWrapperInternal = Omit<IFieldWrapperBase, "name">;
 
 interface IUseFormGenerator {
   fields: Record<string, IFieldWrapperInternal>;
