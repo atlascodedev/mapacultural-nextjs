@@ -1,4 +1,7 @@
-import { ColorThemeOptions, ColorThemeOptionsVariants } from "../../@types";
+import {
+  ColorThemeOptions,
+  ColorThemeOptionsVariants,
+} from "../../@types/global";
 
 const getThemeColor = (
   color: ColorThemeOptions,

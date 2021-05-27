@@ -7,7 +7,7 @@ import {
   EventFrequencyTypes,
   GenderTypes,
   RaceTypes,
-} from "../@types/project";
+} from "../@types/literals";
 
 export const locationType: CulturalSpaceTypes[] = [
   "Antiquário",
