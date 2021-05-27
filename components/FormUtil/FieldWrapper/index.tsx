@@ -37,6 +37,7 @@ export interface IFieldWrapperBase {
   type?: FieldType;
   name: string;
   label?: string;
+  uuid?: string;
   selectOptions?: any[];
   transferOptions?: any[];
   checkboxGroup?: string[];
@@ -248,11 +249,11 @@ const FieldWrapper = ({
             {checkboxGroup.map((value, index) => {
               return (
                 <FormControlLabel
+                  key={index}
                   control={
                     <Checkbox
                       color="primary"
                       value={value}
-                      key={index}
                       name={name}
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>,

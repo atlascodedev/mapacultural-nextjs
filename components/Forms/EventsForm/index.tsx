@@ -20,7 +20,7 @@ import {
   IEventPersonalInfo,
   IEventSocialsInfo,
 } from "../../../@types/project";
-import { Formik } from "formik";
+import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 
 interface IEventForms extends FormPageProps {}
 
@@ -181,6 +181,11 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
 
   let formList = [step1, step2, step3, step4];
 
+  const [checkboxOneState, setCheckboxOneState] =
+    React.useState<boolean>(false);
+  const [checkboxTwoState, setCheckboxTwoState] =
+    React.useState<boolean>(false);
+
   return (
     <FormPageContainer
       headerLabel={"Eventos"}
@@ -188,10 +193,10 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       actionSubmitFn={() => console.log("this submits")}
       headerReturnAction={headerReturnAction}
     >
-      {formList.map((form, value) => {
+      {formList.map((form, indexOuter) => {
         return (
-          <div className="my-10">
-            <AtlasAccordion fullWidth shadow label={`Etapa ${value + 1}`}>
+          <div key={indexOuter} className="my-10">
+            <AtlasAccordion fullWidth shadow label={`Etapa ${indexOuter + 1}`}>
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
                 {form.fields.map((fields, index) => {
                   return (
@@ -199,7 +204,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
                       variant="outlined"
                       formik={form.formik}
                       {...fields}
-                      key={index}
+                      key={fields.uuid}
                     />
                   );
                 })}
@@ -209,41 +214,16 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         );
       })}
 
-      <div className="flex flex-col w-full px-5 gap-10">
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "O declarante é responsável pela veracidade das informações inseridas na base de dados"
-          }
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
-          }
-        />
-      </div>
+      <TermsCheckbox
+        checkboxOneCallback={() =>
+          setCheckboxOneState((prevState) => !prevState)
+        }
+        checkboxTwoCallback={() =>
+          setCheckboxTwoState((prevState) => !prevState)
+        }
+        checkboxOneState={checkboxOneState}
+        checkboxTwoState={checkboxTwoState}
+      />
     </FormPageContainer>
   );
 };

@@ -15,6 +15,7 @@ specifiers:
   date-fns: ^2.21.3
   formik: ^2.2.7
   framer-motion: ^4.1.17
+  nanoid: ^3.1.23
   next: 10.2.0
   postcss: ^8.2.15
   react: 17.0.2
@@ -38,6 +39,7 @@ dependencies:
   date-fns: 2.21.3
   formik: 2.2.7_react@17.0.2
   framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
+  nanoid: 3.1.23
   next: 10.2.0_507781d099a67956587e23f5ac79078b
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2

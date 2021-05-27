@@ -46,26 +46,26 @@ const FormPageContainerHeader = ({
 const FormPageActions = ({
   actionCancelFn,
   actionSubmitFn,
-  cancelLabel = "Submit",
-  submitLabel = "Cancel",
+  cancelLabel = "Cancel",
+  submitLabel = "Submit",
 }: IFormPageActions) => {
   return (
-    <div className="flex w-full justify-center flex-row-reverse items-center gap-20 py-10">
+    <div className="flex w-full justify-center  flex-row-reverse items-center gap-20 py-10">
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         className="focus:outline-none   bg-secondary-main p-2 px-4 font-bold text-white rounded-md"
-        onClick={actionCancelFn}
+        onClick={actionSubmitFn}
       >
-        {cancelLabel}
+        {submitLabel}
       </motion.button>
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         className="focus:outline-none border-2  border-secondary-main p-2 px-4 font-bold text-secondary-main rounded-md"
-        onClick={actionSubmitFn}
+        onClick={actionCancelFn}
       >
-        {submitLabel}
+        {cancelLabel}
       </motion.button>
     </div>
   );

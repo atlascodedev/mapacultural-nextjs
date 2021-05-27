@@ -20,13 +20,14 @@ import {
   ICulturalSpacePersonalInfo,
   ICulturalSpaceSocials,
 } from "../../../@types/project";
+import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 
 interface ISpaceForm extends FormPageProps {}
 
 let StringRequired = Yup.string().required("Este campo é obrigatório");
 
 const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
-  const { fields: stepOneFields, formik: stepOneFormik } = useFormGenerator({
+  const step1 = useFormGenerator({
     fields: {
       privateEmail: {
         label: "E-mail para cadastro *",
@@ -110,7 +111,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     } as Record<keyof ICulturalSpacePersonalInfo, any>),
   });
 
-  const { fields: stepTwoFields, formik: stepTwoFormik } = useFormGenerator({
+  const step2 = useFormGenerator({
     fields: {
       cep: {
         label: "CEP *",
@@ -155,34 +156,32 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     } as Record<keyof ICulturalSpaceAddressInfo, any>),
   });
 
-  const { fields: stepThreeFields, formik: stepThreeFormik } = useFormGenerator(
-    {
-      fields: {
-        category: {
-          label: "Tipo de local",
-          type: "checkboxGroup",
-          checkboxGroup: categories,
-        },
-        accessible: {
-          label: "Acessível *",
-          type: "select",
-          selectOptions: ["Sim", "Não", "Parcialmente"],
-        },
-        accessibilityType: {
-          label: "Acessibilidade física",
-          type: "checkboxGroup",
-          checkboxGroup: accessibilityType,
-        },
-      } as Record<keyof ICulturalSpaceCategories, IFieldWrapperInternal>,
-      validationSchema: Yup.object({
-        accessibilityType: Yup.array().min(0),
-        accessible: StringRequired,
-        category: Yup.array().min(0),
-      } as Record<keyof ICulturalSpaceCategories, any>),
-    }
-  );
+  const step3 = useFormGenerator({
+    fields: {
+      category: {
+        label: "Tipo de local",
+        type: "checkboxGroup",
+        checkboxGroup: categories,
+      },
+      accessible: {
+        label: "Acessível *",
+        type: "select",
+        selectOptions: ["Sim", "Não", "Parcialmente"],
+      },
+      accessibilityType: {
+        label: "Acessibilidade física",
+        type: "checkboxGroup",
+        checkboxGroup: accessibilityType,
+      },
+    } as Record<keyof ICulturalSpaceCategories, IFieldWrapperInternal>,
+    validationSchema: Yup.object({
+      accessibilityType: Yup.array().min(0),
+      accessible: StringRequired,
+      category: Yup.array().min(0),
+    } as Record<keyof ICulturalSpaceCategories, any>),
+  });
 
-  const { fields: stepFourFields, formik: stepFourFormik } = useFormGenerator({
+  const step4 = useFormGenerator({
     fields: {
       website: {
         label: "Website",
@@ -225,6 +224,13 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     } as Record<keyof ICulturalSpaceSocials, any>),
   });
 
+  const [checkboxOneState, setCheckboxOneState] =
+    React.useState<boolean>(false);
+  const [checkboxTwoState, setCheckboxTwoState] =
+    React.useState<boolean>(false);
+
+  const formList = [step1, step2, step3, step4];
+
   return (
     <FormPageContainer
       actionCancelFn={() => console.log("cancel me")}
@@ -232,108 +238,37 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       headerLabel="Espaços culturais"
       headerReturnAction={headerReturnAction}
     >
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 1">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepOneFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepOneFormik}
-                />
-              );
-            })}
+      {formList.map((form, indexOuter) => {
+        return (
+          <div key={indexOuter} className="my-10">
+            <AtlasAccordion fullWidth shadow label={`Etapa ${indexOuter + 1}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+                {form.fields.map((fields, index) => {
+                  return (
+                    <FieldWrapper
+                      variant="outlined"
+                      formik={form.formik}
+                      {...fields}
+                      key={fields.uuid}
+                    />
+                  );
+                })}
+              </div>
+            </AtlasAccordion>
           </div>
-        </AtlasAccordion>
-      </div>
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 2">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepTwoFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepTwoFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
+        );
+      })}
 
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 3">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepThreeFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepThreeFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
-
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 4">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepFourFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepFourFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
-
-      <div className="flex flex-col w-full px-5 gap-10">
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "O declarante é responsável pela veracidade das informações inseridas na base de dados"
-          }
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
-          }
-        />
-      </div>
+      <TermsCheckbox
+        checkboxOneCallback={() =>
+          setCheckboxOneState((prevState) => !prevState)
+        }
+        checkboxOneState={checkboxOneState}
+        checkboxTwoCallback={() =>
+          setCheckboxTwoState((prevState) => !prevState)
+        }
+        checkboxTwoState={checkboxTwoState}
+      />
     </FormPageContainer>
   );
 };

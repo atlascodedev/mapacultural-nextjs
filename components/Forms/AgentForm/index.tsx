@@ -6,30 +6,35 @@ import FormPageContainer, { IFormPage } from "../../Utility/FormPageContainer";
 import useFormGenerator, {
   IFieldWrapperInternal,
 } from "../../../hooks/useFormGenerator";
-import FieldWrapper, { IFieldWrapperBase } from "../../FormUtil/FieldWrapper";
+import FieldWrapper from "../../FormUtil/FieldWrapper";
 import { brazilStates, categories, genders, races } from "../../../constants";
 import {
   IAgentAddressInfo,
   IAgentCategories,
-  IAgentModel,
   IAgentPersonalInfo,
   IAgentSocialInfo,
 } from "../../../@types/project";
-import { OptionalObjectSchema } from "yup/lib/object";
+import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 
 export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
 export interface IAgentForm extends FormPageProps {}
 const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   let requiredMessage = "Este campo é obrigatório";
-
   let StringRequired = Yup.string().required(requiredMessage);
 
-  let { fields: stepOneFields, formik: stepOneFormik } = useFormGenerator({
+  const [checkBoxOneChecked, setCheckboxOneChecked] =
+    React.useState<boolean>(false);
+
+  const [checkBoxTwoChecked, setCheckBoxTwoChecked] =
+    React.useState<boolean>(false);
+
+  const step1 = useFormGenerator({
     fields: {
       agentType: {
         label: "Tipo de agente",
         selectOptions: ["Pessoa física", "Pessoa jurídica"],
+        type: "select",
       },
       birthday_or_founding: {
         label: "Data de nascimento/Data de fundação",
@@ -88,7 +93,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     } as Record<keyof IAgentPersonalInfo, any>),
   });
 
-  let { fields: stepTwoFields, formik: stepTwoFormik } = useFormGenerator({
+  const step2 = useFormGenerator({
     fields: {
       categories: {
         label: "Selecione as áreas de atuação",
@@ -101,7 +106,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     } as Record<keyof IAgentCategories, any>),
   });
 
-  let { fields: stepThreeFields, formik: stepThreeFormik } = useFormGenerator({
+  const step3 = useFormGenerator({
     fields: {
       cep: {
         label: "CEP *",
@@ -145,7 +150,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     } as Record<keyof IAgentAddressInfo, any>),
   });
 
-  let { fields: stepFourFields, formik: stepFourFormik } = useFormGenerator({
+  const step4 = useFormGenerator({
     fields: {
       facebook: {
         label: "Facebook",
@@ -186,6 +191,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     } as Record<keyof IAgentSocialInfo, any>),
   });
 
+  const formList = [step1, step2, step3, step4];
+
   return (
     <FormPageContainer
       actionCancelFn={() => console.log("cancel me")}
@@ -193,108 +200,37 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 1">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepOneFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepOneFormik}
-                />
-              );
-            })}
+      {formList.map((form, indexOuter) => {
+        return (
+          <div key={indexOuter} className={`my-10`}>
+            <AtlasAccordion fullWidth shadow label={`Etapa ${indexOuter + 1}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+                {form.fields.map((fields, index) => {
+                  return (
+                    <FieldWrapper
+                      variant="outlined"
+                      formik={form.formik}
+                      {...fields}
+                      key={fields.uuid}
+                    />
+                  );
+                })}
+              </div>
+            </AtlasAccordion>
           </div>
-        </AtlasAccordion>
-      </div>
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 2">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepTwoFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepTwoFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
+        );
+      })}
 
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 3">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepThreeFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepThreeFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
-
-      <div className="my-10">
-        <AtlasAccordion fullWidth shadow label="Etapa 4">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-            {stepFourFields.map((value, index) => {
-              return (
-                <FieldWrapper
-                  variant="outlined"
-                  {...value}
-                  key={index}
-                  formik={stepFourFormik}
-                />
-              );
-            })}
-          </div>
-        </AtlasAccordion>
-      </div>
-
-      <div className="flex flex-col w-full px-5 gap-10">
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "O declarante é responsável pela veracidade das informações inseridas na base de dados"
-          }
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                checked: boolean
-              ) => {
-                console.log("checked");
-              }}
-            />
-          }
-          label={
-            "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
-          }
-        />
-      </div>
+      <TermsCheckbox
+        checkboxOneCallback={() =>
+          setCheckboxOneChecked((prevState) => !prevState)
+        }
+        checkboxOneState={checkBoxOneChecked}
+        checkboxTwoCallback={() =>
+          setCheckBoxTwoChecked((prevState) => !prevState)
+        }
+        checkboxTwoState={checkBoxTwoChecked}
+      />
     </FormPageContainer>
   );
 };
