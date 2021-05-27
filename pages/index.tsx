@@ -10,11 +10,10 @@ import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
-import SearchSpaces from "../components/SearchSpaces";
+import SearchEvents from "../components/SearchEvents";
 import SpacesForm from "../components/Forms/SpacesForm";
-import AtlasAccordion from "../components/Utility/Accordion";
-import FormPageContainer from "../components/Utility/FormPageContainer";
 import MainLayout from "../layout/main";
+import SearchSpaces from "../components/SearchSpaces";
 
 export default function Home() {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
@@ -78,12 +77,12 @@ export default function Home() {
                   {
                     component: (
                       <div className="flex justify-center w-full p-10">
-                        Removido temporariamente
+                        <SearchSpaces />
                       </div>
                     ),
                     label: "Espaços culturais",
                   },
-                  { component: <SearchSpaces />, label: "Eventos/Projetos" },
+                  { component: <SearchEvents />, label: "Eventos/Projetos" },
                 ]}
               />
               <Partners
