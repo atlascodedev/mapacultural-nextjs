@@ -13,6 +13,8 @@ export interface IFormPageActions {
   actionCancelFn: (...args: any[]) => void;
   submitLabel?: string;
   cancelLabel?: string;
+  isValid: boolean;
+  isSubmitting: boolean;
 }
 
 export interface IFormPage extends IFormPageContainerHeader, IFormPageActions {}
@@ -48,13 +50,18 @@ const FormPageActions = ({
   actionSubmitFn,
   cancelLabel = "Cancel",
   submitLabel = "Submit",
+  isSubmitting,
+  isValid,
 }: IFormPageActions) => {
+  console.log(isValid);
+
   return (
     <div className="flex w-full justify-center  flex-row-reverse items-center gap-20 py-10">
       <motion.button
+        disabled={isSubmitting || !isValid}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="focus:outline-none   bg-secondary-main p-2 px-4 font-bold text-white rounded-md"
+        className={`focus:outline-none disabled:opacity-40 disabled:pointer-events-none bg-secondary-main p-2 px-4 font-bold text-white rounded-md`}
         onClick={actionSubmitFn}
       >
         {submitLabel}
@@ -80,6 +87,8 @@ const FormPageContainer: React.FC<IFormPage> = ({
   actionCancelFn,
   cancelLabel,
   submitLabel,
+  isSubmitting,
+  isValid,
 }) => {
   return (
     <div className="md:mx-16 md:my-14 mt-5">
@@ -92,6 +101,8 @@ const FormPageContainer: React.FC<IFormPage> = ({
         <div className="md:px-12 py-10">{children}</div>
 
         <FormPageActions
+          isSubmitting={isSubmitting}
+          isValid={isValid}
           cancelLabel={cancelLabel}
           submitLabel={submitLabel}
           actionCancelFn={actionCancelFn}

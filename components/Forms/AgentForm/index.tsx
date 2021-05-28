@@ -1,4 +1,3 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import React from "react";
 import AtlasAccordion from "../../Utility/Accordion";
 import * as Yup from "yup";
@@ -193,10 +192,35 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
   const formList = [step1, step2, step3, step4];
 
+  const isSubmitting: boolean =
+    step1.formik.isSubmitting ||
+    step2.formik.isSubmitting ||
+    step3.formik.isSubmitting ||
+    step4.formik.isSubmitting;
+
+  const isValid: boolean =
+    step1.formik.isValid &&
+    step2.formik.isValid &&
+    step3.formik.isValid &&
+    step4.formik.isValid &&
+    checkBoxOneChecked &&
+    checkBoxTwoChecked;
+
+  const submitAgentForm = () => {
+    const stepOneValues = step1.formik.values;
+    const stepTwoValues = step2.formik.values;
+    const stepThreeValues = step3.formik.values;
+    const stepFourValues = step4.formik.values;
+
+    console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
+  };
+
   return (
     <FormPageContainer
-      actionCancelFn={() => console.log("cancel me")}
-      actionSubmitFn={() => console.log("this submits")}
+      isSubmitting={isSubmitting}
+      isValid={isValid}
+      actionCancelFn={headerReturnAction}
+      actionSubmitFn={submitAgentForm}
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >

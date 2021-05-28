@@ -49,6 +49,8 @@ module.exports = {
     extend: {
       width: ["hover", "focus", "responsive", "group-hover", "group-focus"],
     },
+    opacity: ["disabled"],
+    pointerEvents: ["disabled"],
   },
   plugins: [
     require("@tailwindcss/typography"),
