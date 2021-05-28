@@ -57,7 +57,7 @@ export type ICulturalSpaceModel = ICulturalSpacePersonalInfo &
   ICulturalSpaceSocials;
 
 export interface IAgentPersonalInfo {
-  agentType: "pessoa_fisica" | "pessoa_juridica";
+  agentType: string;
   registrationEmail: string;
   publicEmail: string;
   fullName: string;
@@ -138,3 +138,21 @@ export type IEventModel = IEventSocialsInfo &
   IEventCategories &
   IEventAddressInfo &
   IEventSocialsInfo;
+
+export interface IAgentModelAPIData extends IAgentModel {
+  lat: string;
+  long: string;
+  status: any;
+}
+
+export interface IEventModelAPIData extends IEventModel {
+  lat: string;
+  long: string;
+  status: any;
+}
+
+export interface ICulturalSpaceAPIData extends ICulturalSpaceModel {
+  lat: string;
+  long: string;
+  status: any;
+}

@@ -9,6 +9,8 @@ import {
   RaceTypes,
 } from "../@types/literals";
 
+import axios from "axios";
+
 export const locationType: CulturalSpaceTypes[] = [
   "Antiquário",
   "Arquivo privado",
@@ -180,3 +182,10 @@ export const races: RaceTypes[] = [
   "Parda",
   "Indígena",
 ];
+
+const axiosBaseURL: string =
+  process.env.NODE_ENV !== "production"
+    ? "http://127.0.0.1:5001/mapeamento-cultural/us-central1/api"
+    : "https://tobedecided.com";
+
+export const API = axios.create({ ...axios.defaults, baseURL: axiosBaseURL });
