@@ -10,8 +10,8 @@ interface ISearchSpaces {}
 const SearchSpaces = ({}: ISearchSpaces) => {
   return (
     <div className={style.container}>
-      <div className="w-2/6 shadow-lg bg-gray-50"></div>
-      <div className="w-full h-full">
+      <div className={style.infoContainer}></div>
+      <div className={style.mapContainer}>
         <DynamicMapSSR />
       </div>
     </div>
