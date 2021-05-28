@@ -9,10 +9,18 @@ import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
-import SearchEvents from "../components/SearchEvents";
+import SearchEvents, { ISearchSpaces } from "../components/SearchEvents";
 import SpacesForm from "../components/Forms/SpacesForm";
 import MainLayout from "../layout/main";
 import SearchSpaces from "../components/SearchSpaces";
+import { GetStaticProps } from "next";
+import { AxiosResponse } from "axios";
+import {
+  IAgentModel,
+  ICulturalSpaceModel,
+  IEventModel,
+} from "../@types/project";
+import { API } from "../constants";
 
 export default function Home() {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
@@ -137,3 +145,27 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps<{
+  events: IEventModel[];
+  culturalSpaces: ICulturalSpaceModel[];
+  agents: IAgentModel[];
+}> = async (context) => {
+  const agentRequest: AxiosResponse<IAgentModel[]> = await API.get("/agents");
+  const spaceRequest: AxiosResponse<ICulturalSpaceModel[]> = await API.get(
+    "/spaces"
+  );
+  const eventRequest: AxiosResponse<IEventModel[]> = await API.get("/events");
+
+  const agentData: IAgentModel[] = agentRequest.data;
+  const spaceData: ICulturalSpaceModel[] = spaceRequest.data;
+  const eventData: IEventModel[] = eventRequest.data;
+
+  return {
+    props: {
+      agents: agentData,
+      culturalSpaces: spaceData,
+      events: eventData,
+    },
+  };
+};
