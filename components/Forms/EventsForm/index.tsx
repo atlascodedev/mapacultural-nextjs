@@ -9,6 +9,7 @@ import useFormGenerator, {
 import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   ageRestriction,
+  API,
   brazilStates,
   categories,
   frequency,
@@ -186,11 +187,64 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
   const [checkboxTwoState, setCheckboxTwoState] =
     React.useState<boolean>(false);
 
+  const isSubmitting: boolean =
+    step1.formik.isSubmitting ||
+    step2.formik.isSubmitting ||
+    step3.formik.isSubmitting ||
+    step4.formik.isSubmitting;
+
+  const isValid: boolean =
+    step1.formik.isValid &&
+    step2.formik.isValid &&
+    step3.formik.isValid &&
+    step4.formik.isValid &&
+    checkboxOneState &&
+    checkboxTwoState;
+
+  const submitEventForm = () => {
+    const stepOneValues = step1.formik.values;
+    const stepTwoValues = step2.formik.values;
+    const stepThreeValues = step3.formik.values;
+    const stepFourValues = step4.formik.values;
+
+    const aggregatedValues = {
+      ...stepOneValues,
+      ...stepTwoValues,
+      ...stepThreeValues,
+      ...stepFourValues,
+    };
+
+    formList.forEach((form) => {
+      form.formik.setSubmitting(true);
+    });
+
+    API.post("/events", aggregatedValues)
+      .then((successMessage) => {
+        console.log(successMessage);
+
+        formList.forEach((form) => {
+          form.formik.setSubmitting(false);
+          form.formik.resetForm();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+
+        formList.forEach((form) => {
+          form.formik.setSubmitting(false);
+        });
+      });
+
+    console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
+  };
+
   return (
     <FormPageContainer
+      isSubmitting={isSubmitting}
+      isValid={isValid}
       headerLabel={"Eventos"}
-      actionCancelFn={() => console.log("this cancels")}
-      actionSubmitFn={() => console.log("this submits")}
+      actionCancelFn={submitEventForm}
+      actionSubmitFn={headerReturnAction}
       headerReturnAction={headerReturnAction}
     >
       {formList.map((form, indexOuter) => {
