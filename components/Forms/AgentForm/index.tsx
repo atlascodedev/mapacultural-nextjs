@@ -6,7 +6,13 @@ import useFormGenerator, {
   IFieldWrapperInternal,
 } from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
-import { brazilStates, categories, genders, races } from "../../../constants";
+import {
+  API,
+  brazilStates,
+  categories,
+  genders,
+  races,
+} from "../../../constants";
 import {
   IAgentAddressInfo,
   IAgentCategories,
@@ -211,6 +217,34 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     const stepTwoValues = step2.formik.values;
     const stepThreeValues = step3.formik.values;
     const stepFourValues = step4.formik.values;
+
+    const aggregatedValues = {
+      ...stepOneValues,
+      ...stepTwoValues,
+      ...stepThreeValues,
+      ...stepFourValues,
+    };
+
+    formList.forEach((form) => {
+      form.formik.setSubmitting(true);
+    });
+
+    API.post("/agents", aggregatedValues)
+      .then((successMessage) => {
+        console.log(successMessage);
+
+        formList.forEach((form) => {
+          form.formik.setSubmitting(false);
+          form.formik.resetForm();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+
+        formList.forEach((form) => {
+          form.formik.setSubmitting(false);
+        });
+      });
 
     console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
   };

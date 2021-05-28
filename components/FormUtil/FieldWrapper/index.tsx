@@ -142,7 +142,7 @@ const FieldWrapper = ({
             inputVariant={variant}
             onChange={(date) => {
               console.log(date);
-              formik.setFieldValue(name, date, true);
+              formik.setFieldValue(name, date.toJSON(), true);
             }}
             onBlur={formik.handleBlur}
             value={formik.values?.[name] ?? ""}
