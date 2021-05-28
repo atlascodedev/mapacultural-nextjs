@@ -6,6 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React from "react";
+import { IAgentModel } from "../../@types/project";
 import Filter from "../Utility/Filter";
 import SearchAgentsSlider from "./SearchAgentsSlider";
 
@@ -29,7 +30,7 @@ const SearchAgentsSelectField = () => {
 };
 
 export interface ISearchAgents {
-  agentsList: any[];
+  agentsList: IAgentModel[];
 }
 
 const SearchAgents = ({ agentsList }: ISearchAgents) => {
@@ -47,7 +48,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
       </div>
 
       <div className="overflow-hidden">
-        <SearchAgentsSlider agentSliderItems={[1, 1, 1, 1]} />
+        <SearchAgentsSlider agentSliderItems={agentsList} />
       </div>
     </div>
   );

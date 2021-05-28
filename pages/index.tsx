@@ -107,7 +107,7 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
                 <Search
                   tabItems={[
                     {
-                      component: <SearchAgents agentsList={[1, 1, 1, 1, 1]} />,
+                      component: <SearchAgents agentsList={agents} />,
                       label: "Agentes culturais",
                     },
                     {

@@ -1,5 +1,4 @@
 import React from "react";
-import getBreakpoint from "../../helper/getBreakpoint";
 import useViewportDetect from "../../hooks/useSmallViewportDetect";
 import BurguerMenu, { IBurguerMenu } from "../BurguerMenu";
 import NavbarBase, { INavbarBase } from "./NavbarBase";

@@ -1,12 +1,13 @@
 import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IAgentModel } from "../../@types/project";
 import SearchAgentCard from "./SearchAgentCard";
 
 SwiperCore.use([Navigation, Autoplay, Pagination, Lazy]);
 
 export interface ISearchAgentsSlider {
-  agentSliderItems: any[];
+  agentSliderItems: IAgentModel[];
 }
 
 const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
