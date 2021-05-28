@@ -22,7 +22,7 @@ const Drawer = ({
     <Backdrop open={open} closeFn={closeFn} onClose={onClose} blur={blur}>
       <Base>
         <Logo />
-        <List items={items} />
+        <List closeFn={closeFn} items={items} />
       </Base>
     </Backdrop>
   );

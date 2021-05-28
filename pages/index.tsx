@@ -21,8 +21,15 @@ import {
   IEventModel,
 } from "../@types/project";
 import { API } from "../constants";
+import scrollIntoView from "../helper/scrollIntoView";
 
-export default function Home() {
+interface IHomeProps {
+  events: IEventModel[];
+  culturalSpaces: ICulturalSpaceModel[];
+  agents: IAgentModel[];
+}
+
+export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
   const [eventFormActive, setEventFormActive] = React.useState<boolean>(false);
@@ -33,6 +40,13 @@ export default function Home() {
   const toggleDrawer = (open: boolean) => {
     setDrawerOpen(open);
   };
+
+  console.log(agents, culturalSpaces, events);
+
+  const homeRef = React.useRef(null);
+  const filterRef = React.useRef(null);
+  const partnerRef = React.useRef(null);
+  const contactRef = React.useRef(null);
 
   return (
     <div>
@@ -45,8 +59,20 @@ export default function Home() {
             open={drawerOpen}
             items={[
               {
-                action: () => console.log("action"),
-                label: "Label lorem ipsum",
+                action: () => scrollIntoView("home", homeRef),
+                label: "Home",
+              },
+              {
+                action: () => scrollIntoView("filter", filterRef),
+                label: "Buscar informações",
+              },
+              {
+                action: () => scrollIntoView("partners", partnerRef),
+                label: "Parceiros",
+              },
+              {
+                action: () => scrollIntoView("contact", contactRef),
+                label: "Contato",
               },
             ]}
           />
@@ -69,39 +95,48 @@ export default function Home() {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.25 }}
             >
-              <Hero
-                actionAgents={() => setAgentFormActive(true)}
-                actionSpaces={() => setSpacesFormActive(true)}
-                actionsEvents={() => setEventFormActive(true)}
-              />
+              <div id="hero">
+                <Hero
+                  actionAgents={() => setAgentFormActive(true)}
+                  actionSpaces={() => setSpacesFormActive(true)}
+                  actionsEvents={() => setEventFormActive(true)}
+                />
+              </div>
               <AboutUs />
-              <Search
-                tabItems={[
-                  {
-                    component: <SearchAgents agentsList={[1, 1, 1, 1, 1]} />,
-                    label: "Agentes culturais",
-                  },
-                  {
-                    component: (
-                      <div className="flex justify-center w-full p-10">
-                        <SearchSpaces />
-                      </div>
-                    ),
-                    label: "Espaços culturais",
-                  },
-                  { component: <SearchEvents />, label: "Eventos/Projetos" },
-                ]}
-              />
-              <Partners
-                partnersItems={[
-                  { partnerLogo: "https://via.placeholder.com/350" },
-                  { partnerLogo: "https://via.placeholder.com/350" },
-                  { partnerLogo: "https://via.placeholder.com/350" },
-                  { partnerLogo: "https://via.placeholder.com/350" },
-                  { partnerLogo: "https://via.placeholder.com/350" },
-                ]}
-              />
-              <Contact />
+              <div id="filter">
+                <Search
+                  tabItems={[
+                    {
+                      component: <SearchAgents agentsList={[1, 1, 1, 1, 1]} />,
+                      label: "Agentes culturais",
+                    },
+                    {
+                      component: (
+                        <div className="flex justify-center w-full p-10">
+                          <SearchSpaces />
+                        </div>
+                      ),
+                      label: "Espaços culturais",
+                    },
+                    { component: <SearchEvents />, label: "Eventos/Projetos" },
+                  ]}
+                />
+              </div>
+              <div id="partners">
+                <Partners
+                  partnersItems={[
+                    { partnerLogo: "https://via.placeholder.com/350" },
+                    { partnerLogo: "https://via.placeholder.com/350" },
+                    { partnerLogo: "https://via.placeholder.com/350" },
+                    { partnerLogo: "https://via.placeholder.com/350" },
+                    { partnerLogo: "https://via.placeholder.com/350" },
+                  ]}
+                />
+              </div>
+
+              <div id="contact">
+                <Contact />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -146,11 +181,7 @@ export default function Home() {
   );
 }
 
-export const getStaticProps: GetStaticProps<{
-  events: IEventModel[];
-  culturalSpaces: ICulturalSpaceModel[];
-  agents: IAgentModel[];
-}> = async (context) => {
+export const getStaticProps: GetStaticProps<IHomeProps> = async (context) => {
   const agentRequest: AxiosResponse<IAgentModel[]> = await API.get("/agents");
   const spaceRequest: AxiosResponse<ICulturalSpaceModel[]> = await API.get(
     "/spaces"
