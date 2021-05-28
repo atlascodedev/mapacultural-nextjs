@@ -1,13 +1,19 @@
+import axios from "axios";
 import React from "react";
+import { EMAIL_ENDPOINT } from "../../constants";
 import ContactForm from "./Form";
 
 export interface ContactProps {}
+
+const submitContactForm = (data: any) => {
+  return axios.post(EMAIL_ENDPOINT, data);
+};
 
 const Contact = (props: ContactProps) => {
   return (
     <div className="w-full flex flex-col md:flex-row items-center">
       <div className="md:w-1/2 md:flex md:justify-center">
-        <ContactForm submitFn={async () => console.log("nothing for now")} />
+        <ContactForm submitFn={submitContactForm} />
       </div>
 
       <div className="md:w-1/2 items-center flex flex-col p-8 md:p-0 w-full">

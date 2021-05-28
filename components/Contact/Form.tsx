@@ -10,10 +10,10 @@ import NumberFormat from "react-number-format";
 import SubmitButton from "./Button";
 
 export interface IContactForm {
-  submitFn: (...args: any[]) => Promise<void>;
+  submitFn: (data: any) => Promise<any>;
 }
 
-const ContactForm = (props: IContactForm) => {
+const ContactForm = ({ submitFn }: IContactForm) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,6 +34,16 @@ const ContactForm = (props: IContactForm) => {
 
     onSubmit: (values, actions) => {
       actions.setSubmitting(true);
+
+      submitFn(values)
+        .then((success) => {
+          console.log(success);
+          actions.setSubmitting(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          actions.setSubmitting(false);
+        });
     },
   });
 

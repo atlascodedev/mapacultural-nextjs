@@ -189,3 +189,6 @@ const axiosBaseURL: string =
     : "https://tobedecided.com";
 
 export const API = axios.create({ ...axios.defaults, baseURL: axiosBaseURL });
+
+export const EMAIL_ENDPOINT =
+  "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/mapacultural";
