@@ -10,11 +10,10 @@ import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   ageRestriction,
   API,
-  brazilStates,
   categories,
   frequency,
+  taquaraNeighborhoods,
 } from "../../../constants";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   IEventAddressInfo,
   IEventCategories,
@@ -115,18 +114,11 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Logradouro",
         placeholder: "Rua do evento, caso seja um evento físico",
       },
-      city: {
-        label: "Cidade",
-        placeholder: "Cidade do evento, caso seja um evento físico",
-      },
-      state: {
-        label: "Estado",
-        selectOptions: brazilStates,
-        type: "select",
-      },
       neighborhood: {
         label: "Bairro",
         placeholder: "Bairro do evento, caso seja um evento físico",
+        type: "select",
+        selectOptions: taquaraNeighborhoods,
       },
       streetNumber: {
         label: "Número",

@@ -192,3 +192,28 @@ export const API = axios.create({ ...axios.defaults, baseURL: axiosBaseURL });
 
 export const EMAIL_ENDPOINT =
   "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/mapacultural";
+
+export const taquaraNeighborhoods = [
+  "Centro",
+  "Jardim do Prado",
+  "Ronda",
+  "Sagrada Família",
+  "Ideal",
+  "Km 4",
+  "Eldorado",
+  "Nossa Senhora de Fátima",
+  "Recreio",
+  "Morro de Leôncio",
+  "Empresa",
+  "Tucanos",
+  "Mundo Novo",
+  "Medianeira",
+  "Santa Terezinha",
+  "Petrópolis",
+  "Santa Rosa",
+  "Fogão Gaúcho",
+  "Cruzeiro do Sul",
+  "Picada Francesa",
+  "Morro da Cruz",
+  "Santa Maria",
+];

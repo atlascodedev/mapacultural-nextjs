@@ -10,6 +10,10 @@ import {
   RaceTypes,
 } from "./literals";
 
+type BooleanKeys<T> = {
+  [k in keyof T]: T[k] extends boolean ? k : never;
+}[keyof T];
+
 export interface ICulturalSpacePersonalInfo {
   privateEmail: string;
   publicEmail: string;
@@ -72,8 +76,6 @@ export interface IAgentPersonalInfo {
 export interface IAgentAddressInfo {
   cep: string;
   street: string;
-  state: string;
-  city: string;
   neighborhood: string;
   streetNumber: string;
   complement?: string;
@@ -120,8 +122,6 @@ export interface IEventAddressInfo {
   eventType: string;
   cep?: string;
   street?: string;
-  city?: string;
-  state?: string;
   neighborhood?: string;
   streetNumber?: string;
   complement?: string;

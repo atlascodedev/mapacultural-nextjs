@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+import { FormikProps, useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
@@ -6,18 +6,21 @@ import { IFieldWrapperBase } from "../../components/FormUtil/FieldWrapper";
 
 export type IFieldWrapperInternal = Omit<IFieldWrapperBase, "name" | "uuid">;
 
-interface IUseFormGenerator {
-  fields: Record<string, IFieldWrapperInternal>;
+interface IUseFormGenerator<K> {
+  fields: Record<keyof K, IFieldWrapperInternal>;
   validationSchema: ReturnType<typeof Yup.object>;
 }
 
-const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
-  const initialValues = React.useRef<Record<string, any>>(null);
+function useFormGenerator<T>({
+  validationSchema,
+  fields,
+}: IUseFormGenerator<T>) {
+  const initialValues = React.useRef<Record<any, any>>(null);
   const fieldsRef = React.useRef<IFieldWrapperBase[]>([]);
 
   React.useEffect(() => {
     let tempObj: IFieldWrapperBase[] = [];
-    let initialValueTemp: Record<string, any> = {};
+    let initialValueTemp: Record<any, any> = {};
 
     for (const key in fields) {
       const transactionUUID = nanoid();
@@ -34,7 +37,7 @@ const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
     }
 
     fieldsRef.current = tempObj;
-    initialValues.current = initialValueTemp;
+    initialValues.current = initialValueTemp as Record<any, any>;
   }, []);
 
   const formik = useFormik({
@@ -46,6 +49,6 @@ const useFormGenerator = ({ validationSchema, fields }: IUseFormGenerator) => {
   });
 
   return { formik, fields: fieldsRef.current };
-};
+}
 
 export default useFormGenerator;

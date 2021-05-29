@@ -34,13 +34,10 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   const [checkBoxTwoChecked, setCheckBoxTwoChecked] =
     React.useState<boolean>(false);
 
-  const step1 = useFormGenerator({
+  const step1 = useFormGenerator<IAgentPersonalInfo>({
     fields: {
-      agentType: {
-        label: "Tipo de agente",
-        selectOptions: ["Pessoa física", "Pessoa jurídica"],
-        type: "select",
-      },
+      agentType: {},
+
       birthday_or_founding: {
         label: "Data de nascimento/Data de fundação",
         type: "date",
@@ -79,7 +76,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "E-mail de cadastro *",
         placeholder: "Digite seu e-mail",
       },
-    } as Record<keyof IAgentPersonalInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       agentType: StringRequired,
       birthday_or_founding: StringRequired,
