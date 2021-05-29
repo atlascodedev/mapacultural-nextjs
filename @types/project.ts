@@ -89,7 +89,7 @@ export interface IAgentSocialInfo {
 }
 
 export interface IAgentCategories {
-  categories: CulturalCategoryTypes;
+  categories: CulturalCategoryTypes[];
 }
 
 export type IAgentModel = IAgentPersonalInfo &

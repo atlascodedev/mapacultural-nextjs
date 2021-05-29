@@ -17,8 +17,7 @@ const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
       slidesPerView={"auto"}
       breakpoints={{
         1024: {
-          slidesPerView:
-            agentSliderItems.length >= 3 ? 3 : agentSliderItems.length,
+          slidesPerView: agentSliderItems.length >= 3 ? 3 : 1,
         },
       }}
     >
@@ -31,8 +30,8 @@ const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
             <SearchAgentCard
               action={() => console.log("action")}
               actionName={"Ver agente"}
-              name={"Yeah Vieira"}
-              tags={["Pop", "Música", "Fotografia", "Gastronomia"]}
+              name={agent.fullName}
+              tags={agent.categories}
             />
           </SwiperSlide>
         );
