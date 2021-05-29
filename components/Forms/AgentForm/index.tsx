@@ -95,29 +95,25 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     } as Record<keyof IAgentPersonalInfo, any>),
   });
 
-  const step2 = useFormGenerator({
+  const step2 = useFormGenerator<IAgentCategories>({
     fields: {
       categories: {
         label: "Selecione as áreas de atuação",
         checkboxGroup: categories,
         type: "checkboxGroup",
       },
-    } as Record<keyof IAgentCategories, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       categories: Yup.array().min(0, "Marque pelo menos 1 item"),
     } as Record<keyof IAgentCategories, any>),
   });
 
-  const step3 = useFormGenerator({
+  const step3 = useFormGenerator<IAgentAddressInfo>({
     fields: {
       cep: {
         label: "CEP *",
         format: "#####-###",
         type: "format",
-      },
-      city: {
-        label: "Cidade *",
-        placeholder: "Nome da sua cidade",
       },
       complement: {
         label: "Complemento",
@@ -127,11 +123,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Bairro *",
         placeholder: "Nome do seu bairro",
       },
-      state: {
-        type: "select",
-        selectOptions: brazilStates,
-        label: "Estado *",
-      },
       street: {
         label: "Logradouro *",
         placeholder: "Rua, avenida, etc",
@@ -140,16 +131,14 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Número *",
         placeholder: "Número da sua rua",
       },
-    } as Record<keyof IAgentAddressInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       cep: StringRequired,
-      city: StringRequired,
       complement: Yup.string().notRequired(),
       neighborhood: StringRequired,
-      state: StringRequired,
       street: StringRequired,
       streetNumber: StringRequired,
-    } as Record<keyof IAgentAddressInfo, any>),
+    }),
   });
 
   const step4 = useFormGenerator({

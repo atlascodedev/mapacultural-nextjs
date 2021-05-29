@@ -3,12 +3,13 @@ import React from "react";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
 import { IFieldWrapperBase } from "../../components/FormUtil/FieldWrapper";
+import { ObjectShape, OptionalObjectSchema, TypeOfShape } from "yup/lib/object";
 
 export type IFieldWrapperInternal = Omit<IFieldWrapperBase, "name" | "uuid">;
 
-interface IUseFormGenerator<K> {
-  fields: Record<keyof K, IFieldWrapperInternal>;
-  validationSchema: ReturnType<typeof Yup.object>;
+interface IUseFormGenerator<T> {
+  fields: Record<keyof T, IFieldWrapperInternal>;
+  validationSchema: Yup.SchemaOf<T>;
 }
 
 function useFormGenerator<T>({
