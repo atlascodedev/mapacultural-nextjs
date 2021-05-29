@@ -2,16 +2,14 @@ import React from "react";
 import AtlasAccordion from "../../Utility/Accordion";
 import * as Yup from "yup";
 import FormPageContainer, { IFormPage } from "../../Utility/FormPageContainer";
-import useFormGenerator, {
-  IFieldWrapperInternal,
-} from "../../../hooks/useFormGenerator";
+import useFormGenerator from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   API,
-  brazilStates,
   categories,
   genders,
   races,
+  taquaraNeighborhoods,
 } from "../../../constants";
 import {
   IAgentAddressInfo,
@@ -115,12 +113,10 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         format: "#####-###",
         type: "format",
       },
-      complement: {
-        label: "Complemento",
-        placeholder: "Ex. apartamento, proximidades etc",
-      },
       neighborhood: {
         label: "Bairro *",
+        type: "select",
+        selectOptions: taquaraNeighborhoods,
         placeholder: "Nome do seu bairro",
       },
       street: {
@@ -130,6 +126,10 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       streetNumber: {
         label: "Número *",
         placeholder: "Número da sua rua",
+      },
+      complement: {
+        label: "Complemento",
+        placeholder: "Ex. apartamento, proximidades etc",
       },
     },
     validationSchema: Yup.object({
@@ -141,7 +141,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
-  const step4 = useFormGenerator({
+  const step4 = useFormGenerator<IAgentSocialInfo>({
     fields: {
       facebook: {
         label: "Facebook",
@@ -171,7 +171,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Link do seu website",
         placeholder: "Insira o link do seu website",
       },
-    } as Record<keyof IAgentSocialInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       facebook: Yup.string().url("Precisa ser uma URL válida").notRequired(),
       instagram: Yup.string().url("Precisa ser uma URL válida").notRequired(),
@@ -179,7 +179,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       publicPhoneNumber: Yup.string().notRequired(),
       portfolio: Yup.string().url("Precisa ser uma URL válida").notRequired(),
       website: Yup.string().url("Precisa ser uma URL válida").notRequired(),
-    } as Record<keyof IAgentSocialInfo, any>),
+    }),
   });
 
   const formList = [step1, step2, step3, step4];
