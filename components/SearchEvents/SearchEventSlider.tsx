@@ -1,24 +1,25 @@
 import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SearchSpaceCard from "./SearchSpaceCard";
+import { IEventModel } from "../../@types/project";
+import SearchSpaceCard from "./SearchEventCard";
 
-export interface ISearchSpaceSlider {
-  spaceList: any[];
+export interface ISearchEventSlider {
+  eventList: IEventModel[];
 }
 
-const SearchSpaceSlider = ({ spaceList }: ISearchSpaceSlider) => {
+const SearchEventSlider = ({ eventList = [] }: ISearchEventSlider) => {
   return (
     <Swiper
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
       slidesPerView={"auto"}
       breakpoints={{
         1024: {
-          slidesPerView: spaceList.length >= 3 ? 3 : spaceList.length,
+          slidesPerView: eventList.length >= 3 ? 3 : eventList.length,
         },
       }}
     >
-      {spaceList.map((agent, index) => {
+      {eventList.map((agent, index) => {
         return (
           <SwiperSlide
             key={index}
@@ -37,4 +38,4 @@ const SearchSpaceSlider = ({ spaceList }: ISearchSpaceSlider) => {
   );
 };
 
-export default SearchSpaceSlider;
+export default SearchEventSlider;

@@ -9,7 +9,7 @@ import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import Search from "../components/Search";
 import SearchAgents from "../components/SearchAgents";
-import SearchEvents, { ISearchSpaces } from "../components/SearchEvents";
+import SearchEvents, { ISearchEvents } from "../components/SearchEvents";
 import SpacesForm from "../components/Forms/SpacesForm";
 import MainLayout from "../layout/main";
 import SearchSpaces from "../components/SearchSpaces";
@@ -118,7 +118,10 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
                       ),
                       label: "Espaços culturais",
                     },
-                    { component: <SearchEvents />, label: "Eventos/Projetos" },
+                    {
+                      component: <SearchEvents eventList={events} />,
+                      label: "Eventos/Projetos",
+                    },
                   ]}
                 />
               </div>
