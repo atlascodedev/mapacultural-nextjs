@@ -34,7 +34,11 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
   const step1 = useFormGenerator<IAgentPersonalInfo>({
     fields: {
-      agentType: {},
+      agentType: {
+        label: "Tipo de agente",
+        type: "select",
+        selectOptions: ["Pessoa física", "Pessoa jurídica"],
+      },
 
       birthday_or_founding: {
         label: "Data de nascimento/Data de fundação",
@@ -80,17 +84,17 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       birthday_or_founding: StringRequired,
       cpf_or_cnpj: StringRequired,
       fullName: StringRequired,
-      gender: StringRequired,
+      gender: StringRequired as any,
       professionalRecord: Yup.string().notRequired(),
       publicEmail: Yup.string()
         .email("É preciso ser um e-mail válido")
         .notRequired(),
       publicName: StringRequired,
-      race: StringRequired,
+      race: StringRequired as any,
       registrationEmail: Yup.string()
         .email("É preciso ser um e-mail válido")
         .required(requiredMessage),
-    } as Record<keyof IAgentPersonalInfo, any>),
+    }),
   });
 
   const step2 = useFormGenerator<IAgentCategories>({
