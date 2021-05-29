@@ -111,11 +111,7 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
                       label: "Agentes culturais",
                     },
                     {
-                      component: (
-                        <div className="flex justify-center w-full p-10">
-                          <SearchSpaces />
-                        </div>
-                      ),
+                      component: <SearchSpaces />,
                       label: "Espaços culturais",
                     },
                     {

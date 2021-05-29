@@ -13,6 +13,7 @@ import {
   brazilStates,
   categories,
   spheres,
+  taquaraNeighborhoods,
 } from "../../../constants";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import {
@@ -127,6 +128,8 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       neighborhood: {
         label: "Bairro *",
         placeholder: "Nome do seu bairro",
+        type: "select",
+        selectOptions: taquaraNeighborhoods,
       },
       streetNumber: {
         label: "Número *",
@@ -278,8 +281,8 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     <FormPageContainer
       isSubmitting={isSubmitting}
       isValid={isValid}
-      actionCancelFn={submitSpacesForm}
-      actionSubmitFn={headerReturnAction}
+      actionCancelFn={headerReturnAction}
+      actionSubmitFn={submitSpacesForm}
       headerLabel="Espaços culturais"
       headerReturnAction={headerReturnAction}
     >
