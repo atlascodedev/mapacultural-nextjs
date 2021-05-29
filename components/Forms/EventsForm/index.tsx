@@ -28,7 +28,7 @@ let StringRequired = Yup.string().required("Este campo é obrigatório");
 let StringNotRequired = Yup.string().notRequired();
 
 const EventsForm = ({ headerReturnAction }: IEventForms) => {
-  const step1 = useFormGenerator({
+  const step1 = useFormGenerator<IEventPersonalInfo>({
     fields: {
       privateEmail: {
         label: "E-mail para cadastro *",
@@ -82,24 +82,37 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Descrição do evento *",
         placeholder: "Escreva uma descrição sobre o evento",
       },
-    } as Record<keyof Required<IEventPersonalInfo>, IFieldWrapperInternal>,
-    validationSchema: Yup.object({} as Record<keyof IEventPersonalInfo, any>),
+    },
+    validationSchema: Yup.object({
+      closingHours: StringRequired,
+      description: StringRequired,
+      eventAgeRestriction: StringRequired as any,
+      eventEntryType: StringRequired as any,
+      eventFee: StringRequired,
+      eventFrequency: StringRequired as any,
+      eventHead: StringRequired,
+      eventName: StringRequired,
+      openingHours: StringRequired,
+      privateEmail: StringRequired,
+      publicEmail: StringRequired,
+      startingDate: StringRequired,
+    }),
   });
 
-  const step2 = useFormGenerator({
+  const step2 = useFormGenerator<IEventCategories>({
     fields: {
       categories: {
         label: "Selecione as áreas de atuação",
         type: "checkboxGroup",
         checkboxGroup: categories,
       },
-    } as Record<keyof IEventCategories, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       categories: Yup.array().min(0),
-    } as Record<keyof IEventCategories, any>),
+    }),
   });
 
-  const step3 = useFormGenerator({
+  const step3 = useFormGenerator<IEventAddressInfo>({
     fields: {
       eventType: {
         label: "Tipo do evento *",
@@ -128,20 +141,18 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Complemento",
         placeholder: "Complemento do local do evento",
       },
-    } as Record<keyof IEventAddressInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
-      cep: StringNotRequired,
-      city: StringNotRequired,
+      cep: StringRequired,
       complement: StringNotRequired,
       eventType: StringRequired,
-      neighborhood: StringNotRequired,
-      state: StringNotRequired,
-      street: StringNotRequired,
-      streetNumber: StringNotRequired,
-    } as Record<keyof IEventAddressInfo, any>),
+      neighborhood: StringRequired,
+      street: StringRequired,
+      streetNumber: StringRequired,
+    }),
   });
 
-  const step4 = useFormGenerator({
+  const step4 = useFormGenerator<IEventSocialsInfo>({
     fields: {
       website: {
         label: "Website",
@@ -159,7 +170,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Telefone 1",
         placeholder: "Telefone que será exibido no site",
       },
-    } as Record<keyof IEventSocialsInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       eventURL: Yup.string()
         .url("Precisa ser uma URL válida")
@@ -169,7 +180,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       website: Yup.string()
         .url("Precisa ser uma URL válida")
         .required("Este campo é obrigatório"),
-    } as Record<keyof IEventSocialsInfo, any>),
+    }),
   });
 
   let formList = [step1, step2, step3, step4];

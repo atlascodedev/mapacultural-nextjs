@@ -28,7 +28,7 @@ interface ISpaceForm extends FormPageProps {}
 let StringRequired = Yup.string().required("Este campo é obrigatório");
 
 const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
-  const step1 = useFormGenerator({
+  const step1 = useFormGenerator<ICulturalSpacePersonalInfo>({
     fields: {
       privateEmail: {
         label: "E-mail para cadastro *",
@@ -94,25 +94,25 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         label: "Descrição do local *",
         placeholder: "Escreva uma descrição sobre o local",
       },
-    } as Record<keyof ICulturalSpacePersonalInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       publicEmail: StringRequired,
       privateEmail: StringRequired,
-      closingHours: Yup.date().required("Este campo é obrigatório"),
-      openingHours: Yup.date().required("Este campo é obrigatório"),
+      closingHours: Yup.date().required("Este campo é obrigatório") as any,
+      openingHours: Yup.date().required("Este campo é obrigatório") as any,
       cpf_or_cpnj: StringRequired,
       culturalSpaceCapacity: StringRequired,
-      culturalSpaceEntry: StringRequired,
+      culturalSpaceEntry: StringRequired as any,
       culturalSpaceHead: StringRequired,
       culturalSpaceName: StringRequired,
-      culturalSpaceSphere: StringRequired,
+      culturalSpaceSphere: StringRequired as any,
       description: StringRequired,
-      entryFee: Yup.string().notRequired(),
-      entryTypes: StringRequired,
-    } as Record<keyof ICulturalSpacePersonalInfo, any>),
+      entryFee: Yup.string().notRequired() as any,
+      entryTypes: StringRequired as any,
+    }),
   });
 
-  const step2 = useFormGenerator({
+  const step2 = useFormGenerator<ICulturalSpaceAddressInfo>({
     fields: {
       cep: {
         label: "CEP *",
@@ -123,15 +123,6 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       street: {
         label: "Logradouro *",
         placeholder: "Rua, avenida, etc",
-      },
-      state: {
-        label: "Estado *",
-        selectOptions: brazilStates,
-        type: "select",
-      },
-      city: {
-        label: "Cidade *",
-        placeholder: "Nome da sua cidade",
       },
       neighborhood: {
         label: "Bairro *",
@@ -145,7 +136,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         label: "Complemento",
         placeholder: "Ex. número do apartamento",
       },
-    } as Record<keyof ICulturalSpaceAddressInfo, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       cep: StringRequired,
       city: StringRequired,
@@ -154,10 +145,10 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       state: StringRequired,
       street: StringRequired,
       streetNumber: StringRequired,
-    } as Record<keyof ICulturalSpaceAddressInfo, any>),
+    }),
   });
 
-  const step3 = useFormGenerator({
+  const step3 = useFormGenerator<ICulturalSpaceCategories>({
     fields: {
       category: {
         label: "Tipo de local",
@@ -174,15 +165,15 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         type: "checkboxGroup",
         checkboxGroup: accessibilityType,
       },
-    } as Record<keyof ICulturalSpaceCategories, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       accessibilityType: Yup.array().min(0),
       accessible: StringRequired,
       category: Yup.array().min(0),
-    } as Record<keyof ICulturalSpaceCategories, any>),
+    }),
   });
 
-  const step4 = useFormGenerator({
+  const step4 = useFormGenerator<ICulturalSpaceSocials>({
     fields: {
       website: {
         label: "Website",
@@ -214,7 +205,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         format: "(##) #-####-####",
         type: "format",
       },
-    } as Record<keyof ICulturalSpaceSocials, IFieldWrapperInternal>,
+    },
     validationSchema: Yup.object({
       facebook: Yup.string().url("É preciso ser uma URL válida").notRequired(),
       instagram: Yup.string().url("É preciso ser uma URL válida").notRequired(),
@@ -222,7 +213,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       publicPhone: Yup.string().notRequired(),
       publicPhoneAlt: Yup.string().notRequired(),
       website: Yup.string().url("É preciso ser uma URL válida").notRequired(),
-    } as Record<keyof ICulturalSpaceSocials, any>),
+    }),
   });
 
   const [checkboxOneState, setCheckboxOneState] =

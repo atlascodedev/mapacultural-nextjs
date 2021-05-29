@@ -33,8 +33,6 @@ export interface ICulturalSpacePersonalInfo {
 export interface ICulturalSpaceAddressInfo {
   cep: string;
   street: string;
-  state: string;
-  city: string;
   neighborhood: string;
   streetNumber: string;
   complement?: string;
@@ -115,7 +113,7 @@ export interface IEventPersonalInfo {
 }
 
 export interface IEventCategories {
-  categories: CulturalCategoryTypes;
+  categories: CulturalCategoryTypes[];
 }
 
 export interface IEventAddressInfo {
