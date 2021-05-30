@@ -7,7 +7,7 @@ export interface ISearchDialogContent {
 
 const Content = ({ content }: ISearchDialogContent) => {
   return (
-    <div className="flex flex-col md:flex-row overflow-y-scroll h-full">
+    <div className="flex flex-col md:flex-row overflow-y-scroll h-full ">
       {content.map((recordArray, index) => {
         return (
           <div

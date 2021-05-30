@@ -104,32 +104,6 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
           />
         </div>
       </div>
-
-      <SearchDialog
-        closeFn={() => console.log("ok")}
-        BackdropProps={{ open: true }}
-        content={[
-          [
-            { label: "", element: <UserLetter username="Matheus" /> },
-            {
-              label: "",
-              element: (
-                <div className="text-gray-700 font-bold">Alexandre Fritsch</div>
-              ),
-            },
-            {
-              label: "",
-              element: (
-                <TagGroup
-                  truncate={2}
-                  tags={["Feel", "Beatiful", "Something", "Real"]}
-                />
-              ),
-            },
-          ],
-          [],
-        ]}
-      />
     </div>
   );
 };
