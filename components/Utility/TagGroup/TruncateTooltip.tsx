@@ -14,7 +14,7 @@ const TruncateTooltip = ({ truncated }: ITruncateTooltip) => {
       <div>
         <Tooltip
           title={
-            <div className="flex flex-row">
+            <div className="flex flex-col gap-1">
               {truncated.map((value, index) => {
                 return (
                   <div key={index} className="capitalize">

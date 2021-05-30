@@ -130,58 +130,6 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
           [],
         ]}
       />
-      {/* <Backdrop
-        className="justify-center place-items-center"
-        open={spaceDialog.open}
-        closeFn={() =>
-          setSpaceDialog((prevState) => {
-            return { ...spaceDialog, open: false };
-          })
-        }
-      >
-        <div className="flex px-2 items-center justify-center">
-          <div className="bg-white flex h-500px md:h-600px md:max-w-800px md:min-w-800px  flex-col rounded-lg max">
-            <div className="bg-secondary-light rounded-t-lg p-4  flex">
-              <div className="flex-grow"></div>
-              <IoClose
-                onClick={() =>
-                  setSpaceDialog((prevState) => {
-                    return { ...prevState, open: false };
-                  })
-                }
-                className=" text-white text-xl cursor-pointer"
-              />
-            </div>
-
-            <div className="flex flex-col md:flex-row overflow-y-scroll">
-              <div className="flex flex-col gap-7 p-8">
-                <div className="h-16 w-16 rounded-full bg-secondary-main p-5 relative flex justify-center items-center">
-                  <div className="text-white font-black text-3xl ">
-                    {spaceDialog.culturalSpaceName?.[0]?.toUpperCase() ?? "A"}
-                  </div>
-                </div>
-                <div className="text-gray-800 font-bold text-2xl capitalize">
-                  {spaceDialog.culturalSpaceName}
-                </div>
-                <div className="grid grid-flow-row md:grid-cols-3 grid-cols-2 gap-5">
-                  {spaceDialog.category.map((category, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="text-xs text-white bg-tertiary-dark font-bold rounded-2xl p-2 px-3 flex justify-center items-center"
-                      >
-                        {category}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-7 p-8 md:p-12 border-gray-100 md:border-l"></div>
-            </div>
-          </div>
-        </div>
-      </Backdrop> */}
     </div>
   );
 };
