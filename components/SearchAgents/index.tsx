@@ -12,6 +12,7 @@ import { IAgentModel } from "../../@types/project";
 import SearchDialog from "../SearchDialog";
 import Backdrop from "../Utility/Backdrop";
 import Filter from "../Utility/Filter";
+import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchAgentsSlider from "./SearchAgentsSlider";
 
@@ -110,6 +111,10 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   {searchDialog.fullName}
                 </div>
               ),
+            },
+            {
+              label: "",
+              element: <TagGroup tags={searchDialog.categories} />,
             },
             {
               label: searchDialog?.publicPhoneNumber ? "Telefone 1" : "",
