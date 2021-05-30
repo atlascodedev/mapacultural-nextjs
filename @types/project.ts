@@ -69,6 +69,7 @@ export interface IAgentPersonalInfo {
   gender: GenderTypes;
   race: RaceTypes;
   professionalRecord: string;
+  description: string;
 }
 
 export interface IAgentAddressInfo {

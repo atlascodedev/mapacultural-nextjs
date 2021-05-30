@@ -3,9 +3,7 @@ import { FormPageProps } from "../AgentForm";
 import * as Yup from "yup";
 import FormPageContainer from "../../Utility/FormPageContainer";
 import AtlasAccordion from "../../Utility/Accordion";
-import useFormGenerator, {
-  IFieldWrapperInternal,
-} from "../../../hooks/useFormGenerator";
+import useFormGenerator from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   ageRestriction,
@@ -246,8 +244,8 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       isSubmitting={isSubmitting}
       isValid={isValid}
       headerLabel={"Eventos"}
-      actionCancelFn={submitEventForm}
-      actionSubmitFn={headerReturnAction}
+      actionCancelFn={headerReturnAction}
+      actionSubmitFn={submitEventForm}
       headerReturnAction={headerReturnAction}
     >
       {formList.map((form, indexOuter) => {

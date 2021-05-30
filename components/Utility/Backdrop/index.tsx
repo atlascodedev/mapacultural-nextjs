@@ -8,6 +8,7 @@ export interface BackdropProps {
   closeFn: (...args: any[]) => void;
   onClose?: (...args: any[]) => void;
   blur?: boolean;
+  preventLock?: boolean;
 }
 
 const Backdrop: React.FC<BackdropProps> = ({
@@ -16,10 +17,11 @@ const Backdrop: React.FC<BackdropProps> = ({
   onClose,
   children,
   blur,
+  preventLock,
 }) => {
   const backdropRef = React.useRef<HTMLDivElement>(null);
 
-  useDocumentBodyLock(open);
+  preventLock ? null : useDocumentBodyLock(open);
 
   React.useEffect(() => {
     if (onClose) {

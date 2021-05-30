@@ -1,16 +1,35 @@
 import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { IAgentModel } from "../../@types/project";
+import {
+  IAgentAddressInfo,
+  IAgentCategories,
+  IAgentModel,
+  IAgentPersonalInfo,
+  IAgentSocialInfo,
+} from "../../@types/project";
 import SearchAgentCard from "./SearchAgentCard";
 
 SwiperCore.use([Navigation, Autoplay, Pagination, Lazy]);
 
 export interface ISearchAgentsSlider {
   agentSliderItems: IAgentModel[];
+  action: React.Dispatch<
+    React.SetStateAction<
+      IAgentPersonalInfo &
+        IAgentAddressInfo &
+        IAgentSocialInfo &
+        IAgentCategories & {
+          open: boolean;
+        }
+    >
+  >;
 }
 
-const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
+const SearchAgentsSlider = ({
+  agentSliderItems,
+  action,
+}: ISearchAgentsSlider) => {
   return (
     <Swiper
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
@@ -28,7 +47,7 @@ const SearchAgentsSlider = ({ agentSliderItems }: ISearchAgentsSlider) => {
             style={{ display: "flex", justifyContent: "center" }}
           >
             <SearchAgentCard
-              action={() => console.log("action")}
+              action={() => action({ ...agent, open: true })}
               actionName={"Ver agente"}
               name={agent.fullName}
               tags={agent.categories}

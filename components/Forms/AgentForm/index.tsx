@@ -78,8 +78,21 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "E-mail de cadastro *",
         placeholder: "Digite seu e-mail",
       },
+      description: {
+        label: "Descrição pessoal *",
+        placeholder:
+          "Escreava uma descrição pessoal sobre você e seus trabalhos",
+        additionalProps: {
+          TextFieldProps: {
+            className: "md:col-span-2",
+            multiline: true,
+            rows: 6,
+          },
+        },
+      },
     },
     validationSchema: Yup.object({
+      description: StringRequired,
       agentType: StringRequired,
       birthday_or_founding: StringRequired,
       cpf_or_cnpj: StringRequired,
