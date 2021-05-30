@@ -133,7 +133,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
         }
       >
         <div className="flex px-2 items-center  justify-center">
-          <div className="bg-white flex md:h-600px md:max-w-800px md:min-w-800px  flex-col rounded-lg max ">
+          <div className="bg-white flex h-500px md:h-600px md:max-w-800px md:min-w-800px  flex-col rounded-lg max ">
             <div className="bg-secondary-light rounded-t-lg p-4  flex">
               <div className="flex-grow"></div>
               <IoClose

@@ -51,7 +51,7 @@ const SearchSpaces = ({}: ISearchSpaces) => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-center my-5 mb-10">
+      <div className="flex justify-center my-5 mb-10 ">
         <Filter
           searchAction={() => console.log("problema?")}
           inputItems={[
@@ -90,7 +90,7 @@ const SearchSpaces = ({}: ISearchSpaces) => {
       </div>
 
       <div className="h-80 md:h-500px w-full flex justify-center mb-10">
-        <div className="md:w-2/3 h-full">
+        <div className="md:w-2/3 w-full h-full">
           <DynamicMapSSR />
         </div>
       </div>
