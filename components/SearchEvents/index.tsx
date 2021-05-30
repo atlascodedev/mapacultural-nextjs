@@ -124,6 +124,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
       </div>
 
       <Backdrop
+        className="justify-center place-items-center"
         open={eventDialog.open}
         closeFn={() =>
           setEventDialog((prevState) => {
@@ -131,12 +132,9 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
           })
         }
       >
-        <div className="flex px-2  w-full items-center  justify-center">
-          <div
-            style={{ maxHeight: "90%" }}
-            className="bg-white flex md:h-600px  flex-col rounded-lg "
-          >
-            <div className="bg-secondary-light rounded-t-lg p-4 w-full flex">
+        <div className="flex px-2 items-center  justify-center">
+          <div className="bg-white flex md:h-600px md:max-w-800px md:min-w-800px  flex-col rounded-lg max ">
+            <div className="bg-secondary-light rounded-t-lg p-4  flex">
               <div className="flex-grow"></div>
               <IoClose
                 onClick={() =>

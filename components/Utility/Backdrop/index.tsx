@@ -1,7 +1,12 @@
 import React from "react";
 import detectClickOnParent from "../../../helper/detectClickOnParent";
 import useDocumentBodyLock from "../../../hooks/useDocumentBodyLock";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  ForwardRefComponent,
+  HTMLMotionProps,
+  motion,
+} from "framer-motion";
 
 export interface BackdropProps {
   open: boolean;
@@ -9,6 +14,14 @@ export interface BackdropProps {
   onClose?: (...args: any[]) => void;
   blur?: boolean;
   preventLock?: boolean;
+  className?: string;
+  style?: Pick<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >,
+    "style"
+  >;
 }
 
 const Backdrop: React.FC<BackdropProps> = ({
@@ -17,6 +30,8 @@ const Backdrop: React.FC<BackdropProps> = ({
   onClose,
   children,
   blur,
+  className,
+  style,
   preventLock,
 }) => {
   const backdropRef = React.useRef<HTMLDivElement>(null);
@@ -35,7 +50,7 @@ const Backdrop: React.FC<BackdropProps> = ({
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ delay: 0.15 }}
@@ -43,8 +58,11 @@ const Backdrop: React.FC<BackdropProps> = ({
             detectClickOnParent(event, backdropRef, closeFn)
           }
           ref={backdropRef}
-          style={{ backdropFilter: blur ? "blur(7px)" : "blur(0px)" }}
-          className={`fixed flex h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0`}
+          style={{
+            backdropFilter: blur ? "blur(7px)" : "blur(0px)",
+            ...style,
+          }}
+          className={`fixed flex h-full w-full bg-black bg-opacity-50 z-1000 top-0 left-0 ${className}`}
         >
           {children}
         </motion.div>

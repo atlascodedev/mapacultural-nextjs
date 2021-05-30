@@ -88,6 +88,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
       </div>
 
       <Backdrop
+        className="justify-center place-items-center"
         open={searchDialog.open}
         closeFn={() =>
           setSearchDialog((prevState) => {
@@ -95,11 +96,8 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
           })
         }
       >
-        <div className="flex px-2  w-full items-center  justify-center">
-          <div
-            style={{ maxHeight: "90%" }}
-            className="bg-white flex md:h-600px  flex-col rounded-lg "
-          >
+        <div className="absolute">
+          <div className="bg-white flex md:h-600px  md:max-w-800px md:min-w-800px  flex-col rounded-lg ">
             <div className="bg-secondary-light rounded-t-lg p-4 w-full flex">
               <div className="flex-grow"></div>
               <IoClose
