@@ -5,6 +5,7 @@ import style from "./SearchSpaces.module.scss";
 import Filter from "../Utility/Filter";
 import { MenuItem, TextField } from "@material-ui/core";
 import { categories, taquaraNeighborhoods } from "../../constants";
+import { ICulturalSpaceModel } from "../../@types/project";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 
@@ -14,6 +15,39 @@ const SearchSpaces = ({}: ISearchSpaces) => {
   const [culturalSpaceName, setCulturalSpaceName] = React.useState<string>("");
   const [neighborhoodName, setNeighborhoodName] = React.useState<string>("");
   const [categoryName, setCategoryName] = React.useState<string>("");
+
+  const [spaceDialog, setSpaceDialog] = React.useState<
+    ICulturalSpaceModel & { open: boolean }
+  >({
+    accessibilityType: [],
+    accessible: "",
+    category: [],
+    cep: "",
+    closingHours: "",
+    cpf_or_cpnj: "",
+    culturalSpaceCapacity: "",
+    culturalSpaceEntry: "Espaço público",
+    culturalSpaceHead: "",
+    culturalSpaceName: "",
+    culturalSpaceSphere: "Empresa",
+    description: "",
+    entryTypes: "Acesso gratuito",
+    neighborhood: "",
+    open: false,
+    openingHours: "",
+    privateEmail: "",
+    privatePhone: "",
+    publicEmail: "",
+    street: "",
+    streetNumber: "",
+    complement: "",
+    entryFee: "",
+    facebook: "",
+    instagram: "",
+    publicPhone: "",
+    publicPhoneAlt: "",
+    website: "",
+  });
 
   return (
     <div className="w-full">

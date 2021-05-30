@@ -44,17 +44,18 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Nome do responsável pelo evento *",
         placeholder: "Digite seu nome completo",
       },
-      openingHours: {
-        label: "Horário de abertura",
-        type: "time",
-      },
-      closingHours: {
-        label: "Horário de encerramento",
-        type: "time",
-      },
+
       startingDate: {
         label: "Data de início",
         type: "date",
+      },
+      endingDate: {
+        label: "Data de finalização",
+        type: "date",
+      },
+      workingHours: {
+        label: "Horário de funcionamento *",
+        placeholder: "Ex. de segunda à sexta, das 8h às 17h",
       },
       eventAgeRestriction: {
         label: "Classificação indicativa *",
@@ -82,7 +83,8 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       },
     },
     validationSchema: Yup.object({
-      closingHours: StringRequired,
+      workingHours: StringRequired,
+      endingDate: StringRequired,
       description: StringRequired,
       eventAgeRestriction: StringRequired as any,
       eventEntryType: StringRequired as any,
@@ -90,7 +92,6 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       eventFrequency: StringRequired as any,
       eventHead: StringRequired,
       eventName: StringRequired,
-      openingHours: StringRequired,
       privateEmail: StringRequired,
       publicEmail: StringRequired,
       startingDate: StringRequired,
@@ -143,7 +144,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
     validationSchema: Yup.object({
       cep: StringRequired,
       complement: StringNotRequired,
-      eventType: StringRequired,
+      eventType: StringRequired as any,
       neighborhood: StringRequired,
       street: StringRequired,
       streetNumber: StringRequired,

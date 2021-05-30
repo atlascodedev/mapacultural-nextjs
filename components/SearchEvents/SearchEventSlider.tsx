@@ -1,14 +1,30 @@
 import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { IEventModel } from "../../@types/project";
-import SearchSpaceCard from "./SearchEventCard";
+import {
+  IEventSocialsInfo,
+  IEventAddressInfo,
+  IEventCategories,
+  IEventModel,
+  IEventPersonalInfo,
+} from "../../@types/project";
+import SearchEventCard from "./SearchEventCard";
 
 export interface ISearchEventSlider {
   eventList: IEventModel[];
+  action: React.Dispatch<
+    React.SetStateAction<
+      IEventPersonalInfo &
+        IEventCategories &
+        IEventAddressInfo &
+        IEventSocialsInfo & {
+          open: boolean;
+        }
+    >
+  >;
 }
 
-const SearchEventSlider = ({ eventList = [] }: ISearchEventSlider) => {
+const SearchEventSlider = ({ eventList = [], action }: ISearchEventSlider) => {
   return (
     <Swiper
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
@@ -19,17 +35,17 @@ const SearchEventSlider = ({ eventList = [] }: ISearchEventSlider) => {
         },
       }}
     >
-      {eventList.map((agent, index) => {
+      {eventList.map((event, index) => {
         return (
           <SwiperSlide
             key={index}
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <SearchSpaceCard
-              action={() => console.log("action")}
-              actionName={"Ver agente"}
-              name={"Yeah Vieira"}
-              tags={["Pop", "Música", "Fotografia", "Gastronomia"]}
+            <SearchEventCard
+              action={() => action({ ...event, open: true })}
+              actionName={"Ver evento"}
+              name={event.eventName}
+              tags={event.categories}
             />
           </SwiperSlide>
         );

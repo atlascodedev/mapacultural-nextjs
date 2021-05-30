@@ -103,9 +103,9 @@ export interface IEventPersonalInfo {
   publicEmail?: string;
   eventName: string;
   eventHead: string;
-  openingHours: string;
-  closingHours: string;
+  workingHours: string;
   startingDate: string;
+  endingDate: string;
   eventAgeRestriction: AgeRestrictionTypes;
   eventFrequency: EventFrequencyTypes;
   description: string;
@@ -118,7 +118,7 @@ export interface IEventCategories {
 }
 
 export interface IEventAddressInfo {
-  eventType: string;
+  eventType: "Físico" | "Online" | "Híbrido";
   cep?: string;
   street?: string;
   neighborhood?: string;
@@ -133,7 +133,7 @@ export interface IEventSocialsInfo {
   publicPhone?: string;
 }
 
-export type IEventModel = IEventSocialsInfo &
+export type IEventModel = IEventPersonalInfo &
   IEventCategories &
   IEventAddressInfo &
   IEventSocialsInfo;

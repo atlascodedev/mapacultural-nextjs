@@ -9,7 +9,7 @@ export interface ISearchCard {
   actionName: string;
 }
 
-const SearchSpaceCard = ({ action, actionName, name, tags }: ISearchCard) => {
+const SearchEventCard = ({ action, actionName, name, tags }: ISearchCard) => {
   return (
     <div
       style={{ backgroundColor: "#F7F7F7" }}
@@ -47,7 +47,7 @@ const SearchSpaceCard = ({ action, actionName, name, tags }: ISearchCard) => {
               }
             >
               <div className="bg-tertiary-dark cursor-pointer text-white w-10 h-7 flex justify-center items-center rounded-3xl">
-                + {"2"}
+                + {tags.length - 1}
               </div>
             </Tooltip>
           </div>
@@ -64,4 +64,4 @@ const SearchSpaceCard = ({ action, actionName, name, tags }: ISearchCard) => {
   );
 };
 
-export default SearchSpaceCard;
+export default SearchEventCard;
