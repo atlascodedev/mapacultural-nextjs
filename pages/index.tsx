@@ -111,7 +111,9 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
                       label: "Agentes culturais",
                     },
                     {
-                      component: <SearchSpaces />,
+                      component: (
+                        <SearchSpaces culturalSpaces={culturalSpaces} />
+                      ),
                       label: "Espaços culturais",
                     },
                     {

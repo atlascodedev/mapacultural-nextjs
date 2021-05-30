@@ -1,0 +1,13 @@
+import React from "react";
+
+export interface ISearchDialogContainer {}
+
+const Container: React.FC<ISearchDialogContainer> = ({ children }) => {
+  return (
+    <div className="bg-white flex h-500px md:h-600px md:max-w-800px md:min-w-800px flex-col rounded-lg max ">
+      {children}
+    </div>
+  );
+};
+
+export default Container;
