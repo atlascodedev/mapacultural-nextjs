@@ -142,10 +142,8 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     },
     validationSchema: Yup.object({
       cep: StringRequired,
-      city: StringRequired,
       complement: Yup.string().notRequired(),
       neighborhood: StringRequired,
-      state: StringRequired,
       street: StringRequired,
       streetNumber: StringRequired,
     }),
@@ -276,6 +274,13 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
 
     console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
   };
+
+  console.log(
+    step1.formik.isValid,
+    step2.formik.isValid,
+    step3.formik.isValid,
+    step4.formik.isValid
+  );
 
   return (
     <FormPageContainer

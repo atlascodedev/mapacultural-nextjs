@@ -13,7 +13,7 @@ const SearchEventCard = ({ action, actionName, name, tags }: ISearchCard) => {
   return (
     <div
       style={{ backgroundColor: "#F7F7F7" }}
-      className="w-80 shadow-xl rounded-t-md h-auto"
+      className="w-80 shadow-custom rounded-t-md h-auto"
     >
       <div className="flex flex-col flex-grow  pt-5 px-8">
         <div className="flex">
