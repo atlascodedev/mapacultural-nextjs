@@ -51,6 +51,11 @@ const useSearchAgentFilter = () => {
   );
 
   React.useEffect(() => {
+    if (category === "" && name === "") {
+      let message = "Use os filtros para começar";
+      setMessage(message);
+    }
+
     if (active.length === 0) {
       let message = `Nenhum agente foi encontrado na categoria ${category.toLowerCase()}`;
 

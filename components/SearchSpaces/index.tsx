@@ -7,6 +7,7 @@ import { ICulturalSpaceModel } from "../../@types/project";
 import SearchDialog from "../SearchDialog";
 import UserLetter from "../Utility/UserLetter";
 import TagGroup from "../Utility/TagGroup";
+import useSearchSpaceFilter, { filterSpaces } from "./useSearchSpaceFilter";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 
@@ -15,10 +16,6 @@ interface ISearchSpaces {
 }
 
 const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
-  const [culturalSpaceName, setCulturalSpaceName] = React.useState<string>("");
-  const [neighborhoodName, setNeighborhoodName] = React.useState<string>("");
-  const [categoryName, setCategoryName] = React.useState<string>("");
-
   const [spaceDialog, setSpaceDialog] = React.useState<
     ICulturalSpaceModel & { open: boolean }
   >({
@@ -51,25 +48,44 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     website: "",
   });
 
+  const {
+    category,
+    name,
+    neighborhood,
+    setCategory,
+    setName,
+    setNeighborhood,
+    active,
+    setActive,
+  } = useSearchSpaceFilter();
+
   return (
     <div className="w-full">
       <div className="flex justify-center my-5 mb-10 ">
         <Filter
-          searchAction={() => console.log("problema?")}
+          searchAction={() =>
+            filterSpaces(
+              name,
+              neighborhood,
+              category,
+              culturalSpaces,
+              setActive
+            )
+          }
           inputItems={[
             <TextField
               label="Nome"
               placeholder="Nome do espaço cultural"
-              value={culturalSpaceName}
-              onChange={(event) => setCulturalSpaceName(event.target.value)}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
             />,
 
             <TextField
               select
               style={{ minWidth: "150px" }}
               label="Bairros"
-              value={neighborhoodName}
-              onChange={(event) => setNeighborhoodName(event.target.value)}
+              value={neighborhood}
+              onChange={(event) => setNeighborhood(event.target.value)}
             >
               {taquaraNeighborhoods.map((neighborhood, index: number) => {
                 return (
@@ -84,10 +100,10 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               style={{ minWidth: "150px" }}
               select
               label="Atuação"
-              value={categoryName}
-              onChange={(event) => setCategoryName(event.target.value)}
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
             >
-              {categories.map((category, index: number) => {
+              {[...categories, "Todos"].map((category, index: number) => {
                 return <MenuItem value={category}>{category}</MenuItem>;
               })}
             </TextField>,
@@ -97,10 +113,7 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
 
       <div className="h-80 md:h-500px w-full flex justify-center mb-10">
         <div className="md:w-2/3 w-full h-full">
-          <DynamicMapSSR
-            culturalSpaces={culturalSpaces}
-            action={setSpaceDialog}
-          />
+          <DynamicMapSSR culturalSpaces={active} action={setSpaceDialog} />
         </div>
       </div>
       <SearchDialog
