@@ -185,7 +185,7 @@ export const races: RaceTypes[] = [
 const axiosBaseURL: string =
   process.env.NODE_ENV !== "production"
     ? "http://127.0.0.1:5001/mapeamento-cultural/us-central1/api"
-    : "https://tobedecided.com";
+    : "https://us-central1-mapeamento-cultural.cloudfunctions.net/api";
 
 export const API = axios.create({ ...axios.defaults, baseURL: axiosBaseURL });
 
