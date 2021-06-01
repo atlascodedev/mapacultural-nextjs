@@ -19,6 +19,7 @@ import {
   ICulturalSpaceSocials,
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
+import useGlobalUI from "../../../context/global_ui/hook";
 
 interface ISpaceForm extends FormPageProps {}
 
@@ -227,6 +228,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     step4.formik.isValid &&
     checkboxOneState &&
     checkboxTwoState;
+  const { dispatch } = useGlobalUI();
 
   const submitSpacesForm = () => {
     const stepOneValues = step1.formik.values;
@@ -241,6 +243,8 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       ...stepFourValues,
     };
 
+    dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });
+
     formList.forEach((form) => {
       form.formik.setSubmitting(true);
     });
@@ -248,6 +252,17 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     API.post("/spaces", aggregatedValues)
       .then((successMessage) => {
         console.log(successMessage);
+        headerReturnAction();
+        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
+        dispatch({
+          type: "SET_FEEDBACK_DIALOG_VISIBLE",
+          payload: {
+            feedbackMessage:
+              "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você será um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
+            feedbackSeverity: "success",
+            feedbackTitle: "Enviado com sucesso",
+          },
+        });
 
         formList.forEach((form) => {
           form.formik.setSubmitting(false);
@@ -255,6 +270,16 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         });
       })
       .catch((error) => {
+        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
+        dispatch({
+          type: "SET_FEEDBACK_DIALOG_VISIBLE",
+          payload: {
+            feedbackMessage:
+              "Ocorreu um erro ao tentar enviar a sua inscrição, isto provavelmente é um erro em nossos servidores. Por favor, atualize a página e tente novamente, pedimos desculpas pela inconveniência.",
+            feedbackSeverity: "error",
+            feedbackTitle: "Erro ao enviar formulário",
+          },
+        });
         console.log(error);
 
         formList.forEach((form) => {

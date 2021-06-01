@@ -19,6 +19,7 @@ import {
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import { TextField } from "@material-ui/core";
+import useGlobalUI from "../../../context/global_ui/hook";
 
 export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -26,6 +27,8 @@ export interface IAgentForm extends FormPageProps {}
 const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   let requiredMessage = "Este campo é obrigatório";
   let StringRequired = Yup.string().required(requiredMessage);
+
+  const { dispatch } = useGlobalUI();
 
   const [checkBoxOneChecked, setCheckboxOneChecked] =
     React.useState<boolean>(false);
@@ -229,6 +232,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       ...stepFourValues,
     };
 
+    dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });
+
     formList.forEach((form) => {
       form.formik.setSubmitting(true);
     });
@@ -240,10 +245,31 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         formList.forEach((form) => {
           form.formik.setSubmitting(false);
           form.formik.resetForm();
+          dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
+          headerReturnAction();
+          dispatch({
+            type: "SET_FEEDBACK_DIALOG_VISIBLE",
+            payload: {
+              feedbackMessage:
+                "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você será um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
+              feedbackSeverity: "success",
+              feedbackTitle: "Enviado com sucesso",
+            },
+          });
         });
       })
       .catch((error) => {
         console.log(error);
+        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
+        dispatch({
+          type: "SET_FEEDBACK_DIALOG_VISIBLE",
+          payload: {
+            feedbackMessage:
+              "Ocorreu um erro ao tentar enviar a sua inscrição, isto provavelmente é um erro em nossos servidores. Por favor, atualize a página e tente novamente, pedimos desculpas pela inconveniência.",
+            feedbackSeverity: "error",
+            feedbackTitle: "Erro ao enviar formulário",
+          },
+        });
 
         formList.forEach((form) => {
           form.formik.setSubmitting(false);

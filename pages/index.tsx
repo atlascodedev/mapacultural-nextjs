@@ -92,21 +92,6 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
-        <button
-          onClick={() =>
-            dispatch({
-              type: "SET_FEEDBACK_DIALOG_VISIBLE",
-              payload: {
-                feedbackMessage: "I wasnt there",
-                feedbackSeverity: "success",
-                feedbackTitle: "Oh snap",
-              },
-            })
-          }
-        >
-          open dialog
-        </button>
-
         <AnimatePresence>
           {!eventFormActive && !spacesFormActive && !agentFormActive && (
             <motion.div
@@ -169,7 +154,12 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <EventsForm headerReturnAction={() => setEventFormActive(false)} />
+            <EventsForm
+              headerReturnAction={() => {
+                global.window.scrollTo(0, 0);
+                setEventFormActive(false);
+              }}
+            />
           </motion.div>
         )}
         <AnimatePresence>
@@ -181,7 +171,10 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
               transition={{ delay: 0.5 }}
             >
               <SpacesForm
-                headerReturnAction={() => setSpacesFormActive(false)}
+                headerReturnAction={() => {
+                  global.window.scrollTo(0, 0);
+                  setSpacesFormActive(false);
+                }}
               />
             </motion.div>
           )}
@@ -194,7 +187,12 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <AgentForm headerReturnAction={() => setAgentFormActive(false)} />
+              <AgentForm
+                headerReturnAction={() => {
+                  global.window.scrollTo(0, 0);
+                  setAgentFormActive(false);
+                }}
+              />
             </motion.div>
           )}
         </AnimatePresence>

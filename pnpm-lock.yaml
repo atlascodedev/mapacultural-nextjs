@@ -16,6 +16,7 @@ specifiers:
   date-fns: ^2.21.3
   formik: ^2.2.7
   framer-motion: ^4.1.17
+  fuse.js: ^6.4.6
   leaflet: ^1.7.1
   nanoid: ^3.1.23
   next: 10.2.0
@@ -43,6 +44,7 @@ dependencies:
   date-fns: 2.21.3
   formik: 2.2.7_react@17.0.2
   framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
+  fuse.js: 6.4.6
   leaflet: 1.7.1
   nanoid: 3.1.23
   next: 10.2.0_17106d697386d9d4e075b8e94419bef6
@@ -1243,6 +1245,11 @@ packages:
 
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
+
+  /fuse.js/6.4.6:
+    resolution: {integrity: sha512-/gYxR/0VpXmWSfZOIPS3rWwU8SHgsRTwWuXhyb2O6s7aRuVtHtxCkR33bNYu3wyLyNx/Wpv0vU7FZy8Vj53VNw==}
+    engines: {node: '>=10'}
+    dev: false
 
   /get-intrinsic/1.1.1:
     resolution: {integrity: sha512-kWZrnVM42QCiEA2Ig1bG8zjoIMOgxWwYCEeNdwY6Tv/cOSeGpcoX4pXHfKUxNKVoArnrEr2e9srnAxxGIraS9Q==}

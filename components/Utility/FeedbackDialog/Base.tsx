@@ -6,10 +6,7 @@ export interface IFeedbackDialogBase {
 
 const FeedbackDialogBase = ({ children }: IFeedbackDialogBase) => {
   return (
-    <div
-      style={{ maxWidth: "95%" }}
-      className="md:min-w-450px  bg-white md:h-600px h-500px shadow-custom rounded-lg rounded-t-lg flex flex-col"
-    >
+    <div className="md:min-w-450px md:max-w-450px m-w-95pc bg-white md:h-600px h-500px shadow-custom rounded-lg rounded-t-lg flex flex-col">
       {children}
     </div>
   );
