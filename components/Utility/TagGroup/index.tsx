@@ -46,7 +46,7 @@ const TagGroup = ({
   return (
     <div className="flex gap-2">
       <div
-        className={`grid grid-cols-${mobileMaxCols.toString()} md:grid-cols-${maxCols.toString()} grid-flow-row gap-y-4 gap-2 place-items-center md:place-items-start `}
+        className={`grid grid-cols-${mobileMaxCols.toString()} md:grid-cols-${maxCols.toString()} grid-flow-row gap-y-4 gap-2  md:place-items-start `}
       >
         {activeTags.map((tag, index) => {
           return <Tag title={tag} key={index} />;

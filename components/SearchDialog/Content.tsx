@@ -2,7 +2,7 @@ import React from "react";
 import ContentField from "./ContentField";
 
 export interface ISearchDialogContent {
-  content: Array<{ label: string; element: JSX.Element }[]>;
+  content: Array<JSX.Element[]>;
 }
 
 const Content = ({ content }: ISearchDialogContent) => {
@@ -15,13 +15,7 @@ const Content = ({ content }: ISearchDialogContent) => {
             className="flex flex-col md:w-1/2 gap-7 p-8 h-full border-l border-gray-200"
           >
             {recordArray.map((record, index) => {
-              return (
-                <ContentField
-                  key={index}
-                  element={record.element}
-                  label={record.label}
-                />
-              );
+              return <div key={index}>{record}</div>;
             })}
           </div>
         );

@@ -108,54 +108,54 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
         }
         content={[
           [
-            {
-              label: "",
-              element: <UserLetter username={spaceDialog.culturalSpaceName} />,
-            },
-            {
-              label: "",
-              element: <TagGroup tags={spaceDialog.category} />,
-            },
-            {
-              label: "Horário de funcionamento",
-              element: (
-                <div className="text-gray-700">{spaceDialog.workingHours}</div>
-              ),
-            },
-            {
-              label: "Sobre o local",
-              element: (
-                <div className="text-gray-700">{spaceDialog.description}</div>
-              ),
-            },
-            {
-              label: "Acessibilidade",
-              element: (
-                <div className="text-gray-700">{spaceDialog.accessible}</div>
-              ),
-            },
-            {
-              label: "Critérios para o uso no espaço",
-              element: (
-                <div className="text-gray-700">{spaceDialog.entryTypes}</div>
-              ),
-            },
-            spaceDialog.website
-              ? {
-                  label: "Website",
-                  element: (
-                    <div className="text-gray-700">{spaceDialog.website}</div>
-                  ),
-                }
-              : null,
-            spaceDialog?.instagram
-              ? {
-                  label: "Instagram",
-                  element: (
-                    <div className="text-gray-700">{spaceDialog.instagram}</div>
-                  ),
-                }
-              : null,
+            <UserLetter username={spaceDialog.culturalSpaceName} />,
+            <div className="font-bold text-xl text-gray-700">
+              {spaceDialog.culturalSpaceName}
+            </div>,
+            <TagGroup tags={spaceDialog.category} />,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">
+                Horário de funcionamento
+              </div>
+              <div className="text-gray-500">{spaceDialog.workingHours}</div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-bold text-lg">Endereço</div>
+              <div className="text-gray-500 text-sm">{`${spaceDialog.street}, ${
+                spaceDialog.streetNumber
+              }, ${spaceDialog?.complement ?? ""}, ${
+                spaceDialog.neighborhood
+              }, ${spaceDialog.cep}`}</div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-bold text-lg">
+                Sobre o local
+              </div>
+              <div className="text-gray-500 text-sm">
+                {spaceDialog.description}
+              </div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-bold text-lg">
+                Acessibilidade
+              </div>
+              <div className="text-gray-500 text-sm">
+                {spaceDialog.accessible}
+              </div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-bold text-lg">
+                Critérios de uso de espaço
+              </div>
+              <div className="text-gray-500 text-sm">
+                {spaceDialog.entryTypes}
+              </div>
+            </div>,
           ],
         ]}
       />
