@@ -10,16 +10,13 @@ import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchEventSlider, { ISearchEventSlider } from "./SearchEventSlider";
+import useSearchEventFilter, { filterEvents } from "./useSearchEventFilter";
 
 export interface ISearchEvents {
   eventList: IEventModel[];
 }
 
 const SearchEvents = ({ eventList }: ISearchEvents) => {
-  const [eventName, setEventName] = React.useState<string>("");
-  const [eventMonth, setEventMonth] = React.useState<string>("");
-  const [eventCategory, setEventCategory] = React.useState<string>("");
-
   const [eventDialog, setEventDialog] = React.useState<
     IEventModel & { open: boolean }
   >({
@@ -64,26 +61,44 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
     "Dezembro",
   ];
 
+  const {
+    active,
+    category,
+    message,
+    month,
+    name,
+    setActive,
+    setMonth,
+    setName,
+    setCategory,
+  } = useSearchEventFilter();
+
+  React.useEffect(() => {
+    filterEvents("", month, "Todos", eventList, setActive);
+  }, []);
+
   return (
     <div className="w-full h-auto overflow-hidden py-8">
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-col items-center w-full">
         <Filter
-          searchAction={() => console.log("search me")}
+          searchAction={() =>
+            filterEvents(name, month, category, eventList, setActive)
+          }
           inputItems={[
             <TextField
               placeholder="Nome"
               label="Nome do evento"
-              value={eventName}
+              value={name}
               onChange={(
                 event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => setEventName(event.target.value)}
+              ) => setName(event.target.value)}
             />,
 
             <TextField
               style={{ minWidth: "120px" }}
-              value={eventMonth}
+              value={month}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setEventMonth(event.target.value)
+                setMonth(event.target.value)
               }
               select
               label="Mês"
@@ -101,12 +116,12 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
               style={{ minWidth: "120px" }}
               label="Categoria"
               select
-              value={eventCategory}
+              value={category}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setEventCategory(event.target.value)
+                setCategory(event.target.value)
               }
             >
-              {categories.map((category, index: number) => {
+              {[...categories, "Todos"].map((category, index: number) => {
                 return (
                   <MenuItem key={index} value={category}>
                     {category}
@@ -116,14 +131,12 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             </TextField>,
           ]}
         />
-      </div>
 
-      <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
-        Existem 46 eventos em Taquara
+        <div className="font-bold pt-10">{message}</div>
       </div>
 
       <div>
-        <SearchEventSlider action={setEventDialog} eventList={eventList} />
+        <SearchEventSlider action={setEventDialog} eventList={active} />
       </div>
 
       <SearchDialog

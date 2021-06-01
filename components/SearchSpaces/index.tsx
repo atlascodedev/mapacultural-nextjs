@@ -104,7 +104,11 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               onChange={(event) => setCategory(event.target.value)}
             >
               {[...categories, "Todos"].map((category, index: number) => {
-                return <MenuItem value={category}>{category}</MenuItem>;
+                return (
+                  <MenuItem key={index} value={category}>
+                    {category}
+                  </MenuItem>
+                );
               })}
             </TextField>,
           ]}

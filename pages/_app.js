@@ -11,7 +11,7 @@ import GlobalUIProvider from "../context/global_ui/provider";
 function MyApp({ Component, pageProps }) {
   return (
     <GlobalUIProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </GlobalUIProvider>
   );
 }
