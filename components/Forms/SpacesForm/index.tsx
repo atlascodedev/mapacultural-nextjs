@@ -77,14 +77,9 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         label: "Tarifa de entrada",
         placeholder: "Descreva a tarifa, em caso de evento misto ou pago",
       },
-      openingHours: {
-        label: "Horário de abertura",
-        type: "time",
-      },
-
-      closingHours: {
-        label: "Horário de fechamento",
-        type: "time",
+      workingHours: {
+        label: "Horário de funcionamento",
+        placeholder: "Ex. das 9h às 20h",
       },
 
       description: {
@@ -95,8 +90,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     validationSchema: Yup.object({
       publicEmail: StringRequired,
       privateEmail: StringRequired,
-      closingHours: Yup.date().required("Este campo é obrigatório") as any,
-      openingHours: Yup.date().required("Este campo é obrigatório") as any,
+      workingHours: StringRequired,
       cpf_or_cpnj: StringRequired,
       culturalSpaceCapacity: StringRequired,
       culturalSpaceEntry: StringRequired as any,

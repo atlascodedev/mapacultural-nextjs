@@ -24,8 +24,7 @@ export interface ICulturalSpacePersonalInfo {
   culturalSpaceEntry: CulturalSpaceEntranceType;
   culturalSpaceSphere: CulturalSpaceSphereTypes;
   culturalSpaceCapacity: string;
-  openingHours: string;
-  closingHours: string;
+  workingHours: string;
   entryTypes: CulturalSpaceEntryTypes;
   description: string;
   entryFee?: string;

@@ -98,7 +98,6 @@ export const categories: CulturalCategoryTypes[] = [
   "Rádio",
   "Teatro",
   "Tradicionalismo",
-  "Outros",
 ];
 
 export let brazilStates = [

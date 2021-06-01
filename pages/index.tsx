@@ -80,7 +80,7 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
         facebook="#"
         instagram="#"
         whatsapp="#"
-        contactEmail="atendimento@mapaculturaltaquara.com.br"
+        contactEmail="contato@pro-cidadania.org"
         contactNumber="(51)98910-5138"
         navbarColor="primary"
         metaDescription="Mapa cultural de Taquara"

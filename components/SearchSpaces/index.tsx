@@ -30,7 +30,6 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     accessible: "",
     category: [],
     cep: "",
-    closingHours: "",
     cpf_or_cpnj: "",
     culturalSpaceCapacity: "",
     culturalSpaceEntry: "Espaço público",
@@ -38,10 +37,10 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     culturalSpaceName: "",
     culturalSpaceSphere: "Empresa",
     description: "",
+    workingHours: "",
     entryTypes: "Acesso gratuito",
-    neighborhood: "",
+    neighborhood: "Centro",
     open: false,
-    openingHours: "",
     privateEmail: "",
     privatePhone: "",
     publicEmail: "",
@@ -104,6 +103,30 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
           />
         </div>
       </div>
+      <SearchDialog
+        BackdropProps={{ open: spaceDialog.open }}
+        closeFn={() =>
+          setSpaceDialog((prevState) => {
+            return { ...prevState, open: false };
+          })
+        }
+        content={[
+          [
+            {
+              label: "",
+              element: <UserLetter username={spaceDialog.culturalSpaceName} />,
+            },
+            {
+              label: "",
+              element: <TagGroup tags={spaceDialog.category} />,
+            },
+            {
+              label: "Horário de funcionamento",
+              element: <div></div>,
+            },
+          ],
+        ]}
+      />
     </div>
   );
 };

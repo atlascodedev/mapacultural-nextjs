@@ -18,6 +18,7 @@ import {
   IAgentSocialInfo,
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
+import { TextField } from "@material-ui/core";
 
 export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -114,7 +115,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     fields: {
       categories: {
         label: "Selecione as áreas de atuação",
-        checkboxGroup: categories,
+        checkboxGroup: [...categories] as any,
         type: "checkboxGroup",
       },
     },
@@ -251,6 +252,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
     console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
   };
+
+  console.log(step2.formik.values);
 
   return (
     <FormPageContainer

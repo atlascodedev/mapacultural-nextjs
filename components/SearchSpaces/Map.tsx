@@ -21,6 +21,8 @@ export interface ISearchSpaceMap {
 }
 
 const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
+  console.log(culturalSpaces);
+
   return (
     <MapContainer
       className="h-full w-full  rounded-lg shadow-custom"
@@ -39,13 +41,11 @@ const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
       ).map((culturalSpace, index) => {
         return (
           <Marker
+            key={index}
             eventHandlers={{
               click: () => action({ ...culturalSpace, open: true }),
             }}
-            position={[
-              parseInt(culturalSpace.lat),
-              parseInt(culturalSpace.lng),
-            ]}
+            position={[culturalSpace.lat as any, culturalSpace.lng as any]}
             riseOnHover={true}
             title={culturalSpace.culturalSpaceName}
           >
