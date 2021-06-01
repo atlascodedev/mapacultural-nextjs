@@ -29,7 +29,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
     cep: "",
     complement: "",
     eventURL: "",
-    neighborhood: "",
+    neighborhood: "Centro",
     publicPhone: "",
     street: "",
     streetNumber: "",
@@ -132,105 +132,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             return { ...prevState, open: false };
           })
         }
-        content={[
-          [
-            {
-              label: "",
-              element: <UserLetter username={eventDialog.eventName} />,
-            },
-            {
-              label: "",
-              element: (
-                <div className="text-gray-800 capitalize font-bold text-xl">
-                  {eventDialog.eventName}
-                </div>
-              ),
-            },
-            {
-              label: "Data do evento",
-              element: (
-                <div className="text-gray-700">
-                  {`${new Date(
-                    eventDialog.startingDate.toString()
-                  ).toLocaleDateString("pt-br")} até ${new Date(
-                    eventDialog.endingDate.toString()
-                  ).toLocaleDateString("pt-br")}`}
-                </div>
-              ),
-            },
-            {
-              label: "Horário de realização",
-              element: (
-                <div className="text-gray-700">{eventDialog.workingHours}</div>
-              ),
-            },
-            {
-              label: "Classificação indicativa",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog.eventAgeRestriction}
-                </div>
-              ),
-            },
-            {
-              label: "Valor",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog.eventEntryType}
-                </div>
-              ),
-            },
-            {
-              label: "Local",
-              element: (
-                <div>{`${eventDialog.street}, ${eventDialog.streetNumber}, ${
-                  eventDialog?.complement ?? ""
-                }, ${eventDialog.cep}`}</div>
-              ),
-            },
-
-            {
-              label: "E-mail",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog?.publicEmail ?? ""}
-                </div>
-              ),
-            },
-            {
-              label: "Telefone",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog?.publicPhone ?? ""}
-                </div>
-              ),
-            },
-          ],
-          [
-            {
-              label: "Sobre o evento",
-              element: (
-                <div className="text-gray-700">{eventDialog.description}</div>
-              ),
-            },
-            {
-              label: eventDialog?.website ? "Website do evento" : "",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog?.website ?? ""}
-                </div>
-              ),
-            },
-            {
-              label: eventDialog?.eventURL ? "Link do evento (virtual)" : "",
-              element: (
-                <div className="text-gray-700">
-                  {eventDialog?.eventURL ?? ""}
-                </div>
-              ),
-            },
-          ],
-        ]}
+        content={[[]]}
       />
     </div>
   );
