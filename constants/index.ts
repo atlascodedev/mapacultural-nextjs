@@ -7,6 +7,7 @@ import {
   EventFrequencyTypes,
   GenderTypes,
   RaceTypes,
+  TaquaraNeighborhoods,
 } from "../@types/literals";
 
 import axios from "axios";
@@ -192,27 +193,27 @@ export const API = axios.create({ ...axios.defaults, baseURL: axiosBaseURL });
 export const EMAIL_ENDPOINT =
   "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/mapacultural";
 
-export const taquaraNeighborhoods = [
+export const taquaraNeighborhoods: TaquaraNeighborhoods[] = [
   "Centro",
+  "Cruzeiro do Sul",
+  "Eldorado",
+  "Empresa",
+  "Fogão Gaúcho",
+  "Ideal",
   "Jardim do Prado",
+  "Km 4",
+  "Medianeira",
+  "Morro da Cruz",
+  "Morro do Leôncio",
+  "Mundo Novo",
+  "Nossa Senhora de Fátima",
+  "Petrópolis",
+  "Picada Francesa",
+  "Recreio",
   "Ronda",
   "Sagrada Família",
-  "Ideal",
-  "Km 4",
-  "Eldorado",
-  "Nossa Senhora de Fátima",
-  "Recreio",
-  "Morro de Leôncio",
-  "Empresa",
-  "Tucanos",
-  "Mundo Novo",
-  "Medianeira",
-  "Santa Terezinha",
-  "Petrópolis",
-  "Santa Rosa",
-  "Fogão Gaúcho",
-  "Cruzeiro do Sul",
-  "Picada Francesa",
-  "Morro da Cruz",
   "Santa Maria",
+  "Santa Rosa",
+  "Santa Terezinha",
+  "Tucanos",
 ];
