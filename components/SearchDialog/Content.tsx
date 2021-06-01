@@ -7,12 +7,12 @@ export interface ISearchDialogContent {
 
 const Content = ({ content }: ISearchDialogContent) => {
   return (
-    <div className="flex flex-col md:flex-row overflow-y-scroll h-full ">
+    <div className="flex flex-col md:flex-row overflow-y-scroll h-full  ">
       {content.map((recordArray, index) => {
         return (
           <div
             key={index}
-            className="flex flex-col md:w-1/2 gap-7 p-8 h-full border-l border-gray-200"
+            className="flex flex-col md:w-1/2 gap-7 p-8 py-2 md:py-8  md:h-full h-auto border-l border-gray-200"
           >
             {recordArray.map((record, index) => {
               if (record) {

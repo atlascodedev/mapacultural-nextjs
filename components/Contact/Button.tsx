@@ -19,6 +19,7 @@ const SubmitButton: React.FC<
   onClick,
   disabled,
   colorVariant,
+  ...props
 }) => {
   return (
     <motion.button
@@ -28,7 +29,9 @@ const SubmitButton: React.FC<
       whileTap={{ scale: 0.9 }}
       className={`
       bg-${disabled ? "gray-200" : getThemeColor(themeColor, colorVariant)} 
-      rounded-lg p-3 cursor-pointer  text-white font-bold flex justify-center items-center transition-colors`}
+      rounded-lg p-3 cursor-pointer  text-white font-bold flex justify-center items-center transition-colors ${
+        props.className
+      }`}
     >
       {children}
     </motion.button>
