@@ -44,6 +44,8 @@ const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
             key={index}
             eventHandlers={{
               click: () => action({ ...culturalSpace, open: true }),
+              mouseover: (event) => event.target.openPopup(),
+              mouseout: (event) => event.target.closePopup(),
             }}
             position={[culturalSpace.lat as any, culturalSpace.lng as any]}
             riseOnHover={true}

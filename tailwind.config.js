@@ -2,6 +2,14 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,tsx,jsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    keyframes: {
+      linearProgress: {
+        "0%": { left: "-100%" },
+        "50%": { left: "100%" },
+        "100%": { left: "100%" },
+      },
+    },
+
     extend: {
       boxShadow: {
         custom: "0px 2px 10px 2px rgba(38, 44, 80, 0.2);",

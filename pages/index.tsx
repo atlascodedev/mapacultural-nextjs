@@ -24,6 +24,7 @@ import { API } from "../constants";
 import scrollIntoView from "../helper/scrollIntoView";
 import useGlobalUI from "../context/global_ui/hook";
 import FeedbackDialog from "../components/Utility/FeedbackDialog";
+import LinearProgress from "../components/Utility/LinearProgress";
 
 interface IHomeProps {
   events: IEventModel[];
@@ -205,6 +206,7 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
           closeFn={() => dispatch({ type: "SET_FEEDBACK_DIALOG_HIDDEN" })}
           open={state.feedbackOpen}
         />
+        <LinearProgress visible={state.isLoading} />
       </MainLayout>
     </div>
   );

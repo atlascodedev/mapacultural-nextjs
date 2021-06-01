@@ -111,7 +111,9 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
           }
           content={[
             [
-              <UserLetter username={searchDialog.publicName} />,
+              <div className="flex justify-center  mt-5 md:mt-0">
+                <UserLetter username={searchDialog.publicName} />
+              </div>,
               <div className="font-bold text-xl text-gray-700">
                 {searchDialog.publicName}
               </div>,
@@ -121,7 +123,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Telefone 1
                   </div>
-                  <div className="text-gray-500">
+                  <div className="text-gray-500 text-sm">
                     {searchDialog.publicPhoneNumber}
                   </div>
                 </div>
@@ -130,16 +132,22 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                 <div className="text-gray-700 text-lg font-bold">
                   Telefone 2
                 </div>
-                <div className="text-gray-500">{searchDialog.phoneNumber}</div>
+                <div className="text-gray-500 text-sm">
+                  {searchDialog.phoneNumber}
+                </div>
               </div>,
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500">{searchDialog.publicEmail}</div>
+                <div className="text-gray-500 text-sm">
+                  {searchDialog.publicEmail}
+                </div>
               </div>,
               searchDialog.website.length > 0 ? (
                 <div className="flex flex-col">
                   <div className="text-gray-700 text-lg font-bold">Website</div>
-                  <div className="text-gray-500">{searchDialog.website}</div>
+                  <div className="text-gray-500 text-sm">
+                    {searchDialog.website}
+                  </div>
                 </div>
               ) : null,
 
@@ -148,7 +156,9 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Facebook
                   </div>
-                  <div className="text-gray-500">{searchDialog.facebook}</div>
+                  <div className="text-gray-500 text-sm">
+                    {searchDialog.facebook}
+                  </div>
                 </div>
               ) : null,
               searchDialog.instagram.length > 0 ? (
@@ -156,14 +166,18 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Instagram
                   </div>
-                  <div className="text-gray-500">{searchDialog.instagram}</div>
+                  <div className="text-gray-500 text-sm">
+                    {searchDialog.instagram}
+                  </div>
                 </div>
               ) : null,
             ],
             [
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">Sobre mim</div>
-                <div className="text-gray-500">{searchDialog.description}</div>
+                <div className="text-gray-500 text-sm">
+                  {searchDialog.description}
+                </div>
               </div>,
 
               searchDialog.portfolio.length > 0 ? (
@@ -171,7 +185,9 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Sobre meu trabalho
                   </div>
-                  <div className="text-gray-500">{searchDialog.portfolio}</div>
+                  <div className="text-gray-500 text-sm">
+                    {searchDialog.portfolio}
+                  </div>
                 </div>
               ) : null,
             ],
