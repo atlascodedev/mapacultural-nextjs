@@ -127,3 +127,27 @@ export type CulturalSpaceEntryTypes =
   | "Acesso gratuito"
   | "Acesso pago"
   | "Misto";
+
+export type TaquaraNeighborhoods =
+  | "Centro"
+  | "Jardim do Prado"
+  | "Ronda"
+  | "Sagrada Família"
+  | "Ideal"
+  | "Km 4"
+  | "Eldorado"
+  | "Nossa Senhora de Fátima"
+  | "Recreio"
+  | "Morro do Leôncio"
+  | "Empresa"
+  | "Tucanos"
+  | "Mundo Novo"
+  | "Medianeira"
+  | "Santa Terezinha"
+  | "Petrópolis"
+  | "Santa Rosa"
+  | "Fogão Gaúcho"
+  | "Cruzeiro do Sul"
+  | "Picada Francesa"
+  | "Morro da Cruz"
+  | "Santa Maria";

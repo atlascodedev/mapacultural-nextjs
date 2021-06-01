@@ -1,7 +1,5 @@
 import React from "react";
-import useFormGenerator, {
-  IFieldWrapperInternal,
-} from "../../../hooks/useFormGenerator";
+import useFormGenerator from "../../../hooks/useFormGenerator";
 import { FormPageProps } from "../AgentForm";
 import AtlasAccordion from "../../Utility/Accordion";
 import FormPageContainer from "../../Utility/FormPageContainer";
@@ -10,12 +8,10 @@ import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   accessibilityType,
   API,
-  brazilStates,
   categories,
   spheres,
   taquaraNeighborhoods,
 } from "../../../constants";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   ICulturalSpaceAddressInfo,
   ICulturalSpaceCategories,
@@ -143,7 +139,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
     validationSchema: Yup.object({
       cep: StringRequired,
       complement: Yup.string().notRequired(),
-      neighborhood: StringRequired,
+      neighborhood: StringRequired as any,
       street: StringRequired,
       streetNumber: StringRequired,
     }),

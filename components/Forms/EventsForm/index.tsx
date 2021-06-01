@@ -145,7 +145,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       cep: StringRequired,
       complement: StringNotRequired,
       eventType: StringRequired as any,
-      neighborhood: StringRequired,
+      neighborhood: StringRequired as any,
       street: StringRequired,
       streetNumber: StringRequired,
     }),

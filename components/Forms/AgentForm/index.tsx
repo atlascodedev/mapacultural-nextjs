@@ -152,7 +152,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     validationSchema: Yup.object({
       cep: StringRequired,
       complement: Yup.string().notRequired(),
-      neighborhood: StringRequired,
+      neighborhood: StringRequired as any,
       street: StringRequired,
       streetNumber: StringRequired,
     }),

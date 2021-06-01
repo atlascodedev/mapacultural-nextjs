@@ -8,6 +8,7 @@ import {
   EventFrequencyTypes,
   GenderTypes,
   RaceTypes,
+  TaquaraNeighborhoods,
 } from "./literals";
 
 type BooleanKeys<T> = {
@@ -33,7 +34,7 @@ export interface ICulturalSpacePersonalInfo {
 export interface ICulturalSpaceAddressInfo {
   cep: string;
   street: string;
-  neighborhood: string;
+  neighborhood: TaquaraNeighborhoods;
   streetNumber: string;
   complement?: string;
 }
@@ -75,7 +76,7 @@ export interface IAgentPersonalInfo {
 export interface IAgentAddressInfo {
   cep: string;
   street: string;
-  neighborhood: string;
+  neighborhood: TaquaraNeighborhoods;
   streetNumber: string;
   complement?: string;
 }
@@ -121,7 +122,7 @@ export interface IEventAddressInfo {
   eventType: "Físico" | "Online" | "Híbrido";
   cep?: string;
   street?: string;
-  neighborhood?: string;
+  neighborhood?: TaquaraNeighborhoods;
   streetNumber?: string;
   complement?: string;
 }

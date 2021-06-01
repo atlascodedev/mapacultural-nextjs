@@ -48,8 +48,8 @@ const FormPageContainerHeader = ({
 const FormPageActions = ({
   actionCancelFn,
   actionSubmitFn,
-  cancelLabel = "Cancel",
-  submitLabel = "Submit",
+  cancelLabel = "Cancelar",
+  submitLabel = "Enviar",
   isSubmitting,
   isValid,
 }: IFormPageActions) => {

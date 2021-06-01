@@ -2,7 +2,6 @@ import Head from "next/head";
 import React from "react";
 import Footer, { FooterProps } from "../../components/Footer";
 import Navbar, { INavbar } from "../../components/Navbar";
-import WhatsAppButton from "../../components/Utility/WhatsAppButton";
 
 interface MainLayoutProps extends INavbar, FooterProps {
   title: string;
