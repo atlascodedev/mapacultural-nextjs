@@ -51,7 +51,7 @@ const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
             riseOnHover={true}
             title={culturalSpace.culturalSpaceName}
           >
-            <Popup>{culturalSpace.culturalSpaceName}</Popup>
+            <Popup key={index}>{culturalSpace.culturalSpaceName}</Popup>
           </Marker>
         );
       })}

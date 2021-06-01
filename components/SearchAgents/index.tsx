@@ -16,6 +16,7 @@ import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchAgentsSlider from "./SearchAgentsSlider";
+import useSearchAgentFilter, { filterAgents } from "./useSearchAgentFilter";
 
 export interface ISearchAgents {
   agentsList: IAgentModel[];
@@ -51,32 +52,33 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
     open: false,
   });
 
-  const [searchAgentCategory, setSearchAgentCategory] =
-    React.useState<string>("");
-  const [searchAgentName, setSearchAgentName] = React.useState<string>("");
+  const { active, category, name, message, setCategory, setName, setActive } =
+    useSearchAgentFilter();
 
-  const [activeAgents, setActiveAgents] = React.useState<IAgentModel[]>([]);
-
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    filterAgents("", agentsList, "Todos", setActive);
+  }, []);
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
       <div className="flex justify-center flex-col items-center">
         <Filter
-          searchAction={() => console.log("search me")}
+          searchAction={() =>
+            filterAgents(name, agentsList, category, setActive)
+          }
           inputItems={[
             <TextField
               label="Nome"
-              value={searchAgentName}
-              onChange={(event) => setSearchAgentName(event.target.value)}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
             />,
             <TextField
               label="Atuação"
               style={{ minWidth: "150px" }}
-              onChange={(event) => setSearchAgentCategory(event.target.value)}
+              onChange={(event) => setCategory(event.target.value)}
               select
             >
-              {categories.map((category, index) => {
+              {[...categories, "Todos"].map((category, index) => {
                 return (
                   <MenuItem value={category} key={index}>
                     {category}
@@ -87,18 +89,14 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
           ]}
         />
 
-        <div className="font-bold pt-10">
-          {activeAgents.length === 0
-            ? `Nenhum agente foi encontrado na categoria ${searchAgentCategory}`
-            : `${activeAgents.length} foram encontrados na categoria`}
-        </div>
+        <div className="font-bold pt-10">{message}</div>
       </div>
 
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
         <div className="overflow-hidden">
           <SearchAgentsSlider
             action={setSearchDialog}
-            agentSliderItems={agentsList}
+            agentSliderItems={active}
           />
         </div>
 

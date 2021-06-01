@@ -72,7 +72,11 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               onChange={(event) => setNeighborhoodName(event.target.value)}
             >
               {taquaraNeighborhoods.map((neighborhood, index: number) => {
-                return <MenuItem value={neighborhood}>{neighborhood}</MenuItem>;
+                return (
+                  <MenuItem key={index} value={neighborhood}>
+                    {neighborhood}
+                  </MenuItem>
+                );
               })}
             </TextField>,
 

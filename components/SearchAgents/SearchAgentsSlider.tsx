@@ -33,7 +33,7 @@ const SearchAgentsSlider = ({
   return (
     <Swiper
       pagination={{ clickable: true }}
-      style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
+      style={{ paddingTop: "0.5rem", paddingBottom: "3rem" }}
       slidesPerView={"auto"}
       breakpoints={{
         1024: {
