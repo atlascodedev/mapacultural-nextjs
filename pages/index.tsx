@@ -23,6 +23,7 @@ import {
 import { API } from "../constants";
 import scrollIntoView from "../helper/scrollIntoView";
 import useGlobalUI from "../context/global_ui/hook";
+import FeedbackDialog from "../components/Utility/FeedbackDialog";
 
 interface IHomeProps {
   events: IEventModel[];
@@ -90,6 +91,21 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
         metaDescription="Mapa cultural de Taquara"
         title="Mapa Cultural"
       >
+        <button
+          onClick={() =>
+            dispatch({
+              type: "SET_FEEDBACK_DIALOG_VISIBLE",
+              payload: {
+                feedbackMessage: "I wasnt there",
+                feedbackSeverity: "success",
+                feedbackTitle: "Oh snap",
+              },
+            })
+          }
+        >
+          open dialog
+        </button>
+
         <AnimatePresence>
           {!eventFormActive && !spacesFormActive && !agentFormActive && (
             <motion.div
@@ -181,6 +197,14 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <FeedbackDialog
+          severity={state.feedbackSeverity}
+          message={state.feedbackMessage}
+          title={state.feedbackTitle}
+          closeFn={() => dispatch({ type: "SET_FEEDBACK_DIALOG_HIDDEN" })}
+          open={state.feedbackOpen}
+        />
       </MainLayout>
     </div>
   );

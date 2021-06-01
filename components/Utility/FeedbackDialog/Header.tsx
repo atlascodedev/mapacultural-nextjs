@@ -12,8 +12,8 @@ export interface IFeedbackDialogHeader {
 const Header = ({ severity }: IFeedbackDialogHeader) => {
   return (
     <div
-      style={{ height: "45%" }}
-      className={`w-full flex justify-center items-center bg-alert-${severity}`}
+      style={{ height: "65%" }}
+      className={`w-full flex justify-center items-center rounded-t-lg text-white text-9xl md:text-9xl bg-alert-${severity}`}
     >
       {severity === "success" ? (
         <IoMdCheckmarkCircleOutline />

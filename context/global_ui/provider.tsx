@@ -5,15 +5,22 @@ import { IGlobalState } from "./types";
 
 const initialState: IGlobalState = {
   isLoading: false,
+  feedbackOpen: false,
 };
 
 const GlobalUIProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = React.useReducer(globalUIReducer, initialState);
 
-  const value = { state, dispatch };
+  const store = React.useMemo(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state]
+  );
 
   return (
-    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
+    <GlobalContext.Provider value={store}>{children}</GlobalContext.Provider>
   );
 };
 
