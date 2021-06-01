@@ -40,8 +40,6 @@ export const filterAgents = (
   });
 
   callback(agentResult);
-
-  console.log(agentResult);
 };
 
 const useSearchAgentFilter = () => {
