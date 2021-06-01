@@ -15,6 +15,14 @@ type BooleanKeys<T> = {
   [k in keyof T]: T[k] extends boolean ? k : never;
 }[keyof T];
 
+export interface IPartnerCollection {
+  partneName: string;
+  partnerLogo: {
+    imageURL: string;
+    imageDescription: string;
+  };
+}
+
 export interface ICulturalSpacePersonalInfo {
   privateEmail: string;
   publicEmail: string;

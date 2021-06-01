@@ -1,6 +1,7 @@
 import React from "react";
 import { IAgentModel } from "../../@types/project";
 import Fuse from "fuse.js";
+import { useEffectExceptOnMount } from "../../hooks/useEffectExcepOnMount";
 
 export const filterAgents = (
   name: string,
@@ -43,14 +44,14 @@ export const filterAgents = (
 };
 
 const useSearchAgentFilter = () => {
-  const [category, setCategory] = React.useState<string>("");
+  const [category, setCategory] = React.useState<string>("Todos");
   const [name, setName] = React.useState<string>("");
   const [active, setActive] = React.useState<IAgentModel[]>([]);
   const [message, setMessage] = React.useState<string>(
     "Use os filtros para começar."
   );
 
-  React.useEffect(() => {
+  useEffectExceptOnMount(() => {
     if (category === "" && name === "") {
       let message = "Use os filtros para começar";
       setMessage(message);

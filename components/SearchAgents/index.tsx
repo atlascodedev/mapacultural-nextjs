@@ -74,6 +74,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
             />,
             <TextField
               label="Atuação"
+              value={category}
               style={{ minWidth: "150px" }}
               onChange={(event) => setCategory(event.target.value)}
               select

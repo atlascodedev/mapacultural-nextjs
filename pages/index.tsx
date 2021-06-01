@@ -19,6 +19,7 @@ import {
   IAgentModel,
   ICulturalSpaceModel,
   IEventModel,
+  IPartnerCollection,
 } from "../@types/project";
 import { API } from "../constants";
 import scrollIntoView from "../helper/scrollIntoView";
@@ -30,6 +31,7 @@ interface IHomeProps {
   events: IEventModel[];
   culturalSpaces: ICulturalSpaceModel[];
   agents: IAgentModel[];
+  partners: IPartnerCollection[];
 }
 
 export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
@@ -216,16 +218,21 @@ export const getStaticProps: GetStaticProps<IHomeProps> = async (context) => {
     "/spaces"
   );
   const eventRequest: AxiosResponse<IEventModel[]> = await API.get("/events");
+  const partnersRequest: AxiosResponse<IPartnerCollection[]> = await API.get(
+    "/collections/entries/partners"
+  );
 
   const agentData: IAgentModel[] = agentRequest.data;
   const spaceData: ICulturalSpaceModel[] = spaceRequest.data;
   const eventData: IEventModel[] = eventRequest.data;
+  const partnerData: IPartnerCollection[] = partnersRequest.data;
 
   return {
     props: {
       agents: agentData,
       culturalSpaces: spaceData,
       events: eventData,
+      partners: partnerData,
     },
   };
 };
