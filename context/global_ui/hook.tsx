@@ -1,9 +1,7 @@
 import React from "react";
 import GlobalContext from "./context";
 
-interface IUseGlobalUI {}
-
-const useGlobalUI = ({}: IUseGlobalUI) => {
+const useGlobalUI = () => {
   const context = React.useContext(GlobalContext);
 
   if (typeof context === "undefined") {

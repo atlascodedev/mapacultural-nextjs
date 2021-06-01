@@ -6,9 +6,14 @@ require("swiper/components/scrollbar/scrollbar.min.css");
 require("swiper/components/effect-fade/effect-fade.min.css");
 require("swiper/components/scrollbar/scrollbar.min.css");
 require("swiper/components/lazy/lazy.min.css");
+import GlobalUIProvider from "../context/global_ui/provider";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <GlobalUIProvider>
+      <Component {...pageProps} />;
+    </GlobalUIProvider>
+  );
 }
 
 export default MyApp;

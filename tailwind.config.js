@@ -80,6 +80,13 @@ module.exports = {
       },
 
       colors: {
+        alert: {
+          success: "#2CD283",
+          error: "#F44336",
+          warning: "#FF9800",
+          info: "#2196F3",
+        },
+
         deepBlue: "#172b4d",
 
         primary: {

@@ -22,6 +22,7 @@ import {
 } from "../@types/project";
 import { API } from "../constants";
 import scrollIntoView from "../helper/scrollIntoView";
+import useGlobalUI from "../context/global_ui/hook";
 
 interface IHomeProps {
   events: IEventModel[];
@@ -48,6 +49,9 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
   const partnerRef = React.useRef(null);
   const contactRef = React.useRef(null);
 
+  const { dispatch, state } = useGlobalUI();
+
+  console.log(state);
   return (
     <div>
       <MainLayout
