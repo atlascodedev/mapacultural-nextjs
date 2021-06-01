@@ -4,12 +4,8 @@ import Filter from "../Utility/Filter";
 import { MenuItem, TextField } from "@material-ui/core";
 import { categories, taquaraNeighborhoods } from "../../constants";
 import { ICulturalSpaceModel } from "../../@types/project";
-import Backdrop from "../Utility/Backdrop";
-import { IoClose } from "react-icons/io5";
-import { ISearchSpaceMap } from "./Map";
 import SearchDialog from "../SearchDialog";
 import UserLetter from "../Utility/UserLetter";
-import Tag from "../Utility/Tag";
 import TagGroup from "../Utility/TagGroup";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
@@ -122,8 +118,44 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
             },
             {
               label: "Horário de funcionamento",
-              element: <div></div>,
+              element: (
+                <div className="text-gray-700">{spaceDialog.workingHours}</div>
+              ),
             },
+            {
+              label: "Sobre o local",
+              element: (
+                <div className="text-gray-700">{spaceDialog.description}</div>
+              ),
+            },
+            {
+              label: "Acessibilidade",
+              element: (
+                <div className="text-gray-700">{spaceDialog.accessible}</div>
+              ),
+            },
+            {
+              label: "Critérios para o uso no espaço",
+              element: (
+                <div className="text-gray-700">{spaceDialog.entryTypes}</div>
+              ),
+            },
+            spaceDialog.website
+              ? {
+                  label: "Website",
+                  element: (
+                    <div className="text-gray-700">{spaceDialog.website}</div>
+                  ),
+                }
+              : null,
+            spaceDialog?.instagram
+              ? {
+                  label: "Instagram",
+                  element: (
+                    <div className="text-gray-700">{spaceDialog.instagram}</div>
+                  ),
+                }
+              : null,
           ],
         ]}
       />
