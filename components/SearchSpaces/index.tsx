@@ -132,15 +132,6 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
 
             <div className="flex flex-col">
               <div className="text-gray-700 font-bold text-lg">
-                Sobre o local
-              </div>
-              <div className="text-gray-500 text-sm">
-                {spaceDialog.description}
-              </div>
-            </div>,
-
-            <div className="flex flex-col">
-              <div className="text-gray-700 font-bold text-lg">
                 Acessibilidade
               </div>
               <div className="text-gray-500 text-sm">
@@ -154,6 +145,74 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               </div>
               <div className="text-gray-500 text-sm">
                 {spaceDialog.entryTypes}
+              </div>
+            </div>,
+
+            spaceDialog?.website?.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 font-bold text-lg">Website</div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.website}
+                </div>
+              </div>
+            ) : null,
+
+            spaceDialog?.instagram.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 font-bold text-lg">Instagram</div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.instagram}
+                </div>
+              </div>
+            ) : null,
+
+            spaceDialog?.facebook.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 font-bold text-lg">Facebook</div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.facebook}
+                </div>
+              </div>
+            ) : null,
+
+            spaceDialog?.publicPhone.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 font-bold text-lg">
+                  Telefone 1
+                </div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.publicPhone}
+                </div>
+              </div>
+            ) : null,
+
+            spaceDialog?.publicPhoneAlt?.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 font-bold text-lg">
+                  Telefone 2
+                </div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.publicPhoneAlt}
+                </div>
+              </div>
+            ) : null,
+
+            spaceDialog?.publicEmail?.length > 0 ? (
+              <div className="flex flex-col mb-5">
+                <div className="text-gray-700 font-bold text-lg">E-mail</div>
+                <div className="text-gray-500 text-sm">
+                  {spaceDialog?.publicEmail}
+                </div>
+              </div>
+            ) : null,
+          ],
+          [
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-bold text-lg">
+                Sobre o local
+              </div>
+              <div className="text-gray-500 text-sm">
+                {spaceDialog.description}
               </div>
             </div>,
           ],

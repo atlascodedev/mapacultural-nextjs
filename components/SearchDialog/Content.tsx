@@ -15,7 +15,11 @@ const Content = ({ content }: ISearchDialogContent) => {
             className="flex flex-col md:w-1/2 gap-7 p-8 h-full border-l border-gray-200"
           >
             {recordArray.map((record, index) => {
-              return <div key={index}>{record}</div>;
+              if (record) {
+                return <div key={index}>{record}</div>;
+              } else {
+                null;
+              }
             })}
           </div>
         );

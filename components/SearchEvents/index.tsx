@@ -7,6 +7,7 @@ import FieldWrapper from "../FormUtil/FieldWrapper";
 import SearchDialog from "../SearchDialog";
 import Backdrop from "../Utility/Backdrop";
 import Filter from "../Utility/Filter";
+import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchEventSlider, { ISearchEventSlider } from "./SearchEventSlider";
 
@@ -132,7 +133,93 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             return { ...prevState, open: false };
           })
         }
-        content={[[]]}
+        content={[
+          [
+            <UserLetter username={eventDialog.eventName} />,
+            <div className="font-bold text-xl text-gray-700">
+              {eventDialog.eventName}
+            </div>,
+            <TagGroup tags={eventDialog.categories} />,
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">
+                Data do evento
+              </div>
+              <div className="text-gray-500">{`${new Date(
+                eventDialog.startingDate
+              ).toLocaleDateString("pt-br")} até ${new Date(
+                eventDialog.endingDate
+              ).toLocaleDateString("pt-br")}`}</div>
+            </div>,
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">
+                Horário de realização
+              </div>
+              <div className="text-gray-500">{eventDialog.workingHours}</div>
+            </div>,
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">Valor</div>
+              <div className="text-gray-500">{eventDialog.eventEntryType}</div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">
+                Tipo de evento
+              </div>
+              <div className="text-gray-500">{eventDialog.eventType}</div>
+            </div>,
+
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">Local</div>
+              <div className="text-gray-500">{`${eventDialog.street}, ${
+                eventDialog.streetNumber
+              }, ${eventDialog.neighborhood}, ${
+                eventDialog?.complement ?? ""
+              }, ${eventDialog.cep}`}</div>
+            </div>,
+            eventDialog?.publicEmail.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">E-mail</div>
+                <div className="text-gray-500">{eventDialog.workingHours}</div>
+              </div>
+            ) : null,
+
+            eventDialog?.publicPhone.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">Telefone</div>
+                <div className="text-gray-500">{eventDialog.publicPhone}</div>
+              </div>
+            ) : null,
+          ],
+          [
+            <div className="flex flex-col">
+              <div className="text-gray-700 text-lg font-bold">
+                Sobre o evento
+              </div>
+              <div className="text-gray-500">{eventDialog.description}</div>
+            </div>,
+
+            eventDialog?.publicEmail.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">E-mail</div>
+                <div className="text-gray-500">{eventDialog.workingHours}</div>
+              </div>
+            ) : null,
+
+            eventDialog?.website.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">Website</div>
+                <div className="text-gray-500">{eventDialog.website}</div>
+              </div>
+            ) : null,
+
+            eventDialog?.publicEmail.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">E-mail</div>
+                <div className="text-gray-500">{eventDialog.workingHours}</div>
+              </div>
+            ) : null,
+          ],
+        ]}
       />
     </div>
   );
