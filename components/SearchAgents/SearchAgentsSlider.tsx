@@ -32,6 +32,7 @@ const SearchAgentsSlider = ({
 }: ISearchAgentsSlider) => {
   return (
     <Swiper
+      pagination={{ clickable: true }}
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
       slidesPerView={"auto"}
       breakpoints={{
