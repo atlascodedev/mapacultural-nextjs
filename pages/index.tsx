@@ -94,7 +94,7 @@ export default function Home({
         instagram="https://www.instagram.com/institutogauchoprocidadania/"
         whatsapp="https://wa.link/y6edo4"
         contactEmail="contato@pro-cidadania.org _"
-        contactNumber="+55 (51) 8910-5138"
+        contactNumber="+55 (51) 9-8910-5138"
         navbarColor="primary"
         metaDescription="Mapa cultural de Taquara"
         title="Mapeamento Cultural de Taquara"
