@@ -13,7 +13,15 @@ const Header = ({ severity }: IFeedbackDialogHeader) => {
   return (
     <div
       style={{ height: "65%" }}
-      className={`w-full flex justify-center items-center rounded-t-lg text-white text-9xl md:text-9xl bg-alert-${severity}`}
+      className={`w-full flex justify-center items-center rounded-t-lg text-white text-9xl md:text-9xl ${
+        severity === "success"
+          ? "bg-alert-success"
+          : severity === "error"
+          ? "bg-alert-error"
+          : severity === "info"
+          ? "bg-alert-info"
+          : "bg-alert-warning"
+      }`}
     >
       {severity === "success" ? (
         <IoMdCheckmarkCircleOutline />

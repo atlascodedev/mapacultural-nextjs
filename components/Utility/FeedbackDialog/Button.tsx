@@ -11,7 +11,15 @@ const FeedbackDialogButton = ({ severity, action }: IFeedbackDialogButton) => {
     <div
       onClick={action}
       style={{ borderRadius: "64px" }}
-      className={`bg-alert-${severity} text-white px-6 py-2 md:text-lg font-bold cursor-pointer hover:shadow-custom transition-shadow text-base`}
+      className={`${
+        severity === "success"
+          ? "bg-alert-success"
+          : severity === "error"
+          ? "bg-alert-error"
+          : severity === "info"
+          ? "bg-alert-info"
+          : "bg-alert-warning"
+      } text-white px-6 py-2 md:text-lg font-bold cursor-pointer hover:shadow-custom transition-shadow text-base`}
     >
       Fechar
     </div>
