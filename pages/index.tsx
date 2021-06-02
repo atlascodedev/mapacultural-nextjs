@@ -97,7 +97,7 @@ export default function Home({
         contactNumber="+55 (51) 8910-5138"
         navbarColor="primary"
         metaDescription="Mapa cultural de Taquara"
-        title="Mapa Cultural"
+        title="Mapa Cultural _"
       >
         <AnimatePresence>
           {!eventFormActive && !spacesFormActive && !agentFormActive && (
