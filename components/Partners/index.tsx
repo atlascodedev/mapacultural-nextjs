@@ -3,7 +3,7 @@ import PartnerSlider, { IPartnerSlider } from "./PartnerSlider";
 
 export interface IPartners extends IPartnerSlider {}
 
-const Partners = ({ partnersItems }: IPartners) => {
+const Partners = ({ partnersItems = [] }: IPartners) => {
   return (
     <div className={"py-16 bg-tertiary-main"}>
       <div className="w-full md:px-96 px-5 text-white text-center flex justify-center">

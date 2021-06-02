@@ -1,22 +1,15 @@
 import React from "react";
+import { IPartnerCollection } from "../../@types/project";
 
-export interface IPartnerSliderCard {
-  partnerLogo?: string;
-  partnerName?: string;
-  partnerURL?: string;
-}
+export interface IPartnerSliderCard extends IPartnerCollection {}
 
-const PartnerSliderCard = ({
-  partnerLogo = "https://via.placeholder.com/350",
-  partnerName = "Placeholder name",
-  partnerURL = "#",
-}: IPartnerSliderCard) => {
+const PartnerSliderCard = ({ partneName, partnerLogo }: IPartnerSliderCard) => {
   return (
     <div className="text-deepBlue w-56 h-36 bg-white shadow-2xl rounded flex justify-center items-center p-5">
       <img
         className="w-full h-full object-contain"
-        src={partnerLogo}
-        alt={partnerName}
+        src={partnerLogo.imageURL}
+        alt={partnerLogo.imageDescription}
       />
     </div>
   );

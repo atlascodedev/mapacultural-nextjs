@@ -34,7 +34,12 @@ interface IHomeProps {
   partners: IPartnerCollection[];
 }
 
-export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
+export default function Home({
+  agents,
+  culturalSpaces,
+  events,
+  partners,
+}: IHomeProps) {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
   const [eventFormActive, setEventFormActive] = React.useState<boolean>(false);
@@ -131,17 +136,11 @@ export default function Home({ agents, culturalSpaces, events }: IHomeProps) {
                   ]}
                 />
               </div>
-              <div id="partners">
-                <Partners
-                  partnersItems={[
-                    { partnerLogo: "https://via.placeholder.com/350" },
-                    { partnerLogo: "https://via.placeholder.com/350" },
-                    { partnerLogo: "https://via.placeholder.com/350" },
-                    { partnerLogo: "https://via.placeholder.com/350" },
-                    { partnerLogo: "https://via.placeholder.com/350" },
-                  ]}
-                />
-              </div>
+              {partners.length > 0 ? (
+                <div id="partners">
+                  <Partners partnersItems={partners} />
+                </div>
+              ) : null}
 
               <div id="contact">
                 <Contact />

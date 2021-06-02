@@ -9,7 +9,7 @@ export interface IPartnerSlider {
 
 SwiperCore.use([Autoplay, Navigation, Lazy, Navigation]);
 
-const PartnerSlider = ({ partnersItems }: IPartnerSlider) => {
+const PartnerSlider = ({ partnersItems = [] }: IPartnerSlider) => {
   return (
     <Swiper
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
@@ -30,7 +30,10 @@ const PartnerSlider = ({ partnersItems }: IPartnerSlider) => {
             style={{ display: "flex", justifyContent: "center" }}
             key={index}
           >
-            <PartnerSliderCard partnerLogo={partner.partnerLogo} />
+            <PartnerSliderCard
+              partneName={partner.partneName}
+              partnerLogo={partner.partnerLogo}
+            />
           </SwiperSlide>
         );
       })}

@@ -11,7 +11,7 @@ const submitContactForm = (data: any) => {
 
 const Contact = (props: ContactProps) => {
   return (
-    <div className="w-full flex flex-col md:flex-row items-center">
+    <div className="w-full flex flex-col md:flex-row items-center bg-gray-50 md:mt-10 md:py-10">
       <div className="md:w-1/2 md:flex md:justify-center">
         <ContactForm submitFn={submitContactForm} />
       </div>
