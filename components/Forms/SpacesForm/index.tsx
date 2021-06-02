@@ -20,6 +20,7 @@ import {
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import useGlobalUI from "../../../context/global_ui/hook";
+import { nanoid } from "nanoid";
 
 interface ISpaceForm extends FormPageProps {}
 
@@ -231,6 +232,8 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
   const { dispatch } = useGlobalUI();
 
   const submitSpacesForm = () => {
+    const transactionUUID = nanoid();
+
     const stepOneValues = step1.formik.values;
     const stepTwoValues = step2.formik.values;
     const stepThreeValues = step3.formik.values;
@@ -241,6 +244,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       ...stepTwoValues,
       ...stepThreeValues,
       ...stepFourValues,
+      uuid: transactionUUID,
     };
 
     dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });

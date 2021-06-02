@@ -20,6 +20,7 @@ import {
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import useGlobalUI from "../../../context/global_ui/hook";
+import { nanoid } from "nanoid";
 
 interface IEventForms extends FormPageProps {}
 
@@ -207,6 +208,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
   const { dispatch } = useGlobalUI();
 
   const submitEventForm = () => {
+    const transactionUUID = nanoid();
     const stepOneValues = step1.formik.values;
     const stepTwoValues = step2.formik.values;
     const stepThreeValues = step3.formik.values;
@@ -217,6 +219,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       ...stepTwoValues,
       ...stepThreeValues,
       ...stepFourValues,
+      uuid: transactionUUID,
     };
 
     dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });

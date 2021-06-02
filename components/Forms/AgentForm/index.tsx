@@ -20,6 +20,7 @@ import {
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import { TextField } from "@material-ui/core";
 import useGlobalUI from "../../../context/global_ui/hook";
+import { nanoid } from "nanoid";
 
 export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -220,6 +221,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     checkBoxTwoChecked;
 
   const submitAgentForm = () => {
+    const transactionUUID = nanoid();
+
     const stepOneValues = step1.formik.values;
     const stepTwoValues = step2.formik.values;
     const stepThreeValues = step3.formik.values;
@@ -230,6 +233,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       ...stepTwoValues,
       ...stepThreeValues,
       ...stepFourValues,
+      uuid: transactionUUID,
     };
 
     dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });
