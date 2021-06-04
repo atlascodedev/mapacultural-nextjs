@@ -255,7 +255,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
             type: "SET_FEEDBACK_DIALOG_VISIBLE",
             payload: {
               feedbackMessage:
-                "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você será um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
+                "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você receberá um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
               feedbackSeverity: "success",
               feedbackTitle: "Enviado com sucesso",
             },
