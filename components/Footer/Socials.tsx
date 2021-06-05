@@ -10,19 +10,19 @@ export interface FooterSocialsProps {
 const Socials = ({ facebook, instagram, whatsapp }: FooterSocialsProps) => {
   return (
     <div className={`flex w-full justify-center gap-8`}>
-      <a href={facebook}>
+      <a target="_blank" href={facebook}>
         <SocialButton>
           <FaFacebookF className="text-deepBlue text-2xl" />
         </SocialButton>
       </a>
 
-      <a href={instagram}>
+      <a target="_blank" href={instagram}>
         <SocialButton>
           <FaInstagram className="text-deepBlue text-2xl" />
         </SocialButton>
       </a>
 
-      <a href={whatsapp}>
+      <a target="_blank" href={whatsapp}>
         <SocialButton>
           <FaWhatsapp className="text-deepBlue text-2xl" />
         </SocialButton>

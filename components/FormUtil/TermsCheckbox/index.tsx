@@ -1,4 +1,5 @@
 import { Checkbox, FormControlLabel } from "@material-ui/core";
+import Link from "next/link";
 import React from "react";
 
 export interface ITermsCheckbox {
@@ -38,7 +39,21 @@ const TermsCheckbox = ({
           />
         }
         label={
-          "Ao informar meus dados, eu concordo com a Política de Privacidade e com os termos de uso."
+          <div>
+            Ao informar meus dados, eu concordo com a{" "}
+            <Link href="/politica-privacidade">
+              <a className="text-purple-800 underline font-black">
+                política de privacidade
+              </a>
+            </Link>{" "}
+            e com os{" "}
+            <Link href="/termos-de-uso">
+              <a className="text-purple-800 underline font-black">
+                termos de uso
+              </a>
+            </Link>
+            .
+          </div>
         }
       />
     </div>

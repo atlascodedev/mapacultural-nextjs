@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         facebook="https://www.facebook.com/institutoprocidadania/"
         instagram="https://www.instagram.com/institutogauchoprocidadania/"
         whatsapp="https://wa.link/y6edo4"
-        contactEmail="contato@pro-cidadania.org _"
+        contactEmail="contato@pro-cidadania.org"
         contactNumber="+55 (51) 9-8910-5138"
         navbarColor="primary"
         metaDescription="Mapa cultural de Taquara"

@@ -10,7 +10,13 @@ const NavbarLogo = ({ externalPath }: INavbarLogo) => {
 
   return (
     <div
-      onClick={() => router.push("/")}
+      onClick={() => {
+        if (global.window.location.pathname == "/") {
+          global.window.scrollTo(0, 0);
+          return;
+        }
+        router.push("/");
+      }}
       className={"min-h-0 max-w-full flex justify-center cursor-pointer"}
     >
       <img
