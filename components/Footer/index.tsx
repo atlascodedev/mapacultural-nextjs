@@ -31,20 +31,22 @@ const Footer = ({
         />
       </div>
 
-      <div className="text-center text-white font-serif grid grid-cols-1 grid-flow-row md:grid-cols-2">
+      <div className="text-center text-white font-serif grid grid-cols-1 grid-flow-row md:grid-cols-2 ">
         <div className="flex items-center">
           {`© ${new Date().getFullYear()} - Todos Direitos Reservados - Atlas Code - Desenvolvimento web & estratégia`}
         </div>
 
-        <div className="flex flex-col gap-5 mt-10 md:mt-0">
+        <div className="flex flex-col gap-5 mt-10 md:mt-0 ">
           <Link href="/politica-privacidade">
-            <a className="outline-none text-white font-black">
+            <a className="outline-none text-white font-black justify-center flex md:justify-end">
               Política de privacidade
             </a>
           </Link>
 
           <Link href="/termos-de-uso">
-            <a className="outline-none text-white font-black">Termos de uso</a>
+            <a className="outline-none text-white font-black justify-center flex md:justify-end">
+              Termos de uso
+            </a>
           </Link>
         </div>
       </div>

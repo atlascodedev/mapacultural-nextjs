@@ -28,7 +28,11 @@ const SubmitButton: React.FC<
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       className={`
-      bg-${disabled ? "gray-200" : getThemeColor(themeColor, colorVariant)} 
+      ${
+        disabled
+          ? "bg-gray-200"
+          : "bg-" + getThemeColor(themeColor, colorVariant).toString()
+      }
       rounded-lg p-3 cursor-pointer  text-white font-bold flex justify-center items-center transition-colors ${
         props.className
       }`}

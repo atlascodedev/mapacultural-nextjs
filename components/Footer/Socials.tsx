@@ -9,7 +9,7 @@ export interface FooterSocialsProps {
 
 const Socials = ({ facebook, instagram, whatsapp }: FooterSocialsProps) => {
   return (
-    <div className={`flex w-full justify-center gap-8`}>
+    <div className={`flex w-full justify-center md:justify-end gap-8`}>
       <a target="_blank" href={facebook}>
         <SocialButton>
           <FaFacebookF className="text-deepBlue text-2xl" />

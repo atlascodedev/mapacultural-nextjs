@@ -24,7 +24,7 @@ export interface ISearchAgents {
 
 const SearchAgents = ({ agentsList }: ISearchAgents) => {
   const [searchDialog, setSearchDialog] = React.useState<
-    IAgentModel & { open: boolean }
+    IAgentModel & { open: boolean; agentType: string }
   >({
     agentType: "",
     birthday_or_founding: "",

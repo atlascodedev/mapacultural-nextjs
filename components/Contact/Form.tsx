@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { TextField } from "@material-ui/core";
+import { FormControlLabel, TextField } from "@material-ui/core";
 import FormField from "./FormField";
 import NumberFormat from "react-number-format";
 import SubmitButton from "./Button";
@@ -38,6 +38,7 @@ const ContactForm = ({ submitFn }: IContactForm) => {
         .then((success) => {
           console.log(success);
           actions.setSubmitting(false);
+          actions.resetForm();
         })
         .catch((error) => {
           console.log(error);
@@ -116,6 +117,7 @@ const ContactForm = ({ submitFn }: IContactForm) => {
             label="Mensagem"
           />
         </FormField>
+
         <SubmitButton
           className="md:mx-20"
           colorVariant={"dark"}
