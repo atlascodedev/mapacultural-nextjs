@@ -51,8 +51,6 @@ export default function Home({
     setDrawerOpen(open);
   };
 
-  console.log(agents, culturalSpaces, events);
-
   const homeRef = React.useRef(null);
   const filterRef = React.useRef(null);
   const partnerRef = React.useRef(null);
@@ -60,7 +58,6 @@ export default function Home({
 
   const { dispatch, state } = useGlobalUI();
 
-  console.log(state);
   return (
     <div>
       <MainLayout

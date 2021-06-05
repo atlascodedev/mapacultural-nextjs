@@ -30,7 +30,8 @@ export type FieldType =
   | "select"
   | "checkbox"
   | "checkboxGroup"
-  | "time";
+  | "time"
+  | "nullable";
 export type FieldVariant = "standard" | "outlined" | "filled";
 
 export interface IFieldWrapperBase {
@@ -72,6 +73,22 @@ const FieldWrapper = ({
   checkboxGroup,
 }: IFieldWrapper) => {
   switch (type) {
+    case "nullable":
+      return (
+        <TextField
+          style={{ display: "none" }}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label={label}
+          variant={variant}
+          name={name}
+          placeholder={placeholder}
+          value={formik.values?.[name] ?? ""}
+          error={Boolean(formik.errors?.[name] ?? "")}
+          helperText={formik.errors?.[name] ?? ""}
+        />
+      );
+
     case "text":
       return (
         <TextField

@@ -137,7 +137,6 @@ export const genders: GenderTypes[] = [
   "Mulher",
   "Mulher transsexual",
   "Não-binário",
-  "Travesti",
   "Outros",
   "Não se aplica",
 ];

@@ -67,7 +67,6 @@ export type ICulturalSpaceModel = ICulturalSpacePersonalInfo &
   ICulturalSpaceSocials;
 
 export interface IAgentPersonalInfo {
-  agentType: string;
   registrationEmail: string;
   publicEmail: string;
   fullName: string;

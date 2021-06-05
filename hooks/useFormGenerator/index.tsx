@@ -46,6 +46,7 @@ function useFormGenerator<T>({
     onSubmit: () => console.log("submitted form"),
     validationSchema: validationSchema,
     enableReinitialize: true,
+
     validateOnMount: true,
   });
 

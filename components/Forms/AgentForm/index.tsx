@@ -18,7 +18,7 @@ import {
   IAgentSocialInfo,
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
-import { TextField } from "@material-ui/core";
+import { MenuItem, TextField } from "@material-ui/core";
 import useGlobalUI from "../../../context/global_ui/hook";
 import { nanoid } from "nanoid";
 
@@ -37,25 +37,90 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   const [checkBoxTwoChecked, setCheckBoxTwoChecked] =
     React.useState<boolean>(false);
 
-  const step1 = useFormGenerator<IAgentPersonalInfo>({
-    fields: {
-      agentType: {
-        label: "Tipo de agente",
-        type: "select",
-        selectOptions: ["Pessoa física", "Pessoa jurídica"],
-      },
+  const [agentTypeOuter, setAgentTypeOuter] =
+    React.useState<string>("Pessoa física");
 
+  const step1Juridica = useFormGenerator<IAgentPersonalInfo>({
+    fields: {
+      fullName: {
+        label: "Nome da empresa",
+        placeholder: "Digite o nome da sua empresa",
+      },
       birthday_or_founding: {
-        label: "Data de nascimento/Data de fundação",
+        label: "Data de fundação",
         type: "date",
       },
       cpf_or_cnpj: {
-        label: "CPF/CPNJ *",
-        placeholder: "Digite seu CPF ou CPNJ",
+        label: "CPNJ *",
+        type: "format",
+        format: "##.###.###/####-##",
       },
+      gender: {
+        label: "",
+        type: "nullable",
+      },
+
+      publicEmail: {
+        label: "E-mail público",
+        placeholder: "E-mail que aparecerá no website",
+      },
+      publicName: {
+        label: "Nome público",
+        placeholder: "Nome que aparecerá no website",
+      },
+      race: {
+        type: "nullable",
+        label: "",
+      },
+      registrationEmail: {
+        label: "E-mail de cadastro",
+        placeholder: "E-mail que NÃO aparecerá no website",
+      },
+      professionalRecord: {
+        label: "Registro profissional",
+        placeholder: "DRT, OMB ou outro registro profissional",
+      },
+      description: {
+        label: "Descrição pessoal *",
+        placeholder: "Uma descrição sobre sua empresa",
+        additionalProps: {
+          TextFieldProps: {
+            className: "md:col-span-2",
+            multiline: true,
+            rows: 6,
+          },
+        },
+      },
+    },
+    validationSchema: Yup.object({
+      birthday_or_founding: Yup.string().required("Este campo é obrigatório"),
+      cpf_or_cnpj: StringRequired,
+      description: StringRequired,
+      fullName: StringRequired as any,
+      gender: Yup.string().notRequired() as any,
+      professionalRecord: Yup.string().notRequired(),
+      publicEmail: StringRequired,
+      publicName: StringRequired,
+      race: Yup.string().notRequired() as any,
+      registrationEmail: StringRequired,
+    }),
+  });
+
+  const step1Fisica = useFormGenerator<IAgentPersonalInfo>({
+    fields: {
       fullName: {
         label: "Nome completo *",
         placeholder: "Digite seu nome completo",
+      },
+      birthday_or_founding: {
+        label: "Data de nascimento",
+        type: "date",
+      },
+      cpf_or_cnpj: {
+        label: "CPF *",
+        placeholder: "Digite seu CPF",
+        type: "format",
+        format: "###.###.###-##",
       },
       gender: {
         label: "Gênero",
@@ -98,7 +163,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     },
     validationSchema: Yup.object({
       description: StringRequired,
-      agentType: StringRequired,
       birthday_or_founding: StringRequired,
       cpf_or_cnpj: StringRequired,
       fullName: StringRequired,
@@ -165,6 +229,12 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
   const step4 = useFormGenerator<IAgentSocialInfo>({
     fields: {
+      phoneNumber: {
+        label: "Telefone para cadastro *",
+        placeholder: "Telefone que não será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
       facebook: {
         label: "Facebook",
         placeholder: "Link do seu Facebook",
@@ -173,12 +243,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Instagram",
         placeholder: "Link do seu Instagram",
       },
-      phoneNumber: {
-        label: "Telefone para cadastro *",
-        placeholder: "Telefone que não será exibido no site",
-        format: "(##) #-####-####",
-        type: "format",
-      },
+
       portfolio: {
         label: "Link dos seus trabalhos",
         placeholder: "Ex. Youtube e etc",
@@ -204,16 +269,31 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     }),
   });
 
-  const formList = [step1, step2, step3, step4];
+  const formList = [
+    agentTypeOuter === "Pessoa física" ? step1Fisica : step1Juridica,
+    step2,
+    step3,
+    step4,
+  ];
+
+  React.useEffect(() => {
+    step1Juridica.formik.resetForm();
+    step1Fisica.formik.resetForm();
+  }, [agentTypeOuter]);
 
   const isSubmitting: boolean =
-    step1.formik.isSubmitting ||
+    step1Fisica.formik.isSubmitting ||
+    step1Juridica.formik.isSubmitting ||
     step2.formik.isSubmitting ||
     step3.formik.isSubmitting ||
     step4.formik.isSubmitting;
 
+  const stepOneValid: boolean =
+    (agentTypeOuter === "Pessoa física" && step1Fisica.formik.isValid) ||
+    (agentTypeOuter === "Pessoa jurídica" && step1Juridica.formik.isValid);
+
   const isValid: boolean =
-    step1.formik.isValid &&
+    stepOneValid &&
     step2.formik.isValid &&
     step3.formik.isValid &&
     step4.formik.isValid &&
@@ -223,12 +303,16 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
   const submitAgentForm = () => {
     const transactionUUID = nanoid();
 
-    const stepOneValues = step1.formik.values;
+    const stepOneValues =
+      agentTypeOuter === "Pessoa física"
+        ? step1Fisica.formik.values
+        : step1Juridica.formik.values;
     const stepTwoValues = step2.formik.values;
     const stepThreeValues = step3.formik.values;
     const stepFourValues = step4.formik.values;
 
     const aggregatedValues = {
+      agentType: agentTypeOuter,
       ...stepOneValues,
       ...stepTwoValues,
       ...stepThreeValues,
@@ -244,8 +328,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
     API.post("/agents", aggregatedValues)
       .then((successMessage) => {
-        console.log(successMessage);
-
         formList.forEach((form) => {
           form.formik.setSubmitting(false);
           form.formik.resetForm();
@@ -263,7 +345,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         });
       })
       .catch((error) => {
-        console.log(error);
         dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
         dispatch({
           type: "SET_FEEDBACK_DIALOG_VISIBLE",
@@ -279,11 +360,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
           form.formik.setSubmitting(false);
         });
       });
-
-    console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
   };
-
-  console.log(step2.formik.values);
 
   return (
     <FormPageContainer
@@ -294,6 +371,18 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >
+      <div className="w-full justify-center flex">
+        <TextField
+          select
+          variant="outlined"
+          label="Tipo de agente"
+          value={agentTypeOuter}
+          onChange={(e) => setAgentTypeOuter(e.target.value)}
+        >
+          <MenuItem value={"Pessoa física"}>Pessoa física</MenuItem>
+          <MenuItem value={"Pessoa jurídica"}>Pessoa jurídica</MenuItem>
+        </TextField>
+      </div>
       {formList.map((form, indexOuter) => {
         return (
           <div key={indexOuter} className={`my-10`}>
