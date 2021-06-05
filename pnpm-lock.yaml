@@ -11,6 +11,7 @@ specifiers:
   '@types/leaflet': ^1.7.0
   '@types/node': ^15.3.0
   '@types/react': ^17.0.6
+  '@types/react-scroll': ^1.8.2
   autoprefixer: ^10.2.5
   axios: ^0.21.1
   date-fns: ^2.21.3
@@ -26,6 +27,7 @@ specifiers:
   react-icons: ^4.2.0
   react-leaflet: ^3.2.0
   react-number-format: ^4.5.5
+  react-scroll: ^1.8.2
   sass: ^1.34.0
   swiper: ^6.6.2
   tailwindcss: ^2.1.2
@@ -53,6 +55,7 @@ dependencies:
   react-icons: 4.2.0_react@17.0.2
   react-leaflet: 3.2.0_91fa1427a3331e02931dfea77720a290
   react-number-format: 4.5.5_react-dom@17.0.2+react@17.0.2
+  react-scroll: 1.8.2_react-dom@17.0.2+react@17.0.2
   sass: 1.34.0
   swiper: 6.6.2
   yup: 0.32.9
@@ -61,6 +64,7 @@ devDependencies:
   '@types/leaflet': 1.7.0
   '@types/node': 15.3.0
   '@types/react': 17.0.6
+  '@types/react-scroll': 1.8.2
   autoprefixer: 10.2.5_postcss@8.2.15
   postcss: 8.2.15
   tailwindcss: 2.1.2_797cfc3ceddb49f111b184f6879a433f
@@ -417,6 +421,12 @@ packages:
   /@types/prop-types/15.7.3:
     resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
 
+  /@types/react-scroll/1.8.2:
+    resolution: {integrity: sha512-oavV6BZLfaIghX4JSmrm6mJkeVayQlmsFx1Rz8ffGjMngHAI/juZkRZM/zV/H5D0pGqjzACvBmKYUU4YBecwLg==}
+    dependencies:
+      '@types/react': 17.0.9
+    dev: true
+
   /@types/react-transition-group/4.4.1:
     resolution: {integrity: sha512-vIo69qKKcYoJ8wKCJjwSgCTM+z3chw3g18dkrDfVX665tMH7tmbDxEAnPdey4gTlwZz5QuHGzd+hul0OVZDqqQ==}
     dependencies:
@@ -429,6 +439,14 @@ packages:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.1
       csstype: 3.0.8
+
+  /@types/react/17.0.9:
+    resolution: {integrity: sha512-2Cw7FvevpJxQrCb+k5t6GH1KIvmadj5uBbjPaLlJB/nZWUj56e1ZqcD6zsoMFB47MsJUTFl9RJ132A7hb3QFJA==}
+    dependencies:
+      '@types/prop-types': 15.7.3
+      '@types/scheduler': 0.16.1
+      csstype: 3.0.8
+    dev: true
 
   /@types/scheduler/0.16.1:
     resolution: {integrity: sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==}
@@ -1699,6 +1717,10 @@ packages:
     resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
     dev: false
 
+  /lodash.throttle/4.1.1:
+    resolution: {integrity: sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=}
+    dev: false
+
   /lodash.toarray/4.4.0:
     resolution: {integrity: sha1-JMS/zWsvuji/0FlNsRedjptlZWE=}
     dev: true
@@ -2341,6 +2363,18 @@ packages:
   /react-refresh/0.8.3:
     resolution: {integrity: sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /react-scroll/1.8.2_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-f2ZEG5fsPbPTySI9ekcFpETCcNlqbmwbQj9hhzYK8tkgv+PA8APatSt66o/q0KSkDZxyT98ONTtXp9x0lyowEw==}
+    peerDependencies:
+      react: ^15.5.4 || ^16.0.0 || ^17.0.0
+      react-dom: ^15.5.4 || ^16.0.0 || ^17.0.0
+    dependencies:
+      lodash.throttle: 4.1.1
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /react-transition-group/4.4.1_react-dom@17.0.2+react@17.0.2:

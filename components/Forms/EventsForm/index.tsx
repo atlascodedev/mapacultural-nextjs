@@ -173,14 +173,10 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       },
     },
     validationSchema: Yup.object({
-      eventURL: Yup.string()
-        .url("Precisa ser uma URL válida")
-        .required("Este campo é obrigatório"),
+      eventURL: Yup.string().url("Precisa ser uma URL válida").notRequired(),
       privatePhone: StringRequired,
       publicPhone: StringNotRequired,
-      website: Yup.string()
-        .url("Precisa ser uma URL válida")
-        .required("Este campo é obrigatório"),
+      website: Yup.string().url("Precisa ser uma URL válida").notRequired(),
     }),
   });
 
