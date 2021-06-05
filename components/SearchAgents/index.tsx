@@ -127,14 +127,14 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   </div>
                 </div>
               ) : null,
-              <div className="flex flex-col">
-                <div className="text-gray-700 text-lg font-bold">
-                  Telefone 2
-                </div>
-                <div className="text-gray-500 text-sm">
-                  {searchDialog.phoneNumber}
-                </div>
-              </div>,
+              // <div className="flex flex-col">
+              //   <div className="text-gray-700 text-lg font-bold">
+              //     Telefone 2
+              //   </div>
+              //   <div className="text-gray-500 text-sm">
+              //     {searchDialog.phoneNumber}
+              //   </div>
+              // </div>,
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">E-mail</div>
                 <div className="text-gray-500 text-sm">
