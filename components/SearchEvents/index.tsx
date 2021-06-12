@@ -192,7 +192,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             eventDialog?.publicEmail.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500">{eventDialog.workingHours}</div>
+                <div className="text-gray-500">{eventDialog.publicEmail}</div>
               </div>
             ) : null,
 
@@ -210,13 +210,6 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
               </div>
               <div className="text-gray-500">{eventDialog.description}</div>
             </div>,
-
-            eventDialog?.publicEmail.length > 0 ? (
-              <div className="flex flex-col">
-                <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500">{eventDialog.workingHours}</div>
-              </div>
-            ) : null,
 
             eventDialog?.website.length > 0 ? (
               <div className="flex flex-col">
