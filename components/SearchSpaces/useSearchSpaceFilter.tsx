@@ -79,7 +79,7 @@ export const filterSpaces = (
 const useSearchSpaceFilter = () => {
   const [name, setName] = React.useState<string>("");
   const [neighborhood, setNeighborhood] = React.useState<string>("");
-  const [category, setCategory] = React.useState<string>("");
+  const [category, setCategory] = React.useState<string>("Todos");
   const [active, setActive] = React.useState<ICulturalSpaceModel[]>([]);
 
   return {
