@@ -77,6 +77,8 @@ export interface IAgentPersonalInfo {
   race: RaceTypes;
   professionalRecord: string;
   description: string;
+  phoneNumber: string;
+  publicPhoneNumber?: string;
 }
 
 export interface IAgentAddressInfo {
@@ -91,8 +93,6 @@ export interface IAgentSocialInfo {
   website?: string;
   facebook?: string;
   instagram?: string;
-  phoneNumber: string;
-  publicPhoneNumber?: string;
   portfolio?: string;
 }
 

@@ -50,7 +50,7 @@ const SearchAgentsSlider = ({
             <SearchAgentCard
               action={() => action({ ...agent, open: true })}
               actionName={"Ver agente"}
-              name={agent.fullName}
+              name={agent.publicName}
               tags={agent.categories}
             />
           </SwiperSlide>

@@ -80,6 +80,18 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Registro profissional",
         placeholder: "DRT, OMB ou outro registro profissional",
       },
+      phoneNumber: {
+        label: "Telefone para cadastro *",
+        placeholder: "Telefone que não será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+      publicPhoneNumber: {
+        label: "Telefone exibido no mapa",
+        placeholder: "Telefone que será exibido no mapa",
+        type: "format",
+        format: "(##) #-####-####",
+      },
       description: {
         label: "Descrição pessoal *",
         placeholder: "Uma descrição sobre sua empresa",
@@ -93,6 +105,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       },
     },
     validationSchema: Yup.object({
+      phoneNumber: StringRequired,
+      publicPhoneNumber: StringRequired,
       birthday_or_founding: Yup.string().required("Este campo é obrigatório"),
       cpf_or_cnpj: StringRequired,
       description: StringRequired,
@@ -148,6 +162,18 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "E-mail de cadastro *",
         placeholder: "Digite seu e-mail",
       },
+      phoneNumber: {
+        label: "Telefone para cadastro *",
+        placeholder: "Telefone que não será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+      publicPhoneNumber: {
+        label: "Telefone exibido no mapa",
+        placeholder: "Telefone que será exibido no mapa",
+        type: "format",
+        format: "(##) #-####-####",
+      },
       description: {
         label: "Descrição pessoal *",
         placeholder:
@@ -162,6 +188,8 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       },
     },
     validationSchema: Yup.object({
+      phoneNumber: StringRequired,
+      publicPhoneNumber: StringRequired,
       description: StringRequired,
       birthday_or_founding: StringRequired,
       cpf_or_cnpj: StringRequired,
@@ -232,12 +260,6 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
 
   const step4 = useFormGenerator<IAgentSocialInfo>({
     fields: {
-      phoneNumber: {
-        label: "Telefone para cadastro *",
-        placeholder: "Telefone que não será exibido no site",
-        format: "(##) #-####-####",
-        type: "format",
-      },
       facebook: {
         label: "Facebook",
         placeholder: "Link do seu Facebook",
@@ -251,12 +273,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "Link dos seus trabalhos",
         placeholder: "Ex. Youtube e etc",
       },
-      publicPhoneNumber: {
-        label: "Telefone exibido no mapa",
-        placeholder: "Telefone que será exibido no mapa",
-        type: "format",
-        format: "(##) #-####-####",
-      },
+
       website: {
         label: "Link do seu website",
         placeholder: "Insira o link do seu website",
