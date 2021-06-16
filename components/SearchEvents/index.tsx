@@ -193,12 +193,6 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
                 eventDialog?.complement ?? ""
               }, ${eventDialog.cep}`}</div>
             </div>,
-            eventDialog?.publicEmail.length > 0 ? (
-              <div className="flex flex-col">
-                <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500">{eventDialog.publicEmail}</div>
-              </div>
-            ) : null,
 
             eventDialog?.publicPhone.length > 0 ? (
               <div className="flex flex-col">
@@ -218,14 +212,35 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             eventDialog?.website.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">Website</div>
-                <div className="text-gray-500">{eventDialog.website}</div>
+                <a
+                  target="_blank"
+                  href={"//" + eventDialog.website}
+                  className="text-special-link hover:underline"
+                >
+                  {eventDialog.website}
+                </a>
               </div>
             ) : null,
 
             eventDialog?.publicEmail.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500">{eventDialog.workingHours}</div>
+                <div className="text-gray-500">{eventDialog.publicEmail}</div>
+              </div>
+            ) : null,
+
+            eventDialog.eventURL.length > 0 ? (
+              <div className="flex flex-col">
+                <div className="text-gray-700 text-lg font-bold">
+                  Link do evento
+                </div>
+                <a
+                  target="_blank"
+                  href={"//" + eventDialog.eventURL}
+                  className="text-special-link hover:underline"
+                >
+                  {eventDialog.eventURL}
+                </a>
               </div>
             ) : null,
           ],

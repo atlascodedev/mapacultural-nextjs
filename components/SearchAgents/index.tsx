@@ -9,7 +9,6 @@ import React from "react";
 import { IAgentModel } from "../../@types/project";
 import { categories } from "../../constants";
 import SearchDialog from "../SearchDialog";
-import Backdrop from "../Utility/Backdrop";
 import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
