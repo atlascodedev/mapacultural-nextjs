@@ -92,7 +92,6 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
 
         <div className="font-bold pt-10">{message}</div>
       </div>
-
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
         <div className="overflow-hidden">
           <SearchAgentsSlider
