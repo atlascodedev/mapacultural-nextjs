@@ -37,7 +37,9 @@ const SearchAgentsSlider = ({
       slidesPerView={"auto"}
       breakpoints={{
         1024: {
-          slidesPerView: agentSliderItems.length >= 3 ? 3 : 1,
+          slidesPerView: 3,
+          centeredSlides: true,
+          initialSlide: 1,
         },
       }}
     >

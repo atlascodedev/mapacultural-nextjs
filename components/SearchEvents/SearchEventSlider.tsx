@@ -32,7 +32,9 @@ const SearchEventSlider = ({ eventList = [], action }: ISearchEventSlider) => {
       slidesPerView={"auto"}
       breakpoints={{
         1024: {
-          slidesPerView: eventList.length >= 3 ? 3 : 1,
+          slidesPerView: 3,
+          centeredSlides: true,
+          initialSlide: 1,
         },
       }}
     >

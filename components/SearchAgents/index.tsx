@@ -5,9 +5,7 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { divIcon } from "leaflet";
 import React from "react";
-import { IoClose } from "react-icons/io5";
 import { IAgentModel } from "../../@types/project";
 import { categories } from "../../constants";
 import SearchDialog from "../SearchDialog";
