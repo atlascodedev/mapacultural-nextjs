@@ -143,7 +143,6 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               maxCols={2}
               tags={spaceDialog.category}
             />,
-
             <div className="flex flex-col">
               <div className="text-gray-700 text-lg font-bold">
                 Horário de funcionamento
