@@ -106,7 +106,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     },
     validationSchema: Yup.object({
       phoneNumber: StringRequired,
-      publicPhoneNumber: StringRequired,
+      publicPhoneNumber: Yup.string().notRequired(),
       birthday_or_founding: Yup.string().required("Este campo é obrigatório"),
       cpf_or_cnpj: StringRequired,
       description: StringRequired,
@@ -189,7 +189,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     },
     validationSchema: Yup.object({
       phoneNumber: StringRequired,
-      publicPhoneNumber: StringRequired,
+      publicPhoneNumber: Yup.string().notRequired(),
       description: StringRequired,
       birthday_or_founding: StringRequired,
       cpf_or_cnpj: StringRequired,
@@ -226,6 +226,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
         label: "CEP *",
         format: "#####-###",
         type: "format",
+        placeholder: "Digite apenas números",
       },
       neighborhood: {
         label: "Bairro *",

@@ -111,7 +111,7 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         label: "CEP *",
         format: "#####-###",
         type: "format",
-        placeholder: "Digite seu CEP",
+        placeholder: "Digite seu CEP (apenas números)",
       },
       street: {
         label: "Logradouro *",

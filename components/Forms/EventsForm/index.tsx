@@ -122,7 +122,8 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       },
       cep: {
         label: "CEP",
-        placeholder: "Digite o CEP, caso seja um evento físico",
+        placeholder:
+          "Digite o CEP, caso seja um evento físico (Apenas números)",
       },
       street: {
         label: "Logradouro",
