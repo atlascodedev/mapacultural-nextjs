@@ -90,6 +90,10 @@ module.exports = {
       },
 
       colors: {
+        special: {
+          link: "#1a0dab",
+        },
+
         alert: {
           success: "#2CD283",
           error: "#F44336",

@@ -113,7 +113,7 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       fullName: StringRequired as any,
       gender: Yup.string().notRequired() as any,
       professionalRecord: Yup.string().notRequired(),
-      publicEmail: StringRequired,
+      publicEmail: Yup.string().notRequired(),
       publicName: StringRequired,
       race: Yup.string().notRequired() as any,
       registrationEmail: StringRequired,

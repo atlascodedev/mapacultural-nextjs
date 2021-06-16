@@ -128,18 +128,24 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   </div>
                 </div>
               ) : null,
-              <div className="flex flex-col">
-                <div className="text-gray-700 text-lg font-bold">E-mail</div>
-                <div className="text-gray-500 text-sm">
-                  {searchDialog.publicEmail}
+              searchDialog.publicEmail.length > 0 ? (
+                <div className="flex flex-col">
+                  <div className="text-gray-700 text-lg font-bold">E-mail</div>
+                  <div className="text-gray-500 text-sm">
+                    {searchDialog.publicEmail}
+                  </div>
                 </div>
-              </div>,
+              ) : null,
               searchDialog.website.length > 0 ? (
                 <div className="flex flex-col">
                   <div className="text-gray-700 text-lg font-bold">Website</div>
-                  <div className="text-gray-500 text-sm">
+                  <a
+                    href={"//" + searchDialog.website}
+                    target="_blank"
+                    className="text-special-link hover:underline text-sm"
+                  >
                     {searchDialog.website}
-                  </div>
+                  </a>
                 </div>
               ) : null,
 
@@ -148,9 +154,13 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Facebook
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  <a
+                    target="_blank"
+                    href={"//" + searchDialog.facebook}
+                    className="text-special-link hover:underline text-sm"
+                  >
                     {searchDialog.facebook}
-                  </div>
+                  </a>
                 </div>
               ) : null,
               searchDialog.instagram.length > 0 ? (
@@ -158,9 +168,13 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Instagram
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  <a
+                    href={"//" + searchDialog.instagram}
+                    target="_blank"
+                    className="text-special-link hover:underline text-sm"
+                  >
                     {searchDialog.instagram}
-                  </div>
+                  </a>
                 </div>
               ) : null,
             ],
@@ -177,9 +191,13 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   <div className="text-gray-700 text-lg font-bold">
                     Sobre meu trabalho
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  <a
+                    href={"//" + searchDialog.portfolio}
+                    target="_blank"
+                    className="text-special-link hover:underline text-sm"
+                  >
                     {searchDialog.portfolio}
-                  </div>
+                  </a>
                 </div>
               ) : null,
             ],
