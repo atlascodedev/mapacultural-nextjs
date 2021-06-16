@@ -263,11 +263,12 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     fields: {
       facebook: {
         label: "Facebook",
-        placeholder: "Link do seu Facebook",
+        placeholder: "Ex: https://www.facebook.com/institutoprocidadania",
       },
       instagram: {
         label: "Instagram",
-        placeholder: "Link do seu Instagram",
+        placeholder:
+          "Ex: https://www.instagram.com/institutogauchoprocidadania",
       },
 
       portfolio: {
@@ -281,12 +282,10 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       },
     },
     validationSchema: Yup.object({
-      facebook: Yup.string().url("Precisa ser uma URL válida").notRequired(),
-      instagram: Yup.string().url("Precisa ser uma URL válida").notRequired(),
-      phoneNumber: StringRequired,
-      publicPhoneNumber: Yup.string().notRequired(),
-      portfolio: Yup.string().url("Precisa ser uma URL válida").notRequired(),
-      website: Yup.string().url("Precisa ser uma URL válida").notRequired(),
+      facebook: Yup.string().notRequired(),
+      instagram: Yup.string().notRequired(),
+      portfolio: Yup.string().notRequired(),
+      website: Yup.string().notRequired(),
     }),
   });
 

@@ -35,6 +35,9 @@ export interface ICulturalSpacePersonalInfo {
   workingHours: string;
   entryTypes: CulturalSpaceEntryTypes;
   description: string;
+  privatePhone: string;
+  publicPhone?: string;
+  publicPhoneAlt?: string;
   entryFee?: string;
 }
 
@@ -56,9 +59,6 @@ export interface ICulturalSpaceSocials {
   website?: string;
   facebook?: string;
   instagram?: string;
-  privatePhone: string;
-  publicPhone?: string;
-  publicPhoneAlt?: string;
 }
 
 export type ICulturalSpaceModel = ICulturalSpacePersonalInfo &
@@ -118,6 +118,8 @@ export interface IEventPersonalInfo {
   description: string;
   eventEntryType: CulturalSpaceEntryTypes;
   eventFee?: string;
+  privatePhone: string;
+  publicPhone?: string;
 }
 
 export interface IEventCategories {
@@ -136,8 +138,6 @@ export interface IEventAddressInfo {
 export interface IEventSocialsInfo {
   website?: string;
   eventURL?: string;
-  privatePhone: string;
-  publicPhone?: string;
 }
 
 export type IEventModel = IEventPersonalInfo &

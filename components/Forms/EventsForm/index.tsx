@@ -75,13 +75,28 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         selectOptions: ["Acesso gratuito", "Acesso pago", "Acesso misto"],
       },
       eventFee: {
-        label: "Taxa do evento",
+        label: "Ingresso do evento",
         placeholder:
           "Caso acesso pago ou misto, descrever tipo de taxa de entrada",
+      },
+      privatePhone: {
+        label: "Contato para informações *",
+        placeholder: "Telefone que não será exibido no site",
+      },
+      publicPhone: {
+        label: "Telefone 1",
+        placeholder: "Telefone que será exibido no site",
       },
       description: {
         label: "Descrição do evento *",
         placeholder: "Escreva uma descrição sobre o evento",
+        additionalProps: {
+          TextFieldProps: {
+            className: "md:col-span-2",
+            multiline: true,
+            rows: 6,
+          },
+        },
       },
     },
     validationSchema: Yup.object({
@@ -90,13 +105,15 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       description: StringRequired,
       eventAgeRestriction: StringRequired as any,
       eventEntryType: StringRequired as any,
-      eventFee: StringRequired,
+      eventFee: Yup.string().notRequired(),
       eventFrequency: StringRequired as any,
       eventHead: StringRequired,
       eventName: StringRequired,
       privateEmail: StringRequired,
       publicEmail: StringRequired,
       startingDate: StringRequired,
+      privatePhone: StringRequired,
+      publicPhone: StringNotRequired,
     }),
   });
 
@@ -167,20 +184,11 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         label: "Link do evento",
         placeholder: "Link para eventos híbridos ou virtuais",
       },
-      privatePhone: {
-        label: "Contato para informações *",
-        placeholder: "Telefone que não será exibido no site",
-      },
-      publicPhone: {
-        label: "Telefone 1",
-        placeholder: "Telefone que será exibido no site",
-      },
     },
     validationSchema: Yup.object({
-      eventURL: Yup.string().url("Precisa ser uma URL válida").notRequired(),
-      privatePhone: StringRequired,
-      publicPhone: StringNotRequired,
-      website: Yup.string().url("Precisa ser uma URL válida").notRequired(),
+      eventURL: Yup.string().notRequired(),
+
+      website: Yup.string().notRequired(),
     }),
   });
 

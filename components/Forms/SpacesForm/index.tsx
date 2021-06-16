@@ -83,10 +83,34 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
         label: "Horário de funcionamento",
         placeholder: "Ex. das 9h às 20h",
       },
-
+      privatePhone: {
+        label: "Telefone para cadastro *",
+        placeholder: "Telefone que não será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+      publicPhone: {
+        label: "Telefone 1 exibido no mapa",
+        placeholder: "Telefone que será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
+      publicPhoneAlt: {
+        label: "Telefone 2 exibido no mapa",
+        placeholder: "Telefone que será exibido no site",
+        format: "(##) #-####-####",
+        type: "format",
+      },
       description: {
         label: "Descrição do local *",
         placeholder: "Escreva uma descrição sobre o local",
+        additionalProps: {
+          TextFieldProps: {
+            className: "md:col-span-2",
+            multiline: true,
+            rows: 6,
+          },
+        },
       },
     },
     validationSchema: Yup.object({
@@ -102,6 +126,9 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       description: StringRequired,
       entryFee: Yup.string().notRequired() as any,
       entryTypes: StringRequired as any,
+      privatePhone: StringRequired,
+      publicPhone: Yup.string().notRequired(),
+      publicPhoneAlt: Yup.string().notRequired(),
     }),
   });
 
@@ -177,38 +204,18 @@ const SpacesForm = ({ headerReturnAction }: ISpaceForm) => {
       },
       facebook: {
         label: "Facebook",
-        placeholder: "Insira o link do facebook do local",
+        placeholder: "Ex: https://www.facebook.com/institutoprocidadania",
       },
       instagram: {
         label: "Instagram",
-        placeholder: "Insira o link do Instagram do local",
-      },
-      privatePhone: {
-        label: "Telefone para cadastro *",
-        placeholder: "Telefone que não será exibido no site",
-        format: "(##) #-####-####",
-        type: "format",
-      },
-      publicPhone: {
-        label: "Telefone 1 exibido no mapa",
-        placeholder: "Telefone que será exibido no site",
-        format: "(##) #-####-####",
-        type: "format",
-      },
-      publicPhoneAlt: {
-        label: "Telefone 2 exibido no mapa",
-        placeholder: "Telefone que será exibido no site",
-        format: "(##) #-####-####",
-        type: "format",
+        placeholder:
+          "Ex: https://www.instagram.com/institutogauchoprocidadania",
       },
     },
     validationSchema: Yup.object({
-      facebook: Yup.string().url("É preciso ser uma URL válida").notRequired(),
-      instagram: Yup.string().url("É preciso ser uma URL válida").notRequired(),
-      privatePhone: StringRequired,
-      publicPhone: Yup.string().notRequired(),
-      publicPhoneAlt: Yup.string().notRequired(),
-      website: Yup.string().url("É preciso ser uma URL válida").notRequired(),
+      facebook: Yup.string().notRequired(),
+      instagram: Yup.string().notRequired(),
+      website: Yup.string().notRequired(),
     }),
   });
 
