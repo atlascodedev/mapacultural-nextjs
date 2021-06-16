@@ -133,7 +133,11 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
             <div className="font-bold text-xl text-gray-700">
               {spaceDialog.culturalSpaceName}
             </div>,
-            <TagGroup tags={spaceDialog.category} />,
+            <TagGroup
+              mobileMaxCols={2}
+              maxCols={2}
+              tags={spaceDialog.category}
+            />,
 
             <div className="flex flex-col">
               <div className="text-gray-700 text-lg font-bold">

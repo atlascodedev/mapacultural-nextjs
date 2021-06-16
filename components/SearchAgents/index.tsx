@@ -113,7 +113,11 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
               <div className="font-bold text-xl text-gray-700">
                 {searchDialog.publicName}
               </div>,
-              <TagGroup tags={searchDialog.categories} />,
+              <TagGroup
+                tags={searchDialog.categories}
+                mobileMaxCols={2}
+                maxCols={2}
+              />,
               searchDialog.publicPhoneNumber.length > 0 ? (
                 <div className="flex flex-col">
                   <div className="text-gray-700 text-lg font-bold">

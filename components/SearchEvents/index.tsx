@@ -152,7 +152,11 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
             <div className="font-bold text-xl text-gray-700">
               {eventDialog.eventName}
             </div>,
-            <TagGroup tags={eventDialog.categories} />,
+            <TagGroup
+              mobileMaxCols={2}
+              maxCols={2}
+              tags={eventDialog.categories}
+            />,
             <div className="flex flex-col">
               <div className="text-gray-700 text-lg font-bold">
                 Data do evento

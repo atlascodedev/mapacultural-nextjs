@@ -1,6 +1,7 @@
 import { Tooltip } from "@material-ui/core";
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
+import Tag from "../Utility/Tag";
 
 export interface ISearchCard {
   name: string;
@@ -31,10 +32,7 @@ const SearchAgentCard = ({ action, actionName, name, tags }: ISearchCard) => {
             {name}
           </div>
           <div className="flex gap-3">
-            <button className="rounded-2xl focus:outline-none outline-none bg-tertiary-main text-white font-bold text-base px-5 py-0.5">
-              {tags[0]}
-            </button>
-
+            <Tag title={tags[0]} />
             <Tooltip
               title={
                 <div className="flex flex-col p-1 gap-3 text-base">
