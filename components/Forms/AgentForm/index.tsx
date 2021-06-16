@@ -219,7 +219,10 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       },
     },
     validationSchema: Yup.object({
-      cep: StringRequired,
+      cep: StringRequired.matches(
+        /^([\d]{2})\.?([\d]{3})\-?([\d]{3})/,
+        "É preciso ser um CEP válido."
+      ),
       complement: Yup.string().notRequired(),
       neighborhood: StringRequired as any,
       street: StringRequired,
