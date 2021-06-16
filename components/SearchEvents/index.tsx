@@ -3,6 +3,7 @@ import React from "react";
 import { IoClose } from "react-icons/io5";
 import { IEventModel } from "../../@types/project";
 import { categories } from "../../constants";
+import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
 import FieldWrapper from "../FormUtil/FieldWrapper";
 import SearchDialog from "../SearchDialog";
 import Backdrop from "../Utility/Backdrop";
@@ -214,7 +215,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
                 <div className="text-gray-700 text-lg font-bold">Website</div>
                 <a
                   target="_blank"
-                  href={"//" + eventDialog.website}
+                  href={makeNonRelativeURL(eventDialog.website)}
                   className="text-special-link hover:underline"
                 >
                   {eventDialog.website}
@@ -236,7 +237,7 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
                 </div>
                 <a
                   target="_blank"
-                  href={"//" + eventDialog.eventURL}
+                  href={makeNonRelativeURL(eventDialog.eventURL)}
                   className="text-special-link hover:underline"
                 >
                   {eventDialog.eventURL}

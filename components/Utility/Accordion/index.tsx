@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 export interface IAtlasAccordion {
   fullWidth?: boolean;
   shadow?: boolean;
+  defaultOpen?: boolean;
   label: string;
 }
 
@@ -13,8 +14,13 @@ const AtlasAccordion: React.FC<IAtlasAccordion> = ({
   fullWidth,
   label,
   shadow,
+  defaultOpen,
 }) => {
   const [open, setOpen] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    defaultOpen ? setOpen(true) : null;
+  }, []);
 
   return (
     <div

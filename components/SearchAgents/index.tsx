@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { IAgentModel } from "../../@types/project";
 import { categories } from "../../constants";
+import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
 import SearchDialog from "../SearchDialog";
 import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
@@ -139,7 +140,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                 <div className="flex flex-col">
                   <div className="text-gray-700 text-lg font-bold">Website</div>
                   <a
-                    href={"//" + searchDialog.website}
+                    href={makeNonRelativeURL(searchDialog.website)}
                     target="_blank"
                     className="text-special-link hover:underline text-sm"
                   >
@@ -155,7 +156,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                   </div>
                   <a
                     target="_blank"
-                    href={"//" + searchDialog.facebook}
+                    href={makeNonRelativeURL(searchDialog.facebook)}
                     className="text-special-link hover:underline text-sm"
                   >
                     {searchDialog.facebook}
@@ -168,7 +169,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                     Instagram
                   </div>
                   <a
-                    href={"//" + searchDialog.instagram}
+                    href={makeNonRelativeURL(searchDialog.instagram)}
                     target="_blank"
                     className="text-special-link hover:underline text-sm"
                   >
@@ -191,7 +192,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
                     Sobre meu trabalho
                   </div>
                   <a
-                    href={"//" + searchDialog.portfolio}
+                    href={makeNonRelativeURL(searchDialog.portfolio)}
                     target="_blank"
                     className="text-special-link hover:underline text-sm"
                   >

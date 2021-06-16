@@ -8,6 +8,7 @@ import SearchDialog from "../SearchDialog";
 import UserLetter from "../Utility/UserLetter";
 import TagGroup from "../Utility/TagGroup";
 import useSearchSpaceFilter, { filterSpaces } from "./useSearchSpaceFilter";
+import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 
@@ -180,27 +181,39 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
             spaceDialog?.website?.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 font-bold text-lg">Website</div>
-                <div className="text-gray-500 text-sm">
+                <a
+                  target="_blank"
+                  href={makeNonRelativeURL(spaceDialog.website)}
+                  className="text-special-link hover:underline text-sm"
+                >
                   {spaceDialog?.website}
-                </div>
+                </a>
               </div>
             ) : null,
 
             spaceDialog?.instagram.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 font-bold text-lg">Instagram</div>
-                <div className="text-gray-500 text-sm">
+                <a
+                  target="_blank"
+                  href={makeNonRelativeURL(spaceDialog.instagram)}
+                  className="text-special-link hover:underline text-sm"
+                >
                   {spaceDialog?.instagram}
-                </div>
+                </a>
               </div>
             ) : null,
 
             spaceDialog?.facebook.length > 0 ? (
               <div className="flex flex-col">
                 <div className="text-gray-700 font-bold text-lg">Facebook</div>
-                <div className="text-gray-500 text-sm">
+                <a
+                  target="_blank"
+                  href={makeNonRelativeURL(spaceDialog.facebook)}
+                  className="text-special-link hover:underline text-sm"
+                >
                   {spaceDialog?.facebook}
-                </div>
+                </a>
               </div>
             ) : null,
 

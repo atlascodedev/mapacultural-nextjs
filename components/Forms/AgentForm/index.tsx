@@ -406,7 +406,12 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       {formList.map((form, indexOuter) => {
         return (
           <div key={indexOuter} className={`my-10`}>
-            <AtlasAccordion fullWidth shadow label={`Etapa ${indexOuter + 1}`}>
+            <AtlasAccordion
+              defaultOpen
+              fullWidth
+              shadow
+              label={`Etapa ${indexOuter + 1}`}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
                 {form.fields.map((fields, index) => {
                   return (
