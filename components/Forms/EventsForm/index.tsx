@@ -3,7 +3,9 @@ import { FormPageProps } from "../AgentForm";
 import * as Yup from "yup";
 import FormPageContainer from "../../Utility/FormPageContainer";
 import AtlasAccordion from "../../Utility/Accordion";
-import useFormGenerator from "../../../hooks/useFormGenerator";
+import useFormGenerator, {
+  IFieldWrapperInternal,
+} from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   ageRestriction,
@@ -21,6 +23,18 @@ import {
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import useGlobalUI from "../../../context/global_ui/hook";
 import { nanoid } from "nanoid";
+import { TextField, MenuItem } from "@material-ui/core";
+
+type EventType = "Físico" | "Online" | "Híbrido";
+
+const eventTypeList: EventType[] = ["Físico", "Híbrido", "Online"];
+
+const formStepLabels = [
+  `Informações cadastrais`,
+  `Área de atuação`,
+  `Endereço`,
+  `Mídias sociais`,
+];
 
 interface IEventForms extends FormPageProps {}
 
@@ -28,6 +42,9 @@ let StringRequired = Yup.string().required("Este campo é obrigatório");
 let StringNotRequired = Yup.string().notRequired();
 
 const EventsForm = ({ headerReturnAction }: IEventForms) => {
+  const [eventTypeOption, setEventTypeOption] =
+    React.useState<EventType>("Online");
+
   const step1 = useFormGenerator<IEventPersonalInfo>({
     fields: {
       privateEmail: {
@@ -130,49 +147,60 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
     }),
   });
 
-  const step3 = useFormGenerator<IEventAddressInfo>({
-    fields: {
-      eventType: {
-        label: "Tipo do evento *",
-        type: "select",
-        selectOptions: ["Físico", "Online", "Híbrido"],
+  const eventTypeCheck = (
+    fieldOptions: IFieldWrapperInternal
+  ): IFieldWrapperInternal => {
+    if (eventTypeOption === "Físico" || eventTypeOption === "Híbrido") {
+      return fieldOptions;
+    } else {
+      return {
+        type: "nullable",
+      };
+    }
+  };
+
+  const isEventPhysical: boolean =
+    eventTypeOption === "Físico" || eventTypeOption === "Híbrido";
+
+  const step3 = useFormGenerator<Partial<Omit<IEventAddressInfo, "eventType">>>(
+    {
+      fields: {
+        cep: { label: "CEP", placeholder: "Digite seu CEP" },
+        street: {
+          label: "Logradouro",
+          placeholder: "Rua do evento, caso seja um evento físico",
+        },
+        neighborhood: {
+          label: "Bairro",
+          placeholder: "Bairro do evento, caso seja um evento físico",
+          type: "select",
+          selectOptions: taquaraNeighborhoods,
+        },
+        streetNumber: {
+          label: "Número",
+          placeholder: "Número do local do evento, em caso de evento físico",
+        },
+        complement: {
+          label: "Complemento",
+          placeholder: "Complemento do local do evento",
+        },
       },
-      cep: {
-        label: "CEP",
-        placeholder:
-          "Digite o CEP, caso seja um evento físico (Apenas números)",
-      },
-      street: {
-        label: "Logradouro",
-        placeholder: "Rua do evento, caso seja um evento físico",
-      },
-      neighborhood: {
-        label: "Bairro",
-        placeholder: "Bairro do evento, caso seja um evento físico",
-        type: "select",
-        selectOptions: taquaraNeighborhoods,
-      },
-      streetNumber: {
-        label: "Número",
-        placeholder: "Número do local do evento, em caso de evento físico",
-      },
-      complement: {
-        label: "Complemento",
-        placeholder: "Complemento do local do evento",
-      },
-    },
-    validationSchema: Yup.object({
-      cep: StringRequired.matches(
-        /^([\d]{2})\.?([\d]{3})\-?([\d]{3})/,
-        "É preciso ser um CEP válido."
-      ),
-      complement: StringNotRequired,
-      eventType: StringRequired as any,
-      neighborhood: StringRequired as any,
-      street: StringRequired,
-      streetNumber: StringRequired,
-    }),
-  });
+      validationSchema: Yup.object({
+        cep: isEventPhysical
+          ? StringRequired.matches(
+              /^([\d]{2})\.?([\d]{3})\-?([\d]{3})/,
+              "É preciso ser um CEP válido."
+            )
+          : StringNotRequired,
+        complement: StringNotRequired,
+        neighborhood: isEventPhysical
+          ? StringRequired
+          : (StringNotRequired as any),
+        street: isEventPhysical ? StringRequired : StringNotRequired,
+        streetNumber: isEventPhysical ? StringRequired : StringNotRequired,
+      }),
+    }
+  );
 
   const step4 = useFormGenerator<IEventSocialsInfo>({
     fields: {
@@ -212,6 +240,13 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
     step4.formik.isValid &&
     checkboxOneState &&
     checkboxTwoState;
+
+  console.log(
+    step1.formik.isValid,
+    step2.formik.isValid,
+    step3.formik.isValid,
+    step4.formik.isValid
+  );
 
   const { dispatch } = useGlobalUI();
 
@@ -287,25 +322,73 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       actionSubmitFn={submitEventForm}
       headerReturnAction={headerReturnAction}
     >
+      <div className="w-full justify-center flex">
+        <TextField
+          select
+          variant="outlined"
+          label="Tipo de agente"
+          style={{ minWidth: "125px" }}
+          value={eventTypeOption}
+          onChange={(e) => setEventTypeOption(e.target.value as any)}
+        >
+          {eventTypeList.map((eventType, index) => {
+            return (
+              <MenuItem key={index} value={eventType}>
+                {eventType}
+              </MenuItem>
+            );
+          })}
+        </TextField>
+      </div>
+
       {formList.map((form, indexOuter) => {
-        return (
-          <div key={indexOuter} className="my-10">
-            <AtlasAccordion fullWidth shadow label={`Etapa ${indexOuter + 1}`}>
-              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
-                {form.fields.map((fields, index) => {
-                  return (
-                    <FieldWrapper
-                      variant="outlined"
-                      formik={form.formik}
-                      {...fields}
-                      key={fields.uuid}
-                    />
-                  );
-                })}
-              </div>
-            </AtlasAccordion>
-          </div>
-        );
+        if (!isEventPhysical && indexOuter == 2) {
+          return (
+            <div key={indexOuter} className="my-10 hidden">
+              <AtlasAccordion
+                fullWidth
+                shadow
+                label={`${formStepLabels[indexOuter]}`}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+                  {form.fields.map((fields, index) => {
+                    return (
+                      <FieldWrapper
+                        variant="outlined"
+                        formik={form.formik}
+                        {...fields}
+                        key={fields.uuid}
+                      />
+                    );
+                  })}
+                </div>
+              </AtlasAccordion>
+            </div>
+          );
+        } else {
+          return (
+            <div key={indexOuter} className="my-10 ">
+              <AtlasAccordion
+                fullWidth
+                shadow
+                label={`${formStepLabels[indexOuter]}`}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
+                  {form.fields.map((fields, index) => {
+                    return (
+                      <FieldWrapper
+                        variant="outlined"
+                        formik={form.formik}
+                        {...fields}
+                        key={fields.uuid}
+                      />
+                    );
+                  })}
+                </div>
+              </AtlasAccordion>
+            </div>
+          );
+        }
       })}
 
       <TermsCheckbox
