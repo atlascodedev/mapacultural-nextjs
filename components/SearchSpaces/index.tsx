@@ -59,6 +59,10 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     setActive,
   } = useSearchSpaceFilter();
 
+  React.useEffect(() => {
+    filterSpaces("", "", "Todos", culturalSpaces, setActive);
+  }, []);
+
   return (
     <div className="w-full">
       <div className="flex justify-center my-5 mb-10 ">

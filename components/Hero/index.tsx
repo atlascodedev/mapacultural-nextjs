@@ -38,7 +38,7 @@ const Hero = ({ actionAgents, actionSpaces, actionsEvents }: IHero) => {
             <CTAButton
               action={actionsEvents}
               icon={FaRegCalendar}
-              label="Eventos"
+              label="Eventos/Projetos"
             />
           </div>
 
