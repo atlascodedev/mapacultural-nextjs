@@ -44,9 +44,11 @@ const SearchAgentCard = ({ action, actionName, name, tags }: ISearchCard) => {
                 </div>
               }
             >
-              <div className="bg-tertiary-dark cursor-pointer text-white w-10 h-7 text-sm flex justify-center items-center rounded-3xl">
-                + {tags.length - 1}
-              </div>
+              {tags.length > 1 ? (
+                <div className="bg-tertiary-dark cursor-pointer text-white w-10 h-7 text-sm flex justify-center items-center rounded-3xl">
+                  + {tags.length - 1}
+                </div>
+              ) : null}
             </Tooltip>
           </div>
         </div>
