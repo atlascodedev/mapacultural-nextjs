@@ -3,13 +3,10 @@ import { FormPageProps } from "../AgentForm";
 import * as Yup from "yup";
 import FormPageContainer from "../../Utility/FormPageContainer";
 import AtlasAccordion from "../../Utility/Accordion";
-import useFormGenerator, {
-  IFieldWrapperInternal,
-} from "../../../hooks/useFormGenerator";
+import useFormGenerator from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
 import {
   ageRestriction,
-  API,
   categories,
   frequency,
   taquaraNeighborhoods,
@@ -22,10 +19,12 @@ import {
 } from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import useGlobalUI from "../../../context/global_ui/hook";
-import { nanoid } from "nanoid";
 import { TextField, MenuItem } from "@material-ui/core";
-
-type EventType = "Físico" | "Online" | "Híbrido";
+import isFormValid from "../helper/isFormValid";
+import isFormSubmitting from "../helper/isFormSubmitting";
+import submitGeneratedForm from "../helper/submitForm";
+import { EventType } from "../types";
+import isEventPhysical from "../helper/isEventPhysical";
 
 const eventTypeList: EventType[] = ["Físico", "Híbrido", "Online"];
 
@@ -147,21 +146,6 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
     }),
   });
 
-  const eventTypeCheck = (
-    fieldOptions: IFieldWrapperInternal
-  ): IFieldWrapperInternal => {
-    if (eventTypeOption === "Físico" || eventTypeOption === "Híbrido") {
-      return fieldOptions;
-    } else {
-      return {
-        type: "nullable",
-      };
-    }
-  };
-
-  const isEventPhysical: boolean =
-    eventTypeOption === "Físico" || eventTypeOption === "Híbrido";
-
   const step3 = useFormGenerator<Partial<Omit<IEventAddressInfo, "eventType">>>(
     {
       fields: {
@@ -227,99 +211,15 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
   const [checkboxTwoState, setCheckboxTwoState] =
     React.useState<boolean>(false);
 
-  const isSubmitting: boolean =
-    step1.formik.isSubmitting ||
-    step2.formik.isSubmitting ||
-    step3.formik.isSubmitting ||
-    step4.formik.isSubmitting;
-
-  const isValid: boolean =
-    step1.formik.isValid &&
-    step2.formik.isValid &&
-    step3.formik.isValid &&
-    step4.formik.isValid &&
-    checkboxOneState &&
-    checkboxTwoState;
-
-  console.log(
-    step1.formik.isValid,
-    step2.formik.isValid,
-    step3.formik.isValid,
-    step4.formik.isValid
-  );
-
   const { dispatch } = useGlobalUI();
-
-  const submitEventForm = () => {
-    const transactionUUID = nanoid();
-    const stepOneValues = step1.formik.values;
-    const stepTwoValues = step2.formik.values;
-    const stepThreeValues = step3.formik.values;
-    const stepFourValues = step4.formik.values;
-
-    const aggregatedValues = {
-      ...stepOneValues,
-      ...stepTwoValues,
-      ...stepThreeValues,
-      ...stepFourValues,
-      uuid: transactionUUID,
-    };
-
-    dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });
-
-    formList.forEach((form) => {
-      form.formik.setSubmitting(true);
-    });
-
-    API.post("/events", aggregatedValues)
-      .then((successMessage) => {
-        console.log(successMessage);
-
-        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
-        headerReturnAction();
-        dispatch({
-          type: "SET_FEEDBACK_DIALOG_VISIBLE",
-          payload: {
-            feedbackMessage:
-              "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você receberá um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
-            feedbackSeverity: "success",
-            feedbackTitle: "Enviado com sucesso",
-          },
-        });
-
-        formList.forEach((form) => {
-          form.formik.setSubmitting(false);
-          form.formik.resetForm();
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
-        dispatch({
-          type: "SET_FEEDBACK_DIALOG_VISIBLE",
-          payload: {
-            feedbackMessage:
-              "Ocorreu um erro ao tentar enviar a sua inscrição, isto provavelmente é um erro em nossos servidores. Por favor, atualize a página e tente novamente, pedimos desculpas pela inconveniência.",
-            feedbackSeverity: "error",
-            feedbackTitle: "Erro ao enviar formulário",
-          },
-        });
-
-        formList.forEach((form) => {
-          form.formik.setSubmitting(false);
-        });
-      });
-
-    console.log(stepOneValues, stepTwoValues, stepThreeValues, stepFourValues);
-  };
 
   return (
     <FormPageContainer
-      isSubmitting={isSubmitting}
-      isValid={isValid}
+      isSubmitting={isFormSubmitting(formList)}
+      isValid={isFormValid(formList)}
       headerLabel={"Eventos"}
       actionCancelFn={headerReturnAction}
-      actionSubmitFn={submitEventForm}
+      actionSubmitFn={() => submitGeneratedForm(formList)}
       headerReturnAction={headerReturnAction}
     >
       <div className="w-full justify-center flex">
@@ -342,7 +242,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
       </div>
 
       {formList.map((form, indexOuter) => {
-        if (!isEventPhysical && indexOuter == 2) {
+        if (!isEventPhysical(eventTypeOption) && indexOuter == 2) {
           return (
             <div key={indexOuter} className="my-10 hidden">
               <AtlasAccordion

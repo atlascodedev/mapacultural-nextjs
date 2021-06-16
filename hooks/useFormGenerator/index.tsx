@@ -12,6 +12,8 @@ interface IUseFormGenerator<T> {
   validationSchema: Yup.SchemaOf<T>;
 }
 
+export type IGeneratedForm = ReturnType<typeof useFormGenerator>;
+
 function useFormGenerator<T>({
   validationSchema,
   fields,
