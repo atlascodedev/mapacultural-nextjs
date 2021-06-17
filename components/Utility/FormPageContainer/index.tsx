@@ -53,7 +53,6 @@ const FormPageActions = ({
   isSubmitting,
   isValid,
 }: IFormPageActions) => {
-  console.log(isSubmitting, isValid);
   return (
     <div className="flex w-full justify-center  flex-row-reverse items-center gap-20 py-10">
       <motion.button
