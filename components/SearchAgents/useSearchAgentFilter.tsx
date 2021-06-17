@@ -1,7 +1,7 @@
 import React from "react";
-import { IAgentModel } from "../../@types/project";
 import Fuse from "fuse.js";
 import { useEffectExceptOnMount } from "../../hooks/useEffectExcepOnMount";
+import { IAgentModel } from "../Forms/types";
 
 export const filterAgents = (
   name: string,

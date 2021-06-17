@@ -1,7 +1,7 @@
 import React from "react";
-import { IEventModel } from "../../@types/project";
 import Fuse from "fuse.js";
 import { useEffectExceptOnMount } from "../../hooks/useEffectExcepOnMount";
+import { IEventModel } from "../Forms/types";
 
 export const getMonthLong = (dateString: string) => {
   const longMonth = new Date(dateString).toLocaleString("pt-br", {

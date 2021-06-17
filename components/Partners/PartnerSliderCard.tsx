@@ -1,5 +1,5 @@
 import React from "react";
-import { IPartnerCollection } from "../../@types/project";
+import { IPartnerCollection } from "../Forms/types";
 
 export interface IPartnerSliderCard extends IPartnerCollection {}
 

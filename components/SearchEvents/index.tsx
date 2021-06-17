@@ -1,9 +1,9 @@
 import { MenuItem, TextField } from "@material-ui/core";
 import React from "react";
 import { IoClose } from "react-icons/io5";
-import { IEventModel } from "../../@types/project";
-import { categories } from "../../constants";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
+import { categories } from "../Forms/constants";
+import { IEventModel } from "../Forms/types";
 import FieldWrapper from "../FormUtil/FieldWrapper";
 import SearchDialog from "../SearchDialog";
 import Backdrop from "../Utility/Backdrop";

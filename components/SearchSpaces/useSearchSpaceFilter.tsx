@@ -1,6 +1,6 @@
 import React from "react";
 import Fuse from "fuse.js";
-import { ICulturalSpaceModel } from "../../@types/project";
+import { ICulturalSpaceModel } from "../Forms/types";
 
 export const filterSpaces = (
   name: string,

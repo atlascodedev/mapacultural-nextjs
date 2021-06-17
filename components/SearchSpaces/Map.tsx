@@ -1,12 +1,12 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import {
-  ICulturalSpaceSocials,
   ICulturalSpaceAddressInfo,
   ICulturalSpaceCategories,
   ICulturalSpaceModel,
   ICulturalSpacePersonalInfo,
-} from "../../@types/project";
+  ICulturalSpaceSocials,
+} from "../Forms/types";
 
 export interface ISearchSpaceMap {
   culturalSpaces: ICulturalSpaceModel[];

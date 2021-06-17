@@ -2,12 +2,13 @@ import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  IEventSocialsInfo,
   IEventAddressInfo,
   IEventCategories,
   IEventModel,
   IEventPersonalInfo,
-} from "../../@types/project";
+  IEventSocialsInfo,
+} from "../Forms/types";
+
 import SearchEventCard from "./SearchEventCard";
 
 export interface ISearchEventSlider {

@@ -2,13 +2,13 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Filter from "../Utility/Filter";
 import { MenuItem, TextField } from "@material-ui/core";
-import { categories, taquaraNeighborhoods } from "../../constants";
-import { ICulturalSpaceModel } from "../../@types/project";
 import SearchDialog from "../SearchDialog";
 import UserLetter from "../Utility/UserLetter";
 import TagGroup from "../Utility/TagGroup";
 import useSearchSpaceFilter, { filterSpaces } from "./useSearchSpaceFilter";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
+import { ICulturalSpaceModel } from "../Forms/types";
+import { categories, taquaraNeighborhoods } from "../Forms/constants";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 

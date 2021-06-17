@@ -13,17 +13,18 @@ import SpacesForm from "../components/Forms/SpacesForm";
 import SearchSpaces from "../components/SearchSpaces";
 import { GetStaticProps } from "next";
 import { AxiosResponse } from "axios";
-import {
-  IAgentModel,
-  ICulturalSpaceModel,
-  IEventModel,
-  IPartnerCollection,
-} from "../@types/project";
+
 import { API } from "../constants";
 import useGlobalUI from "../context/global_ui/hook";
 import FeedbackDialog from "../components/Utility/FeedbackDialog";
 import LinearProgress from "../components/Utility/LinearProgress";
 import { Element } from "react-scroll";
+import {
+  IAgentModel,
+  ICulturalSpaceModel,
+  IEventModel,
+  IPartnerCollection,
+} from "../components/Forms/types";
 
 interface IHomeProps {
   events: IEventModel[];
