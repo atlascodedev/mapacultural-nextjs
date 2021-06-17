@@ -5,35 +5,29 @@ import FormPageContainer from "../../Utility/FormPageContainer";
 import AtlasAccordion from "../../Utility/Accordion";
 import useFormGenerator from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
-import {
-  ageRestriction,
-  categories,
-  frequency,
-  taquaraNeighborhoods,
-} from "../../../constants";
-import {
-  IEventAddressInfo,
-  IEventCategories,
-  IEventPersonalInfo,
-  IEventSocialsInfo,
-} from "../../../@types/project";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
-import useGlobalUI from "../../../context/global_ui/hook";
 import { TextField, MenuItem } from "@material-ui/core";
 import isFormValid from "../helper/isFormValid";
 import isFormSubmitting from "../helper/isFormSubmitting";
 import submitGeneratedForm from "../helper/submitForm";
-import { EventType } from "../types";
+import {
+  EventType,
+  IEventAddressInfo,
+  IEventCategories,
+  IEventPersonalInfo,
+  IEventSocialsInfo,
+} from "../types";
 import isEventPhysical from "../helper/isEventPhysical";
-
-const eventTypeList: EventType[] = ["Físico", "Híbrido", "Online"];
-
-const formStepLabels = [
-  `Informações cadastrais`,
-  `Área de atuação`,
-  `Endereço`,
-  `Mídias sociais`,
-];
+import {
+  frequency,
+  ageRestriction,
+  eventFormStepLabels,
+  eventTypeList,
+  categories,
+  taquaraNeighborhoods,
+} from "../constants";
+import useFormCallback from "../hooks/useFormCallback";
+import getAddressFromZip from "../../../helper/getAddressFromZip";
 
 interface IEventForms extends FormPageProps {}
 
@@ -42,7 +36,7 @@ let StringNotRequired = Yup.string().notRequired();
 
 const EventsForm = ({ headerReturnAction }: IEventForms) => {
   const [eventTypeOption, setEventTypeOption] =
-    React.useState<EventType>("Online");
+    React.useState<EventType>("Físico");
 
   const step1 = useFormGenerator<IEventPersonalInfo>({
     fields: {
@@ -170,18 +164,26 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
         },
       },
       validationSchema: Yup.object({
-        cep: isEventPhysical
-          ? StringRequired.matches(
-              /^([\d]{2})\.?([\d]{3})\-?([\d]{3})/,
-              "É preciso ser um CEP válido."
-            )
-          : StringNotRequired,
+        cep:
+          eventTypeOption === "Físico" || eventTypeOption === "Híbrido"
+            ? StringRequired.matches(
+                /^([\d]{2})\.?([\d]{3})\-?([\d]{3})/,
+                "É preciso ser um CEP válido."
+              )
+            : StringNotRequired,
         complement: StringNotRequired,
-        neighborhood: isEventPhysical
-          ? StringRequired
-          : (StringNotRequired as any),
-        street: isEventPhysical ? StringRequired : StringNotRequired,
-        streetNumber: isEventPhysical ? StringRequired : StringNotRequired,
+        neighborhood:
+          eventTypeOption === "Físico" || eventTypeOption === "Híbrido"
+            ? StringRequired
+            : (StringNotRequired as any),
+        street:
+          eventTypeOption === "Físico" || eventTypeOption === "Híbrido"
+            ? StringRequired
+            : StringNotRequired,
+        streetNumber:
+          eventTypeOption === "Físico" || eventTypeOption === "Híbrido"
+            ? StringRequired
+            : StringNotRequired,
       }),
     }
   );
@@ -204,6 +206,19 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
     }),
   });
 
+  const { start, error, success } = useFormCallback(
+    {
+      successMessage:
+        "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você receberá um e-mail confirmando a aprovação da sua inscrição. Obrigado pela participação!",
+      successTitle: "Enviado",
+    },
+    {
+      errorMessage:
+        "Houve um erro ao enviar o formulário. Por favor, recarregue a página e tente novamente. Se o erro persistir, contate o suporte.",
+      errorTitle: "Erro ao enviar",
+    }
+  );
+
   let formList = [step1, step2, step3, step4];
 
   const [checkboxOneState, setCheckboxOneState] =
@@ -211,15 +226,33 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
   const [checkboxTwoState, setCheckboxTwoState] =
     React.useState<boolean>(false);
 
-  const { dispatch } = useGlobalUI();
+  React.useEffect(() => {
+    step3.formik.validateForm();
+  }, [eventTypeOption]);
 
   return (
     <FormPageContainer
       isSubmitting={isFormSubmitting(formList)}
-      isValid={isFormValid(formList)}
+      isValid={
+        isFormValid(formList, true) && checkboxOneState && checkboxTwoState
+      }
       headerLabel={"Eventos"}
       actionCancelFn={headerReturnAction}
-      actionSubmitFn={() => submitGeneratedForm(formList)}
+      actionSubmitFn={() =>
+        submitGeneratedForm(
+          formList,
+          "/events",
+          { eventType: eventTypeOption },
+          {
+            error: error,
+            start: start,
+            success: () => {
+              headerReturnAction();
+              success();
+            },
+          }
+        )
+      }
       headerReturnAction={headerReturnAction}
     >
       <div className="w-full justify-center flex">
@@ -246,9 +279,10 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
           return (
             <div key={indexOuter} className="my-10 hidden">
               <AtlasAccordion
+                defaultOpen
                 fullWidth
                 shadow
-                label={`${formStepLabels[indexOuter]}`}
+                label={`${eventFormStepLabels[indexOuter]}`}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
                   {form.fields.map((fields, index) => {
@@ -271,7 +305,7 @@ const EventsForm = ({ headerReturnAction }: IEventForms) => {
               <AtlasAccordion
                 fullWidth
                 shadow
-                label={`${formStepLabels[indexOuter]}`}
+                label={`${eventFormStepLabels[indexOuter]}`}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-28 gap-y-12 mb-5 py-5 md:px-16">
                   {form.fields.map((fields, index) => {

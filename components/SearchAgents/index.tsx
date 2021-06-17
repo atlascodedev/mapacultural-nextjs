@@ -6,9 +6,9 @@ import {
   TextField,
 } from "@material-ui/core";
 import React from "react";
-import { IAgentModel } from "../../@types/project";
-import { categories } from "../../constants";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
+import { categories } from "../Forms/constants";
+import { IAgentModel, IAgentModelAPIData } from "../Forms/types";
 import SearchDialog from "../SearchDialog";
 import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";

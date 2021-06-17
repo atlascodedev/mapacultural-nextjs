@@ -4,23 +4,21 @@ import * as Yup from "yup";
 import FormPageContainer, { IFormPage } from "../../Utility/FormPageContainer";
 import useFormGenerator from "../../../hooks/useFormGenerator";
 import FieldWrapper from "../../FormUtil/FieldWrapper";
-import {
-  API,
-  categories,
-  genders,
-  races,
-  taquaraNeighborhoods,
-} from "../../../constants";
+import TermsCheckbox from "../../FormUtil/TermsCheckbox";
+import { MenuItem, TextField } from "@material-ui/core";
+import useGlobalUI from "../../../context/global_ui/hook";
+import { nanoid } from "nanoid";
 import {
   IAgentAddressInfo,
   IAgentCategories,
   IAgentPersonalInfo,
   IAgentSocialInfo,
-} from "../../../@types/project";
-import TermsCheckbox from "../../FormUtil/TermsCheckbox";
-import { MenuItem, TextField } from "@material-ui/core";
-import useGlobalUI from "../../../context/global_ui/hook";
-import { nanoid } from "nanoid";
+} from "../types";
+import isFormSubmitting from "../helper/isFormSubmitting";
+import isFormValid from "../helper/isFormValid";
+import submitGeneratedForm from "../helper/submitForm";
+import { categories, genders, races, taquaraNeighborhoods } from "../constants";
+import useFormCallback from "../hooks/useFormCallback";
 
 export type FormPageProps = Pick<IFormPage, "headerReturnAction">;
 
@@ -301,93 +299,36 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
     step1Fisica.formik.resetForm();
   }, [agentTypeOuter]);
 
-  const isSubmitting: boolean =
-    step1Fisica.formik.isSubmitting ||
-    step1Juridica.formik.isSubmitting ||
-    step2.formik.isSubmitting ||
-    step3.formik.isSubmitting ||
-    step4.formik.isSubmitting;
-
-  const stepOneValid: boolean =
-    (agentTypeOuter === "Pessoa física" && step1Fisica.formik.isValid) ||
-    (agentTypeOuter === "Pessoa jurídica" && step1Juridica.formik.isValid);
-
-  const isValid: boolean =
-    stepOneValid &&
-    step2.formik.isValid &&
-    step3.formik.isValid &&
-    step4.formik.isValid &&
-    checkBoxOneChecked &&
-    checkBoxTwoChecked;
-
-  const submitAgentForm = () => {
-    const transactionUUID = nanoid();
-
-    const stepOneValues =
-      agentTypeOuter === "Pessoa física"
-        ? step1Fisica.formik.values
-        : step1Juridica.formik.values;
-    const stepTwoValues = step2.formik.values;
-    const stepThreeValues = step3.formik.values;
-    const stepFourValues = step4.formik.values;
-
-    const aggregatedValues = {
-      agentType: agentTypeOuter,
-      ...stepOneValues,
-      ...stepTwoValues,
-      ...stepThreeValues,
-      ...stepFourValues,
-      uuid: transactionUUID,
-    };
-
-    dispatch({ type: "SET_GLOBAL_LOADING_TRUE" });
-
-    formList.forEach((form) => {
-      form.formik.setSubmitting(true);
-    });
-
-    API.post("/agents", aggregatedValues)
-      .then((successMessage) => {
-        formList.forEach((form) => {
-          form.formik.setSubmitting(false);
-          form.formik.resetForm();
-          dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
-          headerReturnAction();
-          dispatch({
-            type: "SET_FEEDBACK_DIALOG_VISIBLE",
-            payload: {
-              feedbackMessage:
-                "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você receberá um e-mail confirmando a aprovação da inscrição. Obrigado pela participação!",
-              feedbackSeverity: "success",
-              feedbackTitle: "Enviado com sucesso",
-            },
-          });
-        });
-      })
-      .catch((error) => {
-        dispatch({ type: "SET_GLOBAL_LOADING_FALSE" });
-        dispatch({
-          type: "SET_FEEDBACK_DIALOG_VISIBLE",
-          payload: {
-            feedbackMessage:
-              "Ocorreu um erro ao tentar enviar a sua inscrição, isto provavelmente é um erro em nossos servidores. Por favor, atualize a página e tente novamente, pedimos desculpas pela inconveniência.",
-            feedbackSeverity: "error",
-            feedbackTitle: "Erro ao enviar formulário",
-          },
-        });
-
-        formList.forEach((form) => {
-          form.formik.setSubmitting(false);
-        });
-      });
-  };
+  const { start, error, success } = useFormCallback(
+    {
+      successMessage:
+        "Sua inscrição foi efetuada com sucesso, nosso time irá analisar os dados inseridos e em breve você receberá um e-mail confirmando a aprovação da sua inscrição. Obrigado pela participação!",
+      successTitle: "Enviado",
+    },
+    {
+      errorMessage:
+        "Houve um erro ao enviar o formulário. Por favor, recarregue a página e tente novamente. Se o erro persistir, contate o suporte.",
+      errorTitle: "Erro ao enviar",
+    }
+  );
 
   return (
     <FormPageContainer
-      isSubmitting={isSubmitting}
-      isValid={isValid}
+      isSubmitting={isFormSubmitting(formList)}
+      isValid={
+        isFormValid(formList) && checkBoxOneChecked && checkBoxTwoChecked
+      }
       actionCancelFn={headerReturnAction}
-      actionSubmitFn={submitAgentForm}
+      actionSubmitFn={() =>
+        submitGeneratedForm(formList, "/agents", null, {
+          error: error,
+          start: start,
+          success: () => {
+            headerReturnAction();
+            success();
+          },
+        })
+      }
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
     >

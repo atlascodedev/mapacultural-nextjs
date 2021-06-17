@@ -4,7 +4,7 @@ const isFormSubmitting = (formList: IGeneratedForm[]): boolean => {
   let booleanCounter: number = 0;
 
   formList.forEach((form, index) => {
-    if (!form.formik.isSubmitting) {
+    if (form.formik.isSubmitting) {
       booleanCounter++;
     } else {
       return;

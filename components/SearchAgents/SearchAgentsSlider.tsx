@@ -2,12 +2,12 @@ import React from "react";
 import SwiperCore, { Navigation, Autoplay, Pagination, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  IAgentAddressInfo,
   IAgentCategories,
+  IAgentAddressInfo,
   IAgentModel,
   IAgentPersonalInfo,
   IAgentSocialInfo,
-} from "../../@types/project";
+} from "../Forms/types";
 import SearchAgentCard from "./SearchAgentCard";
 
 SwiperCore.use([Navigation, Autoplay, Pagination, Lazy]);
