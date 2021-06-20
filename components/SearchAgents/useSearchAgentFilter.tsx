@@ -62,7 +62,7 @@ const useSearchAgentFilter = () => {
 
       setMessage(message);
     } else if (category == "Todos") {
-      let message = "Mostrando todos agentes culturais";
+      let message = `Mostrando todos os ${active.length} agente(s) culturais`;
 
       setMessage(message);
     } else {

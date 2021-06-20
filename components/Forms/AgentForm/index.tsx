@@ -7,7 +7,6 @@ import FieldWrapper from "../../FormUtil/FieldWrapper";
 import TermsCheckbox from "../../FormUtil/TermsCheckbox";
 import { MenuItem, TextField } from "@material-ui/core";
 import useGlobalUI from "../../../context/global_ui/hook";
-import { nanoid } from "nanoid";
 import {
   IAgentAddressInfo,
   IAgentCategories,
@@ -320,14 +319,19 @@ const AgentForm = ({ headerReturnAction }: IAgentForm) => {
       }
       actionCancelFn={headerReturnAction}
       actionSubmitFn={() =>
-        submitGeneratedForm(formList, "/agents", null, {
-          error: error,
-          start: start,
-          success: () => {
-            headerReturnAction();
-            success();
-          },
-        })
+        submitGeneratedForm(
+          formList,
+          "/agents",
+          { agentType: agentTypeOuter },
+          {
+            error: error,
+            start: start,
+            success: () => {
+              headerReturnAction();
+              success();
+            },
+          }
+        )
       }
       headerLabel={"Agentes culturais"}
       headerReturnAction={headerReturnAction}
