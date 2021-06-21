@@ -17,7 +17,7 @@ const SearchAgentHorizontalCard = ({
 }: Props) => {
   const { activePage, pages } = usePagination(categories, 4);
 
-  console.log(pages, activePage);
+  // console.log(pages, activePage);
 
   // console.log(activePage, pages);
   return (
