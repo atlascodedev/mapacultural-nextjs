@@ -9,6 +9,7 @@ import {
   IAgentSocialInfo,
 } from "../Forms/types";
 import SearchAgentCard from "./SearchAgentCard";
+import SearchAgentHorizontalCard from "./SearchAgentHorizontalCard";
 
 SwiperCore.use([Navigation, Autoplay, Pagination, Lazy]);
 
@@ -49,11 +50,11 @@ const SearchAgentsSlider = ({
             key={index}
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <SearchAgentCard
+            <SearchAgentHorizontalCard
               action={() => action({ ...agent, open: true })}
               actionName={"Ver agente"}
-              name={agent.publicName}
-              tags={agent.categories}
+              title={agent.publicName}
+              categories={agent.categories}
             />
           </SwiperSlide>
         );

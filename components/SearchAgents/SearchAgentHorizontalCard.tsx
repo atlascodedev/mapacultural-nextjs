@@ -3,23 +3,20 @@ import UserLetter, { Sizes } from "../Utility/UserLetter";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TagGroup from "../Utility/TagGroup";
 import { Tooltip } from "@material-ui/core";
-import usePagination from "../../hooks/usePagination";
 
 interface Props {
   title?: string;
   categories?: string[];
+  actionName?: string;
   action?: (...args: any[]) => void;
 }
 
 const SearchAgentHorizontalCard = ({
   title = "Museu de História da Tecnologia Harald Alberto Bauer",
   categories = ["Teste1", "Teste2", "Teste3", "Teste4", "Teste5"],
+  actionName = "Ação",
+  action,
 }: Props) => {
-  const { activePage, pages } = usePagination(categories, 4);
-
-  // console.log(pages, activePage);
-
-  // console.log(activePage, pages);
   return (
     <div
       className={`md:w-[972px] w-[95%] h-[48px] group flex transition-colors`}
@@ -42,8 +39,12 @@ const SearchAgentHorizontalCard = ({
           tags={categories}
         />
       </div>
-      <div className="border-[#EC791E] bg-[#F2F2F2] group-hover:bg-secondary-main text-secondary-main w-[20%] text-secondary group-hover:text-white font-bold border-2 rounded-r-lg cursor-pointer flex justify-center items-center">
-        <div className="hidden md:block">Ver perfil</div>
+      <div
+        onClick={action}
+        role="button"
+        className="border-[#EC791E] bg-[#F2F2F2] group-hover:bg-secondary-main text-secondary-main w-[20%] text-secondary group-hover:text-white font-bold border-2 rounded-r-lg cursor-pointer flex justify-center items-center gap-3"
+      >
+        <div className="hidden md:block">{actionName}</div>
         <FaLongArrowAltRight className="text-3xl" />
       </div>
     </div>

@@ -60,10 +60,6 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
-      <div className="w-full my-10 flex justify-center">
-        <SearchAgentHorizontalCard />
-      </div>
-
       <div className="flex justify-center flex-col items-center">
         <Filter
           searchAction={() =>
@@ -97,10 +93,18 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
       </div>
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
         <div className="overflow-hidden">
-          <SearchAgentsSlider
-            action={setSearchDialog}
-            agentSliderItems={active}
-          />
+          {/* <div>
+            {active.map((value, index: number) => {
+              return (
+                <SearchAgentHorizontalCard
+                  action={() => setActive({ ...value, open: true } as any)}
+                  actionName={"Ver agente"}
+                  categories={value.categories}
+                  title={value.publicName}
+                />
+              );
+            })}
+          </div> */}
         </div>
 
         <SearchDialog
