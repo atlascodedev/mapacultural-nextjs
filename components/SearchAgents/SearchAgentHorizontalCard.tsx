@@ -3,16 +3,23 @@ import UserLetter, { Sizes } from "../Utility/UserLetter";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TagGroup from "../Utility/TagGroup";
 import { Tooltip } from "@material-ui/core";
+import usePagination from "../../hooks/usePagination";
 
 interface Props {
   title?: string;
   categories?: string[];
+  action?: (...args: any[]) => void;
 }
 
 const SearchAgentHorizontalCard = ({
   title = "Museu de História da Tecnologia Harald Alberto Bauer",
-  categories = ["Teste1", "Teste1", "Teste1", "Teste1", "Teste1"],
+  categories = ["Teste1", "Teste2", "Teste3", "Teste4", "Teste5"],
 }: Props) => {
+  const { activePage, pages } = usePagination(categories, 4);
+
+  console.log(pages, activePage);
+
+  // console.log(activePage, pages);
   return (
     <div
       className={`md:w-[972px] w-[95%] h-[48px] group flex transition-colors`}
