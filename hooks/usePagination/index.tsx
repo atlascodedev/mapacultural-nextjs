@@ -7,7 +7,7 @@ function usePagination<T>(
 ): {
   pages: Array<Array<T>>;
   activePage: Array<T>;
-  setActive: React.Dispatch<React.SetStateAction<T[]>>;
+  setActivePage: React.Dispatch<React.SetStateAction<T[]>>;
 } {
   const [activePage, setActivePage] = React.useState<Array<T>>([]);
   const [pages, setPages] = React.useState<Array<T[]>>([]);
@@ -17,7 +17,23 @@ function usePagination<T>(
     setActivePage(pages[0]);
   }, []);
 
-  return { activePage: activePage, pages: pages, setActive: setActivePage };
+  const nextPage = (): void => {
+    if (pages.indexOf(activePage) === pages.length - 1) {
+      return;
+    } else {
+      setActivePage(pages[pages.indexOf(activePage) + 1]);
+    }
+  };
+
+  const previousPage = (): void => {
+    if (pages.indexOf(activePage) === 0) {
+      return;
+    } else {
+      setActivePage(pages[pages.indexOf(activePage) - 1]);
+    }
+  };
+
+  return { activePage: activePage, pages: pages, setActivePage: setActivePage };
 }
 
 export default usePagination;
