@@ -13,6 +13,7 @@ import SearchDialog from "../SearchDialog";
 import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
+import SearchAgentHorizontalCard from "./SearchAgentHorizontalCard";
 import SearchAgentsSlider from "./SearchAgentsSlider";
 import useSearchAgentFilter, { filterAgents } from "./useSearchAgentFilter";
 
@@ -59,6 +60,10 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
+      <div className="w-full my-10 flex justify-center">
+        <SearchAgentHorizontalCard />
+      </div>
+
       <div className="flex justify-center flex-col items-center">
         <Filter
           searchAction={() =>
