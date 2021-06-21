@@ -7,23 +7,26 @@ function usePagination<T>(
 ): {
   pages: Array<Array<T>>;
   activePage: Array<T>;
-  setActivePage: React.Dispatch<React.SetStateAction<T[]>>;
+  setActivePage: (index: number) => void;
   nextPage: () => void;
   previousPage: () => void;
 } {
   const [activePage, setActivePage] = React.useState<Array<T>>([]);
   const [pages, setPages] = React.useState<Array<T[]>>([]);
 
-  React.useEffect(() => {
-    setPages(createSubArrays(pageLimit, data));
-    setActivePage(pages[0]);
-  }, []);
+  const setPage = (index: number): void => {
+    if (index > pages.length || index < 0) {
+      return;
+    }
+
+    setActivePage(pages[index]);
+  };
 
   const nextPage = (): void => {
     if (pages.indexOf(activePage) === pages.length - 1) {
       return;
     } else {
-      setActivePage(pages[pages.indexOf(activePage) + 1]);
+      setPage(pages.indexOf(activePage) + 1);
     }
   };
 
@@ -31,14 +34,23 @@ function usePagination<T>(
     if (pages.indexOf(activePage) === 0) {
       return;
     } else {
-      setActivePage(pages[pages.indexOf(activePage) - 1]);
+      setPage(pages.indexOf(activePage) - 1);
     }
   };
+
+  React.useEffect(() => {
+    setPages(createSubArrays(pageLimit, data));
+    setPage(0);
+  }, []);
+
+  React.useEffect(() => {
+    setPage(0);
+  }, [data, pages]);
 
   return {
     activePage: activePage,
     pages: pages,
-    setActivePage: setActivePage,
+    setActivePage: setPage,
     nextPage: nextPage,
     previousPage: previousPage,
   };

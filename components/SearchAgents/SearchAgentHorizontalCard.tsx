@@ -42,7 +42,7 @@ const SearchAgentHorizontalCard = ({
       <div
         onClick={action}
         role="button"
-        className="border-[#EC791E] bg-[#F2F2F2] group-hover:bg-secondary-main text-secondary-main w-[20%] text-secondary group-hover:text-white font-bold border-2 rounded-r-lg cursor-pointer flex justify-center items-center gap-3"
+        className="border-[#EC791E] bg-[#F2F2F2] group-hover:bg-secondary-main text-secondary-main w-[20%] text-secondary group-hover:text-white font-bold border-2 rounded-r-lg cursor-pointer flex justify-center items-center gap-3 md:text-lg"
       >
         <div className="hidden md:block">{actionName}</div>
         <FaLongArrowAltRight className="text-3xl" />

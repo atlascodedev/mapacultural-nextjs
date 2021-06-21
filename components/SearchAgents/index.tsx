@@ -1,16 +1,14 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
+import { MenuItem, TextField } from "@material-ui/core";
 import React from "react";
+import generateMockData from "../../helper/generateMockData";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
+import usePagination from "../../hooks/usePagination";
 import { categories } from "../Forms/constants";
 import { IAgentModel, IAgentModelAPIData } from "../Forms/types";
 import SearchDialog from "../SearchDialog";
 import Filter from "../Utility/Filter";
+import AtlasPagination from "../Utility/Pagination";
+import PaginationButton from "../Utility/Pagination/PaginationButton";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchAgentHorizontalCard from "./SearchAgentHorizontalCard";
@@ -20,6 +18,36 @@ import useSearchAgentFilter, { filterAgents } from "./useSearchAgentFilter";
 export interface ISearchAgents {
   agentsList: IAgentModel[];
 }
+
+const mockAgent: IAgentModel = {
+  birthday_or_founding: "",
+  categories: [
+    "Artes visuais",
+    "Artesanato",
+    "Cultura viva",
+    "Produção cultural",
+  ],
+  cep: "90550070",
+  cpf_or_cnpj: "0109323232",
+  description: "Description lorem ipsum text",
+  fullName: "Placeholder Fullname Test",
+  gender: "Homem",
+  neighborhood: "Centro",
+  phoneNumber: "512321321",
+  professionalRecord: "Alo",
+  publicEmail: "teste@teste.com",
+  publicName: "Public name 1",
+  race: "Amarela",
+  registrationEmail: "123",
+  street: "1231",
+  streetNumber: "123",
+  complement: "Placeholder ",
+  facebook: "https://facebook.com/placeholder",
+  instagram: "https://instagram.com/placeholder",
+  portfolio: "https://portfoliolink.com/placeholder",
+  publicPhoneNumber: "51984773704",
+  website: "https://placeholder.com",
+};
 
 const SearchAgents = ({ agentsList }: ISearchAgents) => {
   const [searchDialog, setSearchDialog] = React.useState<
@@ -58,6 +86,12 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
     filterAgents("", agentsList, "Todos", setActive);
   }, []);
 
+  const memoizedMock = React.useMemo(() => {
+    return generateMockData(mockAgent, 47);
+  }, []);
+
+  let { activePage, pages, setActivePage } = usePagination(memoizedMock, 5);
+
   return (
     <div className="w-full h-auto overflow-hidden py-8">
       <div className="flex justify-center flex-col items-center">
@@ -92,19 +126,27 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
         <div className="font-bold pt-10">{message}</div>
       </div>
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
-        <div className="overflow-hidden">
-          {/* <div>
-            {active.map((value, index: number) => {
-              return (
-                <SearchAgentHorizontalCard
-                  action={() => setActive({ ...value, open: true } as any)}
-                  actionName={"Ver agente"}
-                  categories={value.categories}
-                  title={value.publicName}
-                />
-              );
-            })}
-          </div> */}
+        <div className="overflow-hidden flex flex-col items-center">
+          <div className="flex flex-col gap-y-4">
+            {activePage &&
+              activePage.map((value, index: number) => {
+                return (
+                  <SearchAgentHorizontalCard
+                    key={index}
+                    action={() =>
+                      setSearchDialog({ ...value, open: true } as any)
+                    }
+                    actionName={"Ver agente"}
+                    categories={value.categories}
+                    title={value.publicName}
+                  />
+                );
+              })}
+          </div>
+
+          <div className="mt-10 mb-3">
+            <AtlasPagination data={pages} action={setActivePage} />
+          </div>
         </div>
 
         <SearchDialog
