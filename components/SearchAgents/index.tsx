@@ -101,7 +101,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
         <div className="overflow-hidden">
           <SearchAgentsSlider
             action={setSearchDialog}
-            agentSliderItems={agentsList}
+            agentSliderItems={active}
           />
         </div>
 
