@@ -12,42 +12,13 @@ import PaginationButton from "../Utility/Pagination/PaginationButton";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchAgentHorizontalCard from "./SearchAgentHorizontalCard";
-import SearchAgentsSlider from "./SearchAgentsSlider";
 import useSearchAgentFilter, { filterAgents } from "./useSearchAgentFilter";
+import { Pagination } from "@material-ui/lab";
+import SearchAgentsSlider from "./SearchAgentsSlider";
 
 export interface ISearchAgents {
   agentsList: IAgentModel[];
 }
-
-const mockAgent: IAgentModel = {
-  birthday_or_founding: "",
-  categories: [
-    "Artes visuais",
-    "Artesanato",
-    "Cultura viva",
-    "Produção cultural",
-  ],
-  cep: "90550070",
-  cpf_or_cnpj: "0109323232",
-  description: "Description lorem ipsum text",
-  fullName: "Placeholder Fullname Test",
-  gender: "Homem",
-  neighborhood: "Centro",
-  phoneNumber: "512321321",
-  professionalRecord: "Alo",
-  publicEmail: "teste@teste.com",
-  publicName: "Public name 1",
-  race: "Amarela",
-  registrationEmail: "123",
-  street: "1231",
-  streetNumber: "123",
-  complement: "Placeholder ",
-  facebook: "https://facebook.com/placeholder",
-  instagram: "https://instagram.com/placeholder",
-  portfolio: "https://portfoliolink.com/placeholder",
-  publicPhoneNumber: "51984773704",
-  website: "https://placeholder.com",
-};
 
 const SearchAgents = ({ agentsList }: ISearchAgents) => {
   const [searchDialog, setSearchDialog] = React.useState<
@@ -79,18 +50,19 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
     open: false,
   });
 
-  const { active, category, name, message, setCategory, setName, setActive } =
+  let { active, category, name, message, setCategory, setName, setActive } =
     useSearchAgentFilter();
+
+  let { activePage, pages, setActivePage, activeIndex } = usePagination(
+    active,
+    5
+  );
 
   React.useEffect(() => {
     filterAgents("", agentsList, "Todos", setActive);
   }, []);
 
-  const memoizedMock = React.useMemo(() => {
-    return generateMockData(mockAgent, 47);
-  }, []);
-
-  let { activePage, pages, setActivePage } = usePagination(memoizedMock, 5);
+  // console.log(activePage, pages, active);
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
@@ -126,7 +98,14 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
         <div className="font-bold pt-10">{message}</div>
       </div>
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
-        <div className="overflow-hidden flex flex-col items-center">
+        <div className="overflow-hidden">
+          <SearchAgentsSlider
+            action={setSearchDialog}
+            agentSliderItems={agentsList}
+          />
+        </div>
+
+        {/* <div className="overflow-hidden flex flex-col items-center">
           <div className="flex flex-col gap-y-4">
             {activePage &&
               activePage.map((value, index: number) => {
@@ -145,9 +124,17 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
           </div>
 
           <div className="mt-10 mb-3">
-            <AtlasPagination data={pages} action={setActivePage} />
+            <Pagination
+              variant="outlined"
+              shape="rounded"
+              count={pages.length}
+              page={activeIndex + 1}
+              showFirstButton
+              showLastButton
+              onChange={(event, value) => setActivePage(value - 1)}
+            />
           </div>
-        </div>
+        </div> */}
 
         <SearchDialog
           BackdropProps={{ open: searchDialog.open }}

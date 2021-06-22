@@ -25,6 +25,7 @@ import {
   IEventModel,
   IPartnerCollection,
 } from "../components/Forms/types";
+import generateMockData from "../helper/generateMockData";
 
 interface IHomeProps {
   events: IEventModel[];
@@ -32,6 +33,36 @@ interface IHomeProps {
   agents: IAgentModel[];
   partners: IPartnerCollection[];
 }
+
+const mockAgent: IAgentModel = {
+  birthday_or_founding: "",
+  categories: [
+    "Artes visuais",
+    "Artesanato",
+    "Cultura viva",
+    "Produção cultural",
+  ],
+  cep: "90550070",
+  cpf_or_cnpj: "0109323232",
+  description: "Description lorem ipsum text",
+  fullName: "Placeholder Fullname Test",
+  gender: "Homem",
+  neighborhood: "Centro",
+  phoneNumber: "512321321",
+  professionalRecord: "Alo",
+  publicEmail: "teste@teste.com",
+  publicName: "Public name 1",
+  race: "Amarela",
+  registrationEmail: "123",
+  street: "1231",
+  streetNumber: "123",
+  complement: "Placeholder ",
+  facebook: "https://facebook.com/placeholder",
+  instagram: "https://instagram.com/placeholder",
+  portfolio: "https://portfoliolink.com/placeholder",
+  publicPhoneNumber: "51984773704",
+  website: "https://placeholder.com",
+};
 
 export default function Home({
   agents,
@@ -69,7 +100,11 @@ export default function Home({
               <Search
                 tabItems={[
                   {
-                    component: <SearchAgents agentsList={agents} />,
+                    component: (
+                      <SearchAgents
+                        agentsList={[...generateMockData(mockAgent, 47)]}
+                      />
+                    ),
                     label: "Agentes culturais",
                   },
                   {

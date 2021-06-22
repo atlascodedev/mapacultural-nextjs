@@ -7,26 +7,31 @@ function usePagination<T>(
 ): {
   pages: Array<Array<T>>;
   activePage: Array<T>;
+  activeIndex: number;
   setActivePage: (index: number) => void;
   nextPage: () => void;
   previousPage: () => void;
 } {
   const [activePage, setActivePage] = React.useState<Array<T>>([]);
   const [pages, setPages] = React.useState<Array<T[]>>([]);
+  const [activePageIndex, setActivePageIndex] = React.useState<number>(0);
 
-  const setPage = (index: number): void => {
+  const setPageHelper = (index: number): void => {
     if (index > pages.length || index < 0) {
-      return;
+      return setActivePage([]);
     }
 
-    setActivePage(pages[index]);
+    let pagesCopy = pages;
+
+    setActivePage(pagesCopy[index]);
+    setActivePageIndex(index);
   };
 
   const nextPage = (): void => {
     if (pages.indexOf(activePage) === pages.length - 1) {
       return;
     } else {
-      setPage(pages.indexOf(activePage) + 1);
+      setPageHelper(pages.indexOf(activePage) + 1);
     }
   };
 
@@ -34,23 +39,24 @@ function usePagination<T>(
     if (pages.indexOf(activePage) === 0) {
       return;
     } else {
-      setPage(pages.indexOf(activePage) - 1);
+      setPageHelper(pages.indexOf(activePage) - 1);
     }
   };
 
   React.useEffect(() => {
     setPages(createSubArrays(pageLimit, data));
-    setPage(0);
+    setPageHelper(0);
   }, []);
 
   React.useEffect(() => {
-    setPage(0);
-  }, [data, pages]);
+    setPageHelper(0);
+  }, [data]);
 
   return {
     activePage: activePage,
     pages: pages,
-    setActivePage: setPage,
+    activeIndex: activePageIndex,
+    setActivePage: setPageHelper,
     nextPage: nextPage,
     previousPage: previousPage,
   };
