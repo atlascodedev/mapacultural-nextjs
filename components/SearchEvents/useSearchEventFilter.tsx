@@ -1,6 +1,4 @@
 import React from "react";
-import Fuse from "fuse.js";
-import { useEffectExceptOnMount } from "../../hooks/useEffectExcepOnMount";
 import { IEventModel } from "../Forms/types";
 
 export const getMonthLong = (dateString: string) => {
@@ -12,122 +10,82 @@ export const getMonthLong = (dateString: string) => {
 };
 
 export const filterEvents = (
-  name: string,
   month: string,
   category: string,
   events: IEventModel[],
   callback: (...args: any[]) => void
 ) => {
   if (category === "Todos") {
-    callback(events);
-    return;
-  }
+    callback([...events]);
+  } else if (category.length <= 0 && month.length > 0) {
+    let eventInternal: IEventModel[] = events.filter((event, index) => {
+      return (
+        getMonthLong(event.startingDate).toUpperCase() === month.toUpperCase()
+      );
+    });
 
-  if (category.length > 0 && name.length <= 0 && month.length <= 0) {
+    console.log(eventInternal);
+    callback(eventInternal);
+  } else if (category.length > 0 && month.length <= 0) {
     let eventInternal: IEventModel[] = events.filter((event, index) => {
       return event.categories.includes(category as any);
     });
-
+    console.log(eventInternal);
     callback(eventInternal);
-    return;
-  }
-
-  if (category.length > 0 && month.length > 0 && name.length <= 0) {
+  } else if (category.length > 0 && month.length > 0) {
     let eventInternal: IEventModel[] = events.filter((event, index) => {
       return (
         event.categories.includes(category as any) &&
         getMonthLong(event.startingDate).toUpperCase() === month.toUpperCase()
       );
     });
+    console.log(eventInternal);
     callback(eventInternal);
-    return;
-  }
-
-  if (category.length > 0 && month.length > 0 && name.length > 0) {
-    let eventInternal: IEventModel[] = events.filter((event, index) => {
-      return (
-        event.categories.includes(category as any) &&
-        getMonthLong(event.startingDate).toUpperCase() === month.toUpperCase()
-      );
-    });
-
-    const fuzzySearch = new Fuse(eventInternal, { keys: ["eventName"] });
-
-    const fuzzyResult = fuzzySearch.search(name).map((value, index) => {
-      return value.item;
-    });
-
-    callback(fuzzyResult);
-    return;
-  }
-
-  if (name.length > 0 && month.length <= 0 && category.length <= 0) {
-    const fuzzySearch = new Fuse(events, { keys: ["eventName"] });
-
-    const fuzzyResult = fuzzySearch.search(name).map((value, index) => {
-      return value.item;
-    });
-
-    callback(fuzzyResult);
-    return;
-  }
-
-  if (name.length > 0 && month.length > 0 && category.length <= 0) {
-    const fuzzySearch = new Fuse(events, { keys: ["eventName"] });
-
-    const fuzzyResult = fuzzySearch.search(name).filter((value, index) => {
-      return (
-        getMonthLong(value.item.startingDate).toUpperCase() ===
-        month.toUpperCase()
-      );
-    });
-
-    callback(fuzzyResult);
-    return;
+  } else {
+    console.log("nothing matches");
   }
 };
 
 const useSearchEventFilter = () => {
   const [active, setActive] = React.useState<IEventModel[]>([]);
-  const [name, setName] = React.useState<string>("");
   const [month, setMonth] = React.useState<string>("");
   const [category, setCategory] = React.useState<string>("Todos");
-  const [message, setMessage] = React.useState<string>(
-    "Use os filtros para começar"
-  );
+  const [message, setMessage] = React.useState<string>("");
 
-  useEffectExceptOnMount(() => {
-    if (category === "" && name === "") {
-      let message = "Use os filtros para começar";
-      setMessage(message);
-    }
-
-    if (active.length === 0 && category === "Todos") {
-      let message = "Nenhum evento foi encontrado.";
-      setMessage(message);
-    }
-
-    if (active.length === 0 && category !== "Todos") {
-      let message = `Nenhum evento foi encontrado na categoria ${category.toLowerCase()}`;
-      setMessage(message);
-    }
-
-    if (active.length > 0 && category !== "Todos") {
-      let message = `${
-        active.length
-      } foi encontrado na categoria ${category.toLowerCase()}`;
-      setMessage(message);
+  React.useEffect(() => {
+    if (category == "Todos" && active.length <= 0) {
+      setMessage("Nenhum evento foi encontrado");
+    } else if (category === "Todos" && month.length <= 0) {
+      setMessage(`Mostrando todos eventos`);
+    } else if (category === "Todos" && month.length > 0) {
+      setMessage(`Mostrando todos os eventos no mês de ${month.toLowerCase()}`);
+    } else if (active.length > 0 && month.length <= 0) {
+      setMessage(
+        `${
+          active.length
+        } eventos foram encontrados na categoria ${category.toLowerCase()}`
+      );
+    } else if (active.length > 0 && month.length > 0) {
+      setMessage(`
+        ${
+          active.length
+        } eventos foram encontrados na categoria ${category.toLowerCase()} no mês de ${month.toLowerCase()}
+      `);
+    } else if (active.length <= 0 && category.length > 0 && month.length > 0) {
+      setMessage(`
+        Nenhum evento foi encontrado na categoria ${category.toLowerCase()} no mês de ${month.toLowerCase()}
+      `);
+    } else {
+      setMessage("Nenhum evento foi encontrado");
     }
   }, [active]);
 
   return {
     active,
-    name,
     month,
     category,
     message,
     setActive,
-    setName,
     setMonth,
     setCategory,
   };

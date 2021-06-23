@@ -13,7 +13,6 @@ import SpacesForm from "../components/Forms/SpacesForm";
 import SearchSpaces from "../components/SearchSpaces";
 import { GetStaticProps } from "next";
 import { AxiosResponse } from "axios";
-
 import { API } from "../constants";
 import useGlobalUI from "../context/global_ui/hook";
 import FeedbackDialog from "../components/Utility/FeedbackDialog";
@@ -62,6 +61,32 @@ const mockAgent: IAgentModel = {
   portfolio: "https://portfoliolink.com/placeholder",
   publicPhoneNumber: "51984773704",
   website: "https://placeholder.com",
+};
+
+const mockEvent: IEventModel = {
+  categories: ["Artes visuais", "Folclore", "Memória e patrimônio"],
+  description: "Lorem ipsum description",
+  endingDate: new Date(Date.now()).toJSON(),
+  eventAgeRestriction: "18",
+  eventEntryType: "Acesso gratuito",
+  eventFrequency: "Anual",
+  eventHead: "Head",
+  eventName: "Event name",
+  eventType: "Físico",
+  privateEmail: "teste@teste.com",
+  privatePhone: "5198423232",
+  startingDate: new Date(Date.now()).toJSON(),
+  workingHours: "working hours",
+  cep: "9040405",
+  complement: "",
+  eventFee: "Free",
+  eventURL: "https://eventurl.com",
+  neighborhood: "Centro",
+  publicEmail: "teste@testepublic.com",
+  publicPhone: "512302323",
+  street: "12323",
+  streetNumber: "1231312",
+  website: "https://website.com",
 };
 
 export default function Home({
@@ -116,7 +141,15 @@ export default function Home({
                     label: "Espaços culturais",
                   },
                   {
-                    component: <SearchEvents eventList={events} />,
+                    component: (
+                      <SearchEvents
+                        eventList={
+                          process.env.NODE_ENV !== "production"
+                            ? [...generateMockData(mockEvent, 93)]
+                            : events
+                        }
+                      />
+                    ),
                     label: "Eventos/Projetos",
                   },
                 ]}

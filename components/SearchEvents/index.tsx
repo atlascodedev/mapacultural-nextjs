@@ -1,17 +1,49 @@
 import { MenuItem, TextField } from "@material-ui/core";
 import React from "react";
-import { IoClose } from "react-icons/io5";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
+import usePagination from "../../hooks/usePagination";
 import { categories } from "../Forms/constants";
 import { IEventModel } from "../Forms/types";
-import FieldWrapper from "../FormUtil/FieldWrapper";
+import SearchAgentHorizontalCard from "../SearchAgents/SearchAgentHorizontalCard";
 import SearchDialog from "../SearchDialog";
-import Backdrop from "../Utility/Backdrop";
 import Filter from "../Utility/Filter";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
-import SearchEventSlider, { ISearchEventSlider } from "./SearchEventSlider";
+import SearchEventSlider from "./SearchEventSlider";
 import useSearchEventFilter, { filterEvents } from "./useSearchEventFilter";
+import { Pagination } from "@material-ui/lab";
+
+const months: string[] = [
+  "Janeiro",
+  "Feveiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
+];
+
+const getRandomMonthIndex = () => {
+  let randomMonths = months[Math.floor(Math.random() * 12)];
+
+  return randomMonths;
+};
+
+const getCurrentMonthCapitalized = () => {
+  let currentMonth = new Date(Date.now()).toLocaleDateString("pt-br", {
+    month: "long",
+  });
+
+  let capitalizedCurrentMonth =
+    currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1);
+
+  return capitalizedCurrentMonth;
+};
 
 export interface ISearchEvents {
   eventList: IEventModel[];
@@ -46,36 +78,23 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
     endingDate: "",
     publicEmail: "",
   });
+  const currentMonth = React.useMemo(() => {
+    return getCurrentMonthCapitalized();
+  }, []);
 
-  const months: string[] = [
-    "Janeiro",
-    "Feveiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ];
+  const { active, category, message, month, setActive, setMonth, setCategory } =
+    useSearchEventFilter();
 
-  const {
-    active,
-    category,
-    message,
-    month,
-    name,
-    setActive,
-    setMonth,
-    setName,
-    setCategory,
-  } = useSearchEventFilter();
+  let { activeIndex, activePage, pages, setActivePage } = usePagination(
+    [...active],
+    6,
+    [active, eventList]
+  );
 
   React.useEffect(() => {
-    filterEvents("", month, "Todos", eventList, setActive);
+    setMonth(currentMonth);
+
+    filterEvents(month, "Todos", [...eventList], setActive);
   }, []);
 
   return (
@@ -83,18 +102,9 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
       <div className="flex justify-center flex-col items-center w-full">
         <Filter
           searchAction={() =>
-            filterEvents(name, month, category, eventList, setActive)
+            filterEvents(month, category, [...eventList], setActive)
           }
           inputItems={[
-            <TextField
-              placeholder="Nome"
-              label="Nome do evento"
-              value={name}
-              onChange={(
-                event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => setName(event.target.value)}
-            />,
-
             <TextField
               style={{ minWidth: "120px" }}
               value={month}
@@ -133,12 +143,40 @@ const SearchEvents = ({ eventList }: ISearchEvents) => {
           ]}
         />
 
-        <div className="font-bold pt-10">{message}</div>
+        <div className="font-bold pt-10 mb-8">{message}</div>
       </div>
 
-      <div>
-        <SearchEventSlider action={setEventDialog} eventList={active} />
+      <div className="overflow-hidden flex flex-col items-center">
+        <div className="flex flex-col gap-y-4 w-full items-center">
+          {activePage.map((value, index) => {
+            return (
+              <SearchAgentHorizontalCard
+                key={index}
+                actionName={"Ver evento"}
+                categories={value.categories}
+                title={value.eventName}
+                action={() => setEventDialog({ ...value, open: true })}
+              />
+            );
+          })}
+        </div>
+
+        <div className="mt-10 mb-3">
+          <Pagination
+            variant="outlined"
+            shape="rounded"
+            count={pages.length}
+            page={activeIndex + 1}
+            showFirstButton
+            showLastButton
+            onChange={(event, value) => setActivePage(value - 1)}
+          />
+        </div>
       </div>
+
+      {/* <div>
+        <SearchEventSlider action={setEventDialog} eventList={active} />
+      </div> */}
 
       <SearchDialog
         BackdropProps={{ open: eventDialog.open }}

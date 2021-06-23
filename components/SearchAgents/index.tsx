@@ -52,15 +52,13 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
 
   let { activePage, pages, setActivePage, activeIndex } = usePagination(
     [...active],
-    5,
+    6,
     [active, agentsList]
   );
 
   React.useEffect(() => {
     filterAgents("", [...agentsList], "Todos", setActive);
   }, []);
-
-  console.log(activePage);
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
@@ -96,13 +94,6 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
         <div className="font-bold pt-10">{message}</div>
       </div>
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
-        {/* <div className="overflow-hidden">
-          <SearchAgentsSlider
-            action={setSearchDialog}
-            agentSliderItems={active}
-          />
-        </div> */}
-
         <div className="overflow-hidden flex flex-col items-center">
           <div className="flex flex-col gap-y-4  w-full items-center">
             {activePage.map((value, index: number) => {
