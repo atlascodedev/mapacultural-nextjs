@@ -52,6 +52,9 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     website: "",
   });
 
+  const [mapViewActive, setMapViewActive] = React.useState<boolean>(true);
+  const [listViewActive, setListViewActive] = React.useState<boolean>(false);
+
   const {
     category,
     name,
@@ -123,9 +126,27 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
         />
       </div>
 
-      <div className="flex justify-center gap-5 my-10 w-full">
-        <SwitchViewButton icon={RiMap2Fill}>Ver em mapa</SwitchViewButton>
-        <SwitchViewButton icon={BsListUl}>Ver em lista</SwitchViewButton>
+      <div className="flex justify-center md:gap-10 gap-5 my-10 w-full">
+        <SwitchViewButton
+          action={() => {
+            setListViewActive(false);
+            setMapViewActive(true);
+          }}
+          active={mapViewActive}
+          icon={RiMap2Fill}
+        >
+          Ver em mapa
+        </SwitchViewButton>
+        <SwitchViewButton
+          action={() => {
+            setMapViewActive(false);
+            setListViewActive(true);
+          }}
+          active={listViewActive}
+          icon={BsListUl}
+        >
+          Ver em lista
+        </SwitchViewButton>
       </div>
 
       <div className="h-80 md:h-500px w-full flex justify-center mb-10">
