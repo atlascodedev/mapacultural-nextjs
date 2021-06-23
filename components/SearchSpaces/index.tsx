@@ -12,6 +12,10 @@ import { categories, taquaraNeighborhoods } from "../Forms/constants";
 import SwitchViewButton from "./SwitchViewButton";
 import { RiMap2Fill } from "react-icons/ri";
 import { BsListUl } from "react-icons/bs";
+import { motion } from "framer-motion";
+import SearchAgentHorizontalCard from "../SearchAgents/SearchAgentHorizontalCard";
+import usePagination from "../../hooks/usePagination";
+import { Pagination } from "@material-ui/lab";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 
@@ -65,6 +69,12 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
     active,
     setActive,
   } = useSearchSpaceFilter();
+
+  const { activeIndex, activePage, pages, setActivePage } = usePagination(
+    [...active],
+    6,
+    [active, culturalSpaces]
+  );
 
   React.useEffect(() => {
     filterSpaces("", "", "Todos", culturalSpaces, setActive);
@@ -149,11 +159,48 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
         </SwitchViewButton>
       </div>
 
-      <div className="h-80 md:h-500px w-full flex justify-center mb-10">
-        <div className="md:w-2/3 w-full h-full">
-          <DynamicMapSSR culturalSpaces={active} action={setSpaceDialog} />
-        </div>
-      </div>
+      {mapViewActive && !listViewActive ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="h-80 md:h-500px w-full flex justify-center mb-10"
+        >
+          <div className="md:w-2/3 w-full h-full">
+            <DynamicMapSSR culturalSpaces={active} action={setSpaceDialog} />
+          </div>
+        </motion.div>
+      ) : null}
+
+      {!mapViewActive && listViewActive ? (
+        <motion.div className="overflow-hidden flex flex-col items-center">
+          <div className="flex flex-col gap-y-4 w-full items-center">
+            {activePage.map((value, index) => {
+              return (
+                <SearchAgentHorizontalCard
+                  key={index}
+                  actionName={"Ver espaço cultural"}
+                  categories={value.category}
+                  title={value.culturalSpaceName}
+                  action={() => setSpaceDialog({ ...value, open: true })}
+                />
+              );
+            })}
+          </div>
+
+          <div className="mt-10 mb-3">
+            <Pagination
+              variant="outlined"
+              shape="rounded"
+              count={pages.length}
+              page={activeIndex + 1}
+              showFirstButton
+              showLastButton
+              onChange={(event, value) => setActivePage(value - 1)}
+            />
+          </div>
+        </motion.div>
+      ) : null}
+
       <SearchDialog
         BackdropProps={{ open: spaceDialog.open }}
         closeFn={() =>
