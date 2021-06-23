@@ -172,7 +172,11 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
       ) : null}
 
       {!mapViewActive && listViewActive ? (
-        <motion.div className="overflow-hidden flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="overflow-hidden flex flex-col items-center"
+        >
           <div className="flex flex-col gap-y-4 w-full items-center">
             {activePage.map((value, index) => {
               return (
@@ -187,7 +191,7 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
             })}
           </div>
 
-          <div className="mt-10 mb-3">
+          <div className="mt-10 mb-10">
             <Pagination
               variant="outlined"
               shape="rounded"
