@@ -25,7 +25,7 @@ const SearchAgentHorizontalCard = ({
         <div className="hidden md:block">
           <UserLetter size={Sizes.ExtraSmall} username={title} />
         </div>
-        <Tooltip title={title.length <= 35 ? "" : title}>
+        <Tooltip title={title.length <= 30 ? "" : title}>
           <div className="font-bold text-xs md:text-base flex justify-center w-full md:justify-start md:ml-5">
             {title.length <= 35 ? title : title.slice(0, 35) + "..."}
           </div>

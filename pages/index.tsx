@@ -100,7 +100,15 @@ export default function Home({
               <Search
                 tabItems={[
                   {
-                    component: <SearchAgents agentsList={agents} />,
+                    component: (
+                      <SearchAgents
+                        agentsList={
+                          process.env.NODE_ENV !== "production"
+                            ? [...generateMockData(mockAgent, 47)]
+                            : agents
+                        }
+                      />
+                    ),
                     label: "Agentes culturais",
                   },
                   {

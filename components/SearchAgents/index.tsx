@@ -1,14 +1,11 @@
 import { MenuItem, TextField } from "@material-ui/core";
 import React from "react";
-import generateMockData from "../../helper/generateMockData";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
 import usePagination from "../../hooks/usePagination";
 import { categories } from "../Forms/constants";
-import { IAgentModel, IAgentModelAPIData } from "../Forms/types";
+import { IAgentModel } from "../Forms/types";
 import SearchDialog from "../SearchDialog";
 import Filter from "../Utility/Filter";
-import AtlasPagination from "../Utility/Pagination";
-import PaginationButton from "../Utility/Pagination/PaginationButton";
 import TagGroup from "../Utility/TagGroup";
 import UserLetter from "../Utility/UserLetter";
 import SearchAgentHorizontalCard from "./SearchAgentHorizontalCard";
@@ -54,15 +51,16 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
     useSearchAgentFilter();
 
   let { activePage, pages, setActivePage, activeIndex } = usePagination(
-    active,
-    5
+    [...active],
+    5,
+    [active, agentsList]
   );
 
   React.useEffect(() => {
-    filterAgents("", agentsList, "Todos", setActive);
+    filterAgents("", [...agentsList], "Todos", setActive);
   }, []);
 
-  // console.log(activePage, pages, active);
+  console.log(activePage);
 
   return (
     <div className="w-full h-auto overflow-hidden py-8">
@@ -98,29 +96,28 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
         <div className="font-bold pt-10">{message}</div>
       </div>
       <div className="w-full font-bold md:text-2xl text-center my-14 mb-7">
-        <div className="overflow-hidden">
+        {/* <div className="overflow-hidden">
           <SearchAgentsSlider
             action={setSearchDialog}
             agentSliderItems={active}
           />
-        </div>
+        </div> */}
 
-        {/* <div className="overflow-hidden flex flex-col items-center">
-          <div className="flex flex-col gap-y-4">
-            {activePage &&
-              activePage.map((value, index: number) => {
-                return (
-                  <SearchAgentHorizontalCard
-                    key={index}
-                    action={() =>
-                      setSearchDialog({ ...value, open: true } as any)
-                    }
-                    actionName={"Ver agente"}
-                    categories={value.categories}
-                    title={value.publicName}
-                  />
-                );
-              })}
+        <div className="overflow-hidden flex flex-col items-center">
+          <div className="flex flex-col gap-y-4  w-full items-center">
+            {activePage.map((value, index: number) => {
+              return (
+                <SearchAgentHorizontalCard
+                  key={index}
+                  action={() =>
+                    setSearchDialog({ ...value, open: true } as any)
+                  }
+                  actionName={"Ver agente"}
+                  categories={value.categories}
+                  title={value.publicName}
+                />
+              );
+            })}
           </div>
 
           <div className="mt-10 mb-3">
@@ -134,7 +131,7 @@ const SearchAgents = ({ agentsList }: ISearchAgents) => {
               onChange={(event, value) => setActivePage(value - 1)}
             />
           </div>
-        </div> */}
+        </div>
 
         <SearchDialog
           BackdropProps={{ open: searchDialog.open }}
