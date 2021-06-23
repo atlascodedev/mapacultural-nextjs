@@ -190,7 +190,7 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               );
             })}
           </div>
-
+          {/*  */}
           <div className="mt-10 mb-10">
             <Pagination
               variant="outlined"
