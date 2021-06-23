@@ -77,7 +77,7 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
   );
 
   React.useEffect(() => {
-    filterSpaces("", "", "Todos", culturalSpaces, setActive);
+    filterSpaces("", "", "Todos", [...culturalSpaces], setActive);
   }, []);
 
   return (
@@ -178,7 +178,7 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
               return (
                 <SearchAgentHorizontalCard
                   key={index}
-                  actionName={"Ver espaço cultural"}
+                  actionName={"Ver espaço"}
                   categories={value.category}
                   title={value.culturalSpaceName}
                   action={() => setSpaceDialog({ ...value, open: true })}

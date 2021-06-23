@@ -89,6 +89,37 @@ const mockEvent: IEventModel = {
   website: "https://website.com",
 };
 
+const mockSpace: ICulturalSpaceModel & { lat: string; lng: string } = {
+  accessibilityType: ["Banheiros adaptados", "Bebedouro adaptado"],
+  accessible: "yeah",
+  category: ["Artes visuais", "Audiovisual", "Outros", "Memória e patrimônio"],
+  cep: "905570",
+  cpf_or_cpnj: "010423232",
+  culturalSpaceCapacity: "50",
+  culturalSpaceEntry: "Espaço privado",
+  culturalSpaceHead: "Space Head",
+  culturalSpaceName: "Name space",
+  culturalSpaceSphere: "Associação",
+  description: "Description here",
+  entryTypes: "Acesso gratuito",
+  neighborhood: "Centro",
+  publicEmail: "teste@teste.com",
+  privateEmail: "teste@testepublic.com",
+  privatePhone: "123123141",
+  street: "23232",
+  streetNumber: "13232134",
+  workingHours: "9 as 20",
+  complement: "complement",
+  entryFee: "Free",
+  facebook: "https://facebook.com/placeholder",
+  instagram: "https://instagram.com/placeholder",
+  publicPhone: "51298858242",
+  publicPhoneAlt: "51974242232",
+  website: "https://website.com",
+  lat: "-29.648026733832797",
+  lng: "-50.776309989784494",
+};
+
 export default function Home({
   agents,
   culturalSpaces,
@@ -137,7 +168,15 @@ export default function Home({
                     label: "Agentes culturais",
                   },
                   {
-                    component: <SearchSpaces culturalSpaces={culturalSpaces} />,
+                    component: (
+                      <SearchSpaces
+                        culturalSpaces={
+                          process.env.NODE_ENV !== "production"
+                            ? [...generateMockData(mockSpace, 29)]
+                            : culturalSpaces
+                        }
+                      />
+                    ),
                     label: "Espaços culturais",
                   },
                   {

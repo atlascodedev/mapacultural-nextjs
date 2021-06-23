@@ -21,8 +21,6 @@ export interface ISearchSpaceMap {
 }
 
 const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
-  console.log(culturalSpaces);
-
   return (
     <MapContainer
       className="h-full w-full  rounded-lg shadow-custom"
