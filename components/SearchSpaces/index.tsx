@@ -9,6 +9,9 @@ import useSearchSpaceFilter, { filterSpaces } from "./useSearchSpaceFilter";
 import makeNonRelativeURL from "../../helper/makeNonRelativeURL";
 import { ICulturalSpaceModel } from "../Forms/types";
 import { categories, taquaraNeighborhoods } from "../Forms/constants";
+import SwitchViewButton from "./SwitchViewButton";
+import { RiMap2Fill } from "react-icons/ri";
+import { BsListUl } from "react-icons/bs";
 
 const DynamicMapSSR = dynamic(() => import("./Map"), { ssr: false });
 
@@ -118,6 +121,11 @@ const SearchSpaces = ({ culturalSpaces }: ISearchSpaces) => {
             </TextField>,
           ]}
         />
+      </div>
+
+      <div className="flex justify-center gap-5 my-10 w-full">
+        <SwitchViewButton icon={RiMap2Fill}>Ver em mapa</SwitchViewButton>
+        <SwitchViewButton icon={BsListUl}>Ver em lista</SwitchViewButton>
       </div>
 
       <div className="h-80 md:h-500px w-full flex justify-center mb-10">

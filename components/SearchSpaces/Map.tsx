@@ -27,7 +27,7 @@ const SearchSpaceMap = ({ culturalSpaces, action }: ISearchSpaceMap) => {
     <MapContainer
       className="h-full w-full  rounded-lg shadow-custom"
       center={[-29.6465318, -50.7805672]}
-      zoom={10}
+      zoom={13}
       scrollWheelZoom={false}
     >
       <TileLayer
